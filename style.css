@@ -32,12 +32,12 @@ body {
     top: 3000px;
     transform: translate(-50%, -50%);
     display: flex;
-    flex-direction: row; /* Layout horizontal por defecto */
+    flex-direction: row; 
     align-items: center;
     justify-content: center;
     gap: 100px;
     z-index: 10;
-    transition: all 0.3s ease; /* Transición suave si se cambia el tamaño de pantalla */
+    transition: all 0.3s ease; 
 }
 
 .image-wrapper {
@@ -66,7 +66,7 @@ body {
     color: #000000;
     z-index: 12;
     pointer-events: none;
-    animation: cursor-orbit 8s ease-in-out infinite;
+    animation: cursor-orbit 8s ease-in-out infinite; /* Animación de escritorio */
 }
 
 .pixel-arrow {
@@ -118,36 +118,29 @@ body {
     transform-origin: center;
 }
 
-/* --- CLÚSTER DE MEDIA QUERIES PARA RESPONSIVENESS VERTICAL (Bootstrap-style stack) --- */
+/* --- CLÚSTER DE MEDIA QUERIES PARA RESPONSIVENESS VERTICAL --- */
 @media (max-width: 1024px) {
     .core-station {
-        flex-direction: column; /* Cambia la distribución de horizontal a vertical */
-        gap: 40px; /* Estrecha el espacio muerto entre bloques apilados */
+        flex-direction: column; 
+        gap: 40px; 
     }
 
-    /* El texto del manifiesto se reposiciona arriba, se centra y escala un poco */
     .manifesto-text {
         width: 290px;
         font-size: 1rem;
         text-align: center;
     }
 
-    /* La imagen central reduce su área para pantallas móviles/tablets */
     .image-wrapper {
         width: 260px;
         height: 260px;
     }
 
-    /* Re-ajuste de escala espacial para que la flecha órbite más cerca del logo pequeño */
-    @keyframes cursor-orbit {
-        0% { transform: translate(-120px, -120px) rotate(0deg); }
-        25% { transform: translate(140px, -70px) rotate(15deg); }
-        50% { transform: translate(100px, 140px) rotate(-10deg); }
-        75% { transform: translate(-150px, 80px) rotate(20deg); }
-        100% { transform: translate(-120px, -120px) rotate(0deg); }
+    .move-indicator {
+        /* Cambiamos la animación a la versión móvil limpia */
+        animation: cursor-orbit-mobile 8s ease-in-out infinite; 
     }
 
-    /* Los adjetivos mutantes bajan, se alinean al centro y reducen tipografía */
     .adjectives-container {
         width: 300px;
         font-size: 0.95rem;
@@ -161,7 +154,7 @@ body {
     }
     
     .adj {
-        margin: 0 6px; /* Ajusta los márgenes laterales en el flujo centrado */
+        margin: 0 6px; 
     }
 }
 
@@ -191,9 +184,29 @@ body {
     z-index: 2;
 }
 
+/* KEYFRAMES EN LA RAÍZ DEL ARCHIVO (TODOS AFUERA) */
 @keyframes rotate-inf { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes letter-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(var(--max-scale, 1.3)); } }
 @keyframes cursor-wobble { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(-3px, -3px); } }
+
+/* Órbita estándar (Escritorio) */
+@keyframes cursor-orbit {
+    0% { transform: translate(-180px, -180px) rotate(0deg); }
+    25% { transform: translate(220px, -100px) rotate(15deg); }
+    50% { transform: translate(160px, 220px) rotate(-10deg); }
+    75% { transform: translate(-240px, 120px) rotate(20deg); }
+    100% { transform: translate(-180px, -180px) rotate(0deg); }
+}
+
+/* Órbita adaptada (Móvil) */
+@keyframes cursor-orbit-mobile {
+    0% { transform: translate(-120px, -120px) rotate(0deg); }
+    25% { transform: translate(140px, -70px) rotate(15deg); }
+    50% { transform: translate(100px, 140px) rotate(-10deg); }
+    75% { transform: translate(-150px, 80px) rotate(20deg); }
+    100% { transform: translate(-120px, -120px) rotate(0deg); }
+}
+
 @keyframes alt-shake { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
 @keyframes play-bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
 @keyframes lib-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -204,7 +217,7 @@ body {
 @keyframes ex-orbit { 0% { transform: translateX(-6px); } 100% { transform: translateX(6px); } }
 @keyframes vol-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
 @keyframes nl-shift { 0% { transform: translateY(-4px); } 100% { transform: translateY(6px); } }
-@keyframes ac-vibrate { 0%, 100% { transform: translate(0, 0); } 50% { translate(2px, -1px); } }
+@keyframes ac-vibrate { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -1px); } }
 @keyframes bi-flip { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
 @keyframes nou-grow { from { transform: scale(0.9); } to { transform: scale(1.15); } }
 @keyframes mut-morph { 0% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.3) rotate(-15deg); } 100% { transform: scale(0.9) rotate(15deg); } }
