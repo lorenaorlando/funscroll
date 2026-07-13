@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUNSCROLL.LIFE</title>
+    <style>
+        @import url('https://api.fontshare.com/v2/css?f[]=general-sans@700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background-color: #72ff2f;
+            color: #000000;
+            font-family: 'General Sans', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            overflow: auto;
+            cursor: url('https://lorenalandia.fun/wp-content/uploads/2026/07/CURSOR_FUNSCROLL.png') 16 16, auto;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* LIENZO MASIVO CON PADDING SIMPLE DE SEGURIDAD */
+        .infinite-canvas {
+            position: relative;
+            width: 12000px;
+            height: 12000px;
+            padding: 1000px;
+        }
+
+        /* MODO OSCURO GLOBAL (INVERSIÓN DE COLORES) */
+        body.dark-mode {
+            background-color: #000000;
+            color: #72ff2f;
+        }
+
+        body.dark-mode .essay-trigger,
+        body.dark-mode .signature-by,
+        body.dark-mode .move-indicator,
+        body.dark-mode .manifesto-text,
+        body.dark-mode .adjectives-container,
+        body.dark-mode .scattered-phrase {
+            color: #72ff2f;
+        }
+
+        /* EL TEXTO DEL MONOLITO PASA A BLANCO EN MODO OSCURO */
+        body.dark-mode .essay-monolith {
+            background-color: #000000;
+            color: #ffffff;
+            border-color: #72ff2f;
+        }
+
+        body.dark-mode .essay-monolith h1,
+        body.dark-mode .essay-monolith h2,
+        body.dark-mode .essay-monolith h3 {
+            color: #72ff2f; /* Destacamos los encabezados en verde ácido */
+        }
+
+        body.dark-mode .video-container {
+            border-color: #72ff2f;
+        }
+
+        body.dark-mode .style-raw-block {
+            background: #72ff2f;
+            color: #000000;
+            border-color: #72ff2f;
+        }
+
+        body.dark-mode .style-raw-shadow {
+            text-shadow: 4px 4px 0px #72ff2f;
+            color: #000000;
+            -webkit-text-stroke: 1px #72ff2f;
+        }
+
+        /* INTERRUPTOR DARK MODE FIJO CONTROLADO */
+        .theme-switch-wrapper {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            text-transform: none;
+        }
+
+        .theme-switch-icon {
+            font-size: 1.3rem;
+            user-select: none;
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #000000;
+            border: 2px solid #000000;
+            transition: .3s;
+            border-radius: 34px;
+        }
+
+        body.dark-mode .slider {
+            background-color: #000000;
+            border-color: #72ff2f;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #72ff2f;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* NÚCLEO CORE */
+        .core-station {
+            position: absolute;
+            left: 6000px;
+            top: 6000px;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            width: 95vw;
+            max-width: 580px;
+            z-index: 10;
+        }
+
+        .brand-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .essay-trigger {
+            font-size: 1.1rem;
+            color: #000000;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+            .image-wrapper {
+                width: 80vw;
+                height: 80vw;
+            }
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .signature-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .signature-by {
+            font-size: 0.9rem;
+            color: #000000;
+            margin-bottom: 5px;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .signature-link {
+            display: block;
+            width: 95px;
+            height: 95px;
+        }
+
+        .signature-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: signature-pulse 3s ease-in-out infinite;
+        }
+
+        .move-indicator {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-size: 1rem;
+            color: #000000;
+            z-index: 12;
+            pointer-events: none;
+            animation: cursor-orbit 14s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+            transition: color 0.3s ease;
+        }
+
+        .manifesto-text {
+            width: 100%;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #000000;
+            text-align: center;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
+        }
+
+        @media (max-width: 480px) {
+            .manifesto-text {
+                font-size: 4vw;
+                line-height: 1.5;
+            }
+        }
+
+        .manifesto-text span {
+            display: inline-block;
+            white-space: nowrap; 
+            transform-origin: center;
+            animation: letter-pulse 2s ease-in-out infinite;
+        }
+
+        .manifesto-text span:nth-child(5n+1) { animation-delay: 0s; --max-scale: 1.25; }
+        .manifesto-text span:nth-child(5n+2) { animation-delay: 0.4s; --max-scale: 1.15; }
+        .manifesto-text span:nth-child(5n+3) { animation-delay: 0.8s; --max-scale: 1.3; }
+        .manifesto-text span:nth-child(5n+4) { animation-delay: 1.2s; --max-scale: 1.1; }
+        .manifesto-text span:nth-child(5n+5) { animation-delay: 1.6s; --max-scale: 1.2; }
+
+        .adjectives-container {
+            width: 100%;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #000000;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        @media (max-width: 480px) {
+            .adjectives-container {
+                font-size: 3.5vw;
+            }
+        }
+
+        .adjectives-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .adjectives-title {
+                font-size: 4.2vw;
+            }
+        }
+
+        .adj {
+            display: inline-block;
+            margin: 0 4px;
+            transform-origin: center;
+        }
+
+        /* MONOLITO DEL ENSAYO */
+        .essay-monolith {
+            position: absolute;
+            left: 8000px;
+            top: 4500px;
+            transform: translateX(-50%);
+            width: 90vw;
+            max-width: 750px;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 50px;
+            border: 4px solid #000000;
+            text-transform: none; 
+            font-weight: 500;
+            line-height: 1.6;
+            z-index: 5;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .essay-monolith h1 {
+            font-family: 'General Sans', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .essay-monolith h2 {
+            font-family: 'General Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .essay-monolith p {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; 
+            margin-top: 20px;
+            margin-bottom: 25px;
+            border: 4px solid #000000;
+            transition: border-color 0.3s ease;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .essay-monolith ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .essay-monolith li {
+            margin-bottom: 8px;
+        }
+
+        /* FRASES DESPERDIGADAS */
+        .scattered-phrase {
+            position: absolute;
+            color: #000000;
+            line-height: 1.3;
+            max-width: 400px;
+            user-select: none;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .style-raw-giant {
+            font-size: 2.2rem;
+            letter-spacing: -0.05em;
+        }
+        
+        .style-raw-shadow {
+            font-size: 1.4rem;
+            text-shadow: 4px 4px 0px #000000;
+            color: #72ff2f;
+            -webkit-text-stroke: 1px #000000;
+        }
+
+        .style-raw-block {
+            font-size: 1.1rem;
+            background: #000000;
+            color: #72ff2f;
+            padding: 15px;
+            border: 3px solid #000000;
+        }
+
+        .style-raw-skew {
+            font-size: 1.5rem;
+            transform: skewX(-15deg) scaleY(0.9);
+            letter-spacing: 0.05em;
+        }
+
+        /* EFECTOS VISUALES ADJETIVOS */
+        .alternative { animation: alt-shake 0.5s ease-in-out infinite alternate; }
+        .playful     { animation: play-bounce 0.6s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate; }
+        .liberated   { animation: lib-spin 4s linear infinite; }
+        .free        { animation: free-float 3s ease-in-out infinite; }
+        .unexpected  { animation: un-glitch 1.5s step-end infinite; }
+        .useless     { animation: use-shrink 2s ease-in-out infinite; opacity: 0.5; }
+        .absurd      { animation: ab-skew 1.2s ease-in-out infinite alternate; }
+        .exploratory { animation: ex-orbit 2.5s ease-in-out infinite alternate; }
+        .voluntary   { animation: vol-pulse 1.8s ease-in-out infinite; }
+        .non-linear  { animation: nl-shift 2s linear infinite alternate; }
+        .active      { animation: ac-vibrate 0.1s linear infinite; }
+        .bidirectional { animation: bi-flip 3s ease-in-out infinite; }
+        .nourishing  { animation: nou-grow 2.2s ease-in-out infinite alternate; }
+        .mutating    { animation: mut-morph 4s ease-in-out infinite alternate; }
+        .plastic     { animation: pla-stretch 1.6s ease-in-out infinite alternate; }
+        .intuitive   { animation: in-flash 1.4s step-end infinite; }
+
+        /* ANIMACIONES CORE */
+        @keyframes letter-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(var(--max-scale, 1.2)); }
+        }
+
+        @keyframes signature-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.96); opacity: 0.85; }
+        }
+
+        @keyframes cursor-orbit {
+            0% { transform: translate(-40px, -40px) rotate(0deg); }
+            25% { transform: translate(550px, -380px) rotate(45deg); }
+            50% { transform: translate(-30px, 60px) rotate(-15deg); }
+            75% { transform: translate(-580px, 420px) rotate(-45deg); }
+            100% { transform: translate(-40px, -40px) rotate(0deg); }
+        }
+
+        @keyframes alt-shake { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+        @keyframes play-bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
+        @keyframes lib-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes free-float { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-8px) translateX(4px); } }
+        @keyframes un-glitch { 0%, 100% { transform: scale(1); } 92% { transform: scale(1.4) skewX(-10deg); } 96% { transform: scale(0.8) skewX(10deg); } }
+        @keyframes use-shrink { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(0.7); opacity: 0.2; } }
+        @keyframes ab-skew { from { transform: skewX(-20deg) scaleY(1); } to { transform: skewX(20deg) scaleY(0.7); } }
+        @keyframes ex-orbit { 0% { transform: translateX(-6px); } 100% { transform: translateX(6px); } }
+        @keyframes vol-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+        @keyframes nl-shift { 0% { transform: translateY(-4px); } 100% { transform: translateY(6px); } }
+        @keyframes ac-vibrate { 0%, 100% { transform: translate(0, 0); } 50% { translate(2px, -1px); } }
+        @keyframes bi-flip { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
+        @keyframes nou-grow { from { transform: scale(0.9); } to { transform: scale(1.15); } }
+        @keyframes mut-morph { 0% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.3) rotate(-15deg); } 100% { transform: scale(0.9) rotate(15deg); } }
+        @keyframes pla-stretch { from { transform: scaleX(0.7) scaleY(1.3); } to { transform: scaleX(1.4) scaleY(0.7); } }
+        @keyframes in-flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body>
+
+    <!-- CONTROL DEL MODO OSCURO -->
+    <div class="theme-switch-wrapper">
+        <span class="theme-switch-icon" id="switchIcon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="darkModeCheckbox" onclick="toggleDarkMode()">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="infinite-canvas">
+        
+        <div class="core-station" id="coreStation">
+            
+            <p class="manifesto-text">
+                <span>AN</span> <span>UNPRODUCTIVE</span> <span>PLACE,</span><br>
+                <span>PLACE</span> <span>TO</span> <span>PLAY,</span> <span>PLACE</span> <span>TO</span> <span>DO</span> <span>NOTHING,</span><br>
+                <span>NO</span> <span>SUCCESS</span> <span>AND</span> <span>NO</span> <span>FAILURE,</span><br>
+                <span>JUST</span> <span>EXIST</span> <span>IN</span> <span>THE</span> <span>BROWSER,</span><br>
+                <span>NAVIGATE,</span> <span>LET</span> <span>GO,</span> <span>FUNSCROLL!</span>
+            </p>
+
+            <div class="brand-container">
+                <div class="essay-trigger" onclick="teleportToEssay()">wtf is this?</div>
+
+                <div class="image-wrapper">
+                    <div class="move-indicator">
+                        <span>scroll around!</span>
+                    </div>
+                    <!-- LOGO CON ID ASIGNADO PARA EL CAMBIO DE SRC -->
+                    <img id="mainLogo" src="https://lorenalandia.fun/wp-content/uploads/2026/07/FUNSCROLL_FUN_TRANS.webp" alt="FUNSCROLL">
+                </div>
+                
+                <div class="signature-section">
+                    <span class="signature-by">by</span>
+                    <a href="https://lorenaorlando.com" target="_blank" class="signature-link">
+                        <img src="https://lorenalandia.fun/wp-content/uploads/2026/02/ME_ISLAND_TINY.png" alt="Lorena Orlando" class="signature-img">
+                    </a>
+                </div>
+            </div>
+
+            <div class="adjectives-container">
+                <span class="adjectives-title">FUNSCROLL IS:</span>
+                <span class="adj alternative">Alternative</span>
+                <span class="adj playful">Playful</span>
+                <span class="adj liberated">Liberated</span>
+                <span class="adj free">Free</span>
+                <span class="adj unexpected">Unexpected</span>
+                <span class="adj useless">Useless</span>
+                <span class="adj absurd">Absurd</span>
+                <span class="adj exploratory">Exploratory</span>
+                <span class="adj voluntary">Voluntary</span>
+                <span class="adj non-linear">Non-linear</span>
+                <span class="adj active">Active</span>
+                <span class="adj bidirectional">Bidirectional</span>
+                <span class="adj nourishing">Nourishing</span>
+                <span class="adj mutating">Mutating</span>
+                <span class="adj plastic">Plastic</span>
+                <span class="adj intuitive">Intuitive</span>
+            </div>
+        </div>
+
+        <!-- MONOLITO DIGITAL DEL ENSAYO -->
+        <div class="essay-monolith" id="essayMonolith">
+            <h1>FUNSCROLL: Escaping the Doomscroll trap</h1>
+            
+            <h2>We are hostages of Doomscrolling</h2>
+            <p>Doomscrolling is the most common practice in present-day internet usage. It is born out of the impositions of algorithms, formats, and consumption habits intentionally designed by social media. A system of passive consumption whose interactivity is never direct; its sole function is data harvesting and the creation of an intimate user profiling that ultimately weaponizes this information for commercial ends. Social media mutated from being public meeting grounds to shopping malls, where almost every visual stimulus we receive upon visiting comes with a price tag attached. Trapped within this dynamic of passive consumption, humans are subtly stripped of not only their quality of living beings, but also their autonomy. The user does not choose what to see; the algorithmic machine makes the decisions for them and serves them on a silver platter, entirely devoid of bidirectionality or autonomy. This aligns strictly with the interests of the corporation behind the algorithm: dictating how they want the user to react, always in function of data accumulation, with the ultimate goal of exposing them to the most commercially enticing advertising possible.</p>
+            <p>This usage is deeply constrained in its interactions. The author of the posts cannot choose how people will interact with what they publish; they are restricted to a series of predefined, unmovible responses: like, comment, save, and share. Beyond those boundaries, there is no other way to establish an action between the user and the author. This dynamic is intentional: it conditions users to act in specific, repetitive ways over and over again, closing the door on any other type of relationship with the published content. It also conditions the creator to adapt to these limited actions, forcing them to measure the impact of their work under these arbitrary parameters invented by tech companies, parameters that, in an abstract sense, are entirely devoid of meaning.</p>
+
+            <h2>The addictive and passive habit of doomscrolling</h2>
+            <p>Another defining characteristic of this problem is that, over time, it shifted from a form of consumption into a habit that ultimately hardens into an addiction. A silent, pervasive addiction that a massive percentage of social media users fail to recognize, despite it being right there. The emptiness people feel in moments of waiting or leisure when they don’t have a phone in their hand that acts just like a pacifier or a cigarette, is a severe symptom. The doomscroll demands limitless, passive attention for hours; it simulates a hijacking or an act of hypnosis, draining the user’s autonomy. This passive consumption is entirely unproductive intellectually and can even turn negative emotionally. A scroll session leaves no memory traces (unless the user breaks through the first barrier of friction required by the act of saving); after hours of receiving all kinds of unstructured and randomized information, we are seldom capable of remembering what we saw. The sole exception to this rule is rage-bait, which does get stamped into memory, anchored to a negative and destructive sentiment. The doomscroll ultimately results in an activity of numbing down that rarely contributes anything constructive to the individual.</p>
+            <p>It is a complete waste to limit human interaction with a device that possesses the capacity to receive an input, contrary to any unidirectional format where the user has no way of relating directly and immediately to what they consume, unable to explore it or touch it digitally. The design of these interactions tames user behavior into something repetitive and predictable, forcing it into a pattern that eventually petrifies into a habit. When an interface invites you not only to interact actively with it but also to step outside of it in favor of the implicit exploratory experience that the internet possessed in its early days, it becomes a direct threat to platforms whose sole objective is to never let you leave, keeping you repeating the loop they impose through their UI.</p>
+
+            <h2>NO WAY OUT</h2>
+            <p>It is public knowledge that using external links on social media, though not overtly stated, is heavily penalized. Dropping a signal for the audience to leave the platform and interrupt the scroll or the swap of stories amounts to a sin within that system. Perhaps because they know that if a user clicks that link, they might suddenly find something far more interesting than what they were watching before, or it might lead them to a competitor’s platform, or simply shatter the loop that must be constantly repeated to feed the addiction, subsequently losing the attention capital that was meant to be funneled into advertising. It is a form of digital kidnapping: attention is locked inside a single place where the user actually holds the keys to get out, but has been so deeply conditioned to confinement that the moment they step inside, they forget the key even exists. Social media do not want the user to leave; their target is retention. It is no coincidence that one of the most vital metrics in today’s analytics is precisely retention. It highlights how unappealing (meaning how unprovocative, non-scandalous, non-sensationalist, or simply how non-stupid) the content posted by the user is, slowly dragging them to adapt to a scheme of attention-seeking at all costs where the initial intentions of the author’s proposal become entirely disfigured.</p>
+
+            <h2>FUNSCROLL: The Alternative</h2>
+            <p>FUNSCROLL presents itself as an alternative to the doomscroll. True to its name, it invites an experience that harks back to playfulness, not condemnation. It is the creation of new digital interfaces liberated from repetitive interaction loops. Within the FUNSCROLL, the logic of use is entirely free: scrolling from bottom to top, top to bottom, discovering unexpected interactions, and incentivizing the user to exit the interface. The intention is to build a space where the premise goes far beyond the merely informative and where the act of viewing becomes a lived experience. Its proposal stands much closer to artistic creation than to an informational portal.</p>
+
+            <h2>The FUNSCROLL without goals: The freedom of the useless</h2>
+            <p>By default, it is a space without concrete goals, refusing to yield quantifiable results. The success of a digital space like this is impossible to gauge, as there are no metrics to measure playfulness, discovery, happiness, or curiosity. Standard analytical data tends to be cold and soulless. FUNSCROLL fosters the freedom of the useless. In a present dictated by funnels, leads, conversions, and CTAs, here, the useless interactions that generate nothing but wonder or curiosity without any commercial objective whatsoever are fiercely welcomed. The door is thrown open to incoherence and the absurd, should the author choose to play with those concepts. It walks hand in hand with leisure, those moments where the human being does not need to be productive; moments meant to nourish our lives that have been squandered by the enforcement of the doomscroll.</p>
+            <p>The ideal of the FUNSCROLL proposes new ways of relating to the internet and the devices we use every single day, inspired by the exploratory freedom and the interactive mystery of how Web 1.0 was once experienced. It shatters algorithmic logic and liberates our digital existences from the mathematical grid. It trades the addictive habit of the doomscroll for a voluntary experience. It is a call to the creative manifestation of our identities, ideals, or projects on the internet. A manifestation that, on the other side of the screen, invites the user to interact with displays in alternative ways, hijacking the already established habit of the scroll to experience it non-linearly, incited by jumps between links that enrich and expand the initial exposure.</p>
+            <p>The goal, if there is any beyond broadcasting this idea, is to create entirely new sets of uses for all those devices which, despite being packed with an almost infinite array of tools and possibilities, the dominant apps have successfully managed to domesticate the user into spending the vast majority of their usage locked inside 3 or 4 platforms.</p>
+
+            <h2>Humanizing the Screen: FUNSCROLL and the User</h2>
+            <p>Interactivity is movement and movement is life. A funscrolleable interface is characterized by recognizing that there is a human on the other side, not a passive consumer. By embracing this principle, a vast horizon of possibilities unlocks for the user: discovery, surprise, and everything capable of generating nourishing and positive sensations within them. The user thus becomes part of the interface’s choreography, like a dance act where the audience is invited to dance along too. The experience is bidirectionally built; the author offers a universe where the user can be an active participant.</p>
+            <p>Cultivating a different set of behaviors between the user and the screen will prove beneficial, as it represents a clean break from the habit of scrolling passively and interacting with others through a restricted set of actions dictated by corporate platforms. It serves as that classic habit-replacement strategy advised when breaking addictions: instead of stepping into a predictable platform, the user voluntarily replaces an experience that corrodes their being with one that nurtures it.</p>
+
+            <h2>Inspiring ideas for FUNSCROLL design</h2>
+            <p>The FUNSCROLL interface can move in all directions: from top to bottom, from the center downwards or upwards, from the left corner to the right, backwards, in slow motion, or at high speed. The scrolleable exploration of space has the liberty to defy vertical scrolling as the solitary way of interacting with a screen. It demands manual actions: click, tap, a constant manipulation of our devices. It can evoke distinct ways of experiencing time through the velocity of the scroll and animated assets, among others. It is free to mutate across all its modes of usage, speeds, imageries, interactions, and everything that maps out its conceptual universe.</p>
+            <p>The idea of the FUNSCROLL has no rigid guidelines, as it invites each author to experiment with their creative vision within the constraints of the interface. However, there are certain triggering concepts that can serve as a bedrock for its execution. The experimentation and interpretation of these concepts remains entirely open:</p>
+
+            <h2>FUNSCROLL Creative concepts</h2>
+            <ul>
+                <li>Frolic</li>
+                <li>Whimsical</li>
+                <li>Float</li>
+                <li>Dance</li>
+                <li>Move</li>
+                <li>Say</li>
+                <li>Image</li>
+                <li>Think</li>
+            </ul>
+
+            <h2>Suggestions of code properties and DOM states in FUNSCROLL building</h2>
+            <p>In technical terms, these are some of the native interactivity properties and DOM states that materialize this movement and breathe life into the imagery of the FUNSCROLL, this is not a definitive list, but a first spark of technical inspirations:</p>
+            
+            <h3>CSS</h3>
+            <ul>
+                <li>position: absolute</li>
+                <li>position: sticky</li>
+                <li>hover</li>
+                <li>slide up, slide down, slide from right, slide from left</li>
+                <li>scroll-behavior: smooth</li>
+                <li><em>parallax effects</em></li>
+                <li>CSS clip-path masking</li>
+                <li><code>custom cursors</code></li>
+            </ul>
+
+            <h3>JavaScript / DOM Events</h3>
+            <ul>
+                <li>mouseenter</li>
+                <li>mouseleave</li>
+                <li>tap, click, double tap</li>
+                <li>drag and drop</li>
+            </ul>
+
+            <h2>FUNSCROLL as a sensation</h2>
+            <p>There are certain compelling elements worth invoking in these types of interfaces. It invites us to create digital resignifications of real-world experiences such as touch, the perception of passing time, depth, and three-dimensionality: everything that points back to the human experience. Sensations take center stage: rather than seeing a website, we feel the website. Anything that sparks an active, voluntary impulse from the user replaces the doom with fun, with curiosity, with a sense of fascination, where the immersive element can layer meaning and unlock alternative ways of creating.</p>
+
+            <h2>5. The FUNSCROLL Glossary: New Ways to Navigate</h2>
+            <h3>Dancescroll</h3>
+            <p>The act of scrolling becomes a carefully designed choreography between the interface and the user.</p>
+            
+            <h3>Slowscroll</h3>
+            <p>The rhythm of the scroll is intentionally decelerated to evoke alternative perceptions of time.</p>
+            
+            <h3>Smartscroll</h3>
+            <p>Scrolling and interacting with the screen driven by wit and curiosity.</p>
+            
+            <h3>(not) Infinite scroll</h3>
+            <p>Crafting a long scrolling experience that, while taking time, eventually reaches a definitive end. Giving the experience a sense of closure.</p>
+            
+            <h3>Orientationscroll / Tilt-interaction</h3>
+            <p>The act of physically tilting or rotating the device (leveraging the native gyroscope and accelerometer) to alter the flow of the scroll.</p>
+
+            <h2>Responsiveness & FUNSCROLL</h2>
+            <p>While creating under the FUNSCROLL framework offers the freedom to design with any device in mind, it is undeniable that a large screen (in mobile, tablet, or desktop terms) yields a grander canvas and a more diverse set of interactions. It would be fascinating to explore an interface that mutates radically depending on the hardware it is accessed from. Devices equipped con gyroscopes and accelerometers, such as smartphones and tablets, hold massive potential to exploit deeper systems of interaction.</p>
+
+            <h2>Case Study: FUNSCROLL on LORENAORLANDO.COM</h2>
+            <!-- EMBED RESPONSIVO DE YOUTUBE -->
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/qTI0qx394Us" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            
+            <p>After fantasizing and piece-by-piece building the framework for this new term and proposal, I wanted to translate these concepts into practice through the design of my personal website. It was built using Framer, relying on a minimal use of referential wireframes and highly punctual code snippets. As part of the initial creative process, I gathered a collection of over 100 graphic elements alongside numerous images from my personal archive, including family photographs, photo series, album covers, and even a small collection of self-authored memes. The selection of images was intentionally hazardous: I wanted to embed the unstructured nature of the proposal from its very construction.</p>
+
+            <h2>Non-Verbal Communication and emoji usage</h2>
+            <p>The premise of this website is to communicate as much as possible using as few words as possible (save for the integration of various embeds). It positions non-verbal communication as the core axis of the experience, attempting to create a language built from symbols, metaphors, imagery, and motion, clearing a path, too, for fantasy. This language is defined by a diversity of graphic elements and personal archives which, despite belonging to entirely different imageries and natures, coexist under a new, self-contained narrative coherence. Plastic, animal, mineral, digital, organic, personal, and artificial elements intermingle, mimicking the sensation of dumping a giant box filled with a wild variety of objects straight onto a bed.</p>
+            <p>It is under this exact non-verbal logic that, within the timeline section of the page I chose to represent my life milestones and artistic achievements using emojis. Emojis represent another form of universal language, a sort of modern-day internet hieroglyphics possessing their own codes and interpretations; nonetheless, they remain open to distinct usages depending heavily on context. While some events can easily be translated into emojis, other creative projects proved far more elusive to describe with this vocabulary. Yet, it is precisely the cryptic aspect of these descriptions that acts as an open invitation to discovery fueled by curiosity. Since the emoji evokes rather than dictates a definition, the user projects themselves onto the interpretations they assign to these symbols. This births a shared experience where the author (myself) holds no power to establish fixed definitions, leaving it up to the user to determine the meanings they extract from their encounter with these symbols.</p>
+
+            <h2>The Living Archive: An Anti-Portfolio</h2>
+            <p>I hijacked the space to showcase almost the entirety of my artistic work from 2003 up to the present day; however, the website does not aim to function as a traditional portfolio. Instead of structuring a systematized, rational archive, I opted for a living, mutating ecosystem that unfolds its branches in tandem with the user’s movement, carving out its own universe. This is anchored by an arbitrary timeline of artistic milestones and life experiences, a timeline under constant expansion and editing, transforming not just as linear time elapses, but also through the ongoing process of retrieving memories and unearthing lost or non-digitalized personal files.</p>
+
+            <h2>Creative process: Forcing the browser into a canvas</h2>
+            <p>In aesthetic terms, I stepped into an improvisation process through iterations of colors, assets, animations, and spatial positionings. The chosen elements found their place and rhythm organically. In this sense, my approach to modeling this space stood much closer to what one would create in a software like Photoshop or through physical collage. It was a direct battle against the implicit mathematical logics of web design. This being a medium engineered on code, no matter how free the illusion of a blank digital canvas might seem, the elements inside it must still obey the slightly rigid native systems of programming. It is a conscious attempt to force the browser to behave plastically: looking much more like a canvas than a terminal command line.</p>
+
+            <h2>Shattering the UI: New navigation symbols</h2>
+            <p>The lack of logic and order (in terms of what is traditionally demanded from any artist regarding their digital presence), coupled with non-verbal language and the invitation to an intuitive interaction, are anchored by two fixed elements that shadow the scroll: a spinning disco ball that serves as a traditional menu (whose internal modules are also represented through imagery, completely avoiding words) and a floating island with my head peeking from behind it, which accompanies the user through a large portion of the scroll. This collision against the traditional symbolic elements of UI design and the formats enforced by marketing regarding the visual presentation of an artist’s identity online can trigger a mental displacement in the user, as if they had traveled from one country to another within the internet. Deprived of predictable UI affordances like the like heart, the save bookmark, the comment bubble, or other layout staples like the hamburger menu or the search magnifying glass, the user encounters a void similar to that of the primitive web of the nineties. Suddenly, they must adapt to the language of this new country in the most intuitive way possible. Every interaction, then, amounts to asking a stranger on the street for directions, or knocking on the door of a closed storefront; it is a natural adaptation of the human being to novelty and wonder.</p>
+
+            <h2>Always Under Construction</h2>
+            <p>This website operates under the “always under construction” philosophy, untethering it from defined formats. The plan is for it to constantly feed, alter, and redefine itself over time. It holds the complete freedom to be edited and reinterpreted, challenging the logic of fixed, immutable identities native to our social media profiles.</p>
+
+            <h2>So…what is FUNSCROLL?</h2>
+            <p>FUNSCROLL is whatever the creator wants it to be; it has no rules or limits, only sources of inspiration. It presents itself as the possibility of cracking open a rift in the monotony of our daily device usage. A space for nurturing, playful navigation that transforms the experience of the internet from its very forms and micro-uses. To reclaim play is to reclaim autonomy. To break away from the logic of passive consumption and the algorithm is an act of digital disobedience. Building funscrolleable interfaces can shift the paradigm of our relationship with the internet by erecting spaces that invite the user to be an active part of the experience. It shatters repetitive habits and the behavioral patterns weaponized by corporate platforms.</p>
+        </div>
+
+        <div id="elementsHub"></div>
+
+    </div>
+
+    <script>
+        function centerCanvas() {
+            const scrollX = 6000 - (window.innerWidth / 2);
+            const scrollY = 6000 - (window.innerHeight / 2);
+            window.scrollTo(scrollX, scrollY);
+        }
+
+        function teleportToEssay() {
+            const scrollX = 8000 - (window.innerWidth / 2);
+            const scrollY = 4500; 
+            window.scrollTo(scrollX, scrollY);
+        }
+
+        function toggleDarkMode() {
+            const checkbox = document.getElementById('darkModeCheckbox');
+            const icon = document.getElementById('switchIcon');
+            const logo = document.getElementById('mainLogo');
+            
+            if (checkbox.checked) {
+                document.body.classList.add('dark-mode');
+                icon.textContent = '☀️'; // Cambia a Sol en modo oscuro
+                logo.src = 'https://lorenalandia.fun/wp-content/uploads/2026/07/FUNSCROLL_FUN_TRANS_GREEN-ezgif.com-optiwebp.webp'; // Logo verde optimizado
+            } else {
+                document.body.classList.remove('dark-mode');
+                icon.textContent = '🌙'; // Cambia a Luna en modo claro
+                logo.src = 'https://lorenalandia.fun/wp-content/uploads/2026/07/FUNSCROLL_FUN_TRANS.webp'; // Logo blanco original
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', centerCanvas);
+        window.addEventListener('load', centerCanvas);
+
+        const textPhrases = [
+            "an alternative to doomscrolling, an experience that harks back to playfulness, not condemnation.",
+            "the creation of new digital interfaces liberated from repetitive interaction loops.",
+            "the logic of use is entirely free: scrolling from bottom to top, top to bottom, discovering unexpected interactions, and incentivizing the user to exit the interface.",
+            "the act of viewing becomes a lived experience, much closer to artistic creation and contemplation than to an informational or promotional portal"
+        ];
+
+        const styleClasses = [
+            "style-raw-giant",
+            "style-raw-shadow",
+            "style-raw-block",
+            "style-raw-skew"
+        ];
+
+        const hub = document.getElementById('elementsHub');
+
+        textPhrases.forEach((phrase, index) => {
+            let el = document.createElement('div');
+            el.className = `scattered-phrase ${styleClasses[index % styleClasses.length]}`;
+            el.innerHTML = phrase;
+            
+            let posX, posY;
+            
+            if (index === 0) { posX = 5000; posY = 5100; }
+            else if (index === 1) { posX = 6600; posY = 5200; }
+            else if (index === 2) { posX = 4800; posY = 6700; }
+            else { posX = 6700; posY = 6600; }
+
+            posX += Math.floor(Math.random() * 200) - 100;
+            posY += Math.floor(Math.random() * 200) - 100;
+
+            el.style.left = posX + 'px';
+            el.style.top = posY + 'px';
+            hub.appendChild(el);
+        });
+    </script>
+</body>
+</html>
