@@ -16,6 +16,7 @@
         html, body {
             width: 100%;
             height: 100%;
+            scroll-behavior: auto;
         }
 
         body {
@@ -257,7 +258,8 @@
 
         .manifesto-text span {
             display: inline-block;
-            white-space: nowrap; 
+            white-space: nowrap;
+            margin-right: 15px;
             transform-origin: center;
             animation: letter-pulse 2s ease-in-out infinite;
         }
@@ -376,6 +378,7 @@
             line-height: 1.45;
             margin-bottom: 14px;
             text-align: left;
+            font-weight: 400;
         }
 
         .video-container {
@@ -412,6 +415,116 @@
             user-select: none;
             z-index: 2;
             transition: color 0.3s ease;
+        }
+
+        .emoji-hub {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .random-emoji {
+            position: absolute;
+            display: inline-block;
+            user-select: none;
+            pointer-events: auto;
+            opacity: 0.96;
+            filter: saturate(1.35) drop-shadow(0 0 8px rgba(0, 0, 0, 0.18));
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.22);
+            will-change: transform;
+            text-decoration: none;
+        }
+
+        .emoji-stroked {
+            -webkit-text-stroke: 3px rgba(0, 0, 0, 0.92);
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000,
+                0 0 14px rgba(255, 255, 255, 0.38);
+        }
+
+        .meet-some-note {
+            position: relative;
+            width: 360px;
+            max-width: 100%;
+            margin: 30px auto 0;
+            font-size: 0.72rem;
+            line-height: 1.3;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            z-index: 8;
+            color: #000000;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        .link-caption {
+            position: absolute;
+            max-width: 220px;
+            font-size: 0.7rem;
+            line-height: 1.25;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            z-index: 9;
+            color: #000000;
+            pointer-events: none;
+            text-align: left;
+            display: block;
+        }
+
+        .url-tooltip {
+            position: fixed;
+            display: none;
+            min-width: 180px;
+            max-width: 280px;
+            width: fit-content;
+            padding: 8px 10px;
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+            font-size: 0.72rem;
+            line-height: 1.3;
+            z-index: 120;
+            pointer-events: none;
+            text-transform: none;
+            box-shadow: 4px 4px 0 #000000;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        @keyframes emoji-float {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate3d(7px, -10px, 0) rotate(6deg) scale(1.04); }
+            100% { transform: translate3d(-5px, 8px, 0) rotate(-5deg) scale(0.98); }
+        }
+
+        @keyframes emoji-bounce {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate3d(0, -9px, 0) rotate(2deg) scale(1.05); }
+            50% { transform: translate3d(6px, 5px, 0) rotate(-3deg) scale(0.98); }
+            75% { transform: translate3d(-6px, -4px, 0) rotate(4deg) scale(1.03); }
+        }
+
+        @keyframes emoji-wiggle {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            33% { transform: translate3d(5px, -5px, 0) rotate(7deg); }
+            66% { transform: translate3d(-6px, 6px, 0) rotate(-8deg); }
+        }
+
+        @keyframes emoji-spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(8deg) scale(1.06); }
+            100% { transform: rotate(-8deg) scale(0.97); }
+        }
+
+        @keyframes emoji-pulse {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+            50% { transform: translate3d(0, -8px, 0) scale(1.22); }
         }
 
         .style-raw-giant { font-size: 1.8rem; letter-spacing: -0.05em; }
@@ -461,7 +574,7 @@
         @keyframes ex-orbit { 0% { transform: translateX(-6px); } 100% { transform: translateX(6px); } }
         @keyframes vol-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
         @keyframes nl-shift { 0% { transform: translateY(-4px); } 100% { transform: translateY(6px); } }
-        @keyframes ac-vibrate { 0%, 100% { transform: translate(0, 0); } 50% { translate(2px, -1px); } }
+        @keyframes ac-vibrate { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -1px); } }
         @keyframes bi-flip { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
         @keyframes nou-grow { from { transform: scale(0.9); } to { transform: scale(1.15); } }
         @keyframes mut-morph { 0% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.3) rotate(-15deg); } 100% { transform: scale(0.9) rotate(15deg); } }
@@ -702,10 +815,13 @@
                 <span class="adj mutating">Mutating</span>
                 <span class="adj plastic">Plastic</span>
                 <span class="adj intuitive">Intuitive</span>
+                <div class="meet-some-note">open the doors to see the webs of net artists that inspired this concept!</div>
             </div>
         </div>
 
+        <div id="emojiHub" class="emoji-hub"></div>
         <div id="elementsHub"></div>
+        <div class="url-tooltip" id="urlTooltip"></div>
 
     </div>
 
@@ -713,7 +829,12 @@
         function centerCanvas() {
             const scrollX = 1200 - (window.innerWidth / 2);
             const scrollY = 2300 - (window.innerHeight / 2);
-            window.scrollTo(scrollX, scrollY);
+            window.history.scrollRestoration = 'manual';
+            window.scrollTo({
+                left: scrollX,
+                top: scrollY,
+                behavior: 'auto'
+            });
         }
 
         function teleportToEssay() {
@@ -786,44 +907,172 @@
             }
         }
 
+        centerCanvas();
+
         window.addEventListener('DOMContentLoaded', centerCanvas);
         window.addEventListener('load', centerCanvas);
 
-        const textPhrases = [
-            "an alternative to doomscrolling, an experience that harks back to playfulness, not condemnation.",
-            "the creation of new digital interfaces liberated from repetitive interaction loops.",
-            "the logic of use is entirely free: scrolling from bottom to top, top to bottom, discovering unexpected interactions, and incentivizing the user to exit the interface.",
-            "the act of viewing becomes a lived experience, much closer to artistic creation and contemplation than to an informational or promotional portal"
-        ];
-
-        const styleClasses = [
-            "style-raw-giant",
-            "style-raw-shadow",
-            "style-raw-block",
-            "style-raw-skew"
-        ];
-
         const hub = document.getElementById('elementsHub');
+        const emojiHub = document.getElementById('emojiHub');
 
-        textPhrases.forEach((phrase, index) => {
-            let el = document.createElement('div');
-            el.className = `scattered-phrase ${styleClasses[index % styleClasses.length]}`;
-            el.innerHTML = phrase;
-            
-            let posX, posY;
-            
-            if (index === 0) { posX = 900; posY = 1500; }
-            else if (index === 1) { posX = 2200; posY = 1400; }
-            else if (index === 2) { posX = 800; posY = 2500; }
-            else { posX = 2300; posY = 2600; }
+        const emojiPool = ['🪐', '🌈', '✨', '🌸', '🌻', '🪄', '🎈', '🧩', '🛸', '💎', '🪷', '🍓', '🍋', '🍉', '🎵', '🎲', '🪁', '⚡', '🌿', '🫧', '🌼', '🌟', '🧶', '🎀', '🪩', '🦄', '🪻', '💫', '☄️', '🍊', '🫖', '🎉', '🍇', '🌺', '🧿', '🛼'];
+        const nonClickableAnimations = ['emoji-float', 'emoji-bounce', 'emoji-wiggle', 'emoji-spin'];
+        const clickableDoor = '🚪';
+        const centerX = 1200;
+        const centerY = 2300;
+        const placedEmojis = [];
+        const keepout = {
+            minX: 720,
+            maxX: 1600,
+            minY: 1500,
+            maxY: 3000
+        };
+        const netArtistLinks = [
+            'https://neal.fun/wiki-spy/',
+            'https://cursors.place',
+            'https://stoscrollando.netlify.app',
+            'https://whenwe.love/moving/',
+            'https://viiibe.lauradurieux.dev',
+            'https://font.fish',
+            'http://o-p-h-e-l-i-a-you.live',
+            'https://particularly.online',
+            'https://zzz.zoomquilt.org',
+            'https://iacopoapps.appspot.com/hopalongwebgl/',
+            'https://somethingnothing.net',
+            'https://playhtml.fun/fridge',
+            'https://neal.fun/deep-sea/',
+            'https://luckysoap.com/apictureofwind/main.html',
+            'https://luckysoap.com/pleasurecoast/en/index.html',
+            'https://luckysoap.com/pleasurecoast/en/infinitecoast.html'
+        ];
 
-            posX += Math.floor(Math.random() * 150) - 75;
-            posY += Math.floor(Math.random() * 150) - 75;
+        function shuffle(items) {
+            const array = [...items];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
 
-            el.style.left = posX + 'px';
-            el.style.top = posY + 'px';
-            hub.appendChild(el);
-        });
+        function addEmoji(x, y, emojiText, size, rotation, delay, opacity, animationName, highlighted = false, href = '', caption = '') {
+            const existing = placedEmojis.some(([px, py]) => Math.hypot(px - x, py - y) < 78);
+            if (existing) return;
+
+            const emoji = highlighted ? document.createElement('a') : document.createElement('span');
+            emoji.className = 'random-emoji';
+            if (highlighted) {
+                emoji.classList.add('emoji-stroked');
+                emoji.href = href;
+                emoji.target = '_blank';
+                emoji.rel = 'noopener noreferrer';
+            }
+            emoji.textContent = emojiText;
+            emoji.style.left = x + 'px';
+            emoji.style.top = y + 'px';
+            emoji.style.fontSize = highlighted ? '3.4rem' : size + 'rem';
+            emoji.style.transform = `rotate(${rotation}deg)`;
+            emoji.style.animationName = animationName;
+            emoji.style.animationDuration = (highlighted ? 3.2 : (Math.random() * 3.8 + 4.2)).toFixed(2) + 's';
+            emoji.style.animationTimingFunction = 'ease-in-out';
+            emoji.style.animationIterationCount = 'infinite';
+            emoji.style.animationDelay = `${delay}s`;
+            emoji.style.animationDirection = 'alternate';
+            emoji.style.opacity = opacity;
+            emoji.style.webkitTextStroke = highlighted ? '1.8px rgba(0,0,0,0.86)' : (size > 2.6 ? '1px rgba(0,0,0,0.45)' : '0.8px rgba(0,0,0,0.35)');
+            emoji.style.textShadow = highlighted
+                ? '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 12px rgba(255,255,255,0.35)'
+                : (size > 2.6 ? '-1px -1px 0 rgba(0,0,0,0.55), 1px -1px 0 rgba(0,0,0,0.55), -1px 1px 0 rgba(0,0,0,0.55), 1px 1px 0 rgba(0,0,0,0.55), 0 0 10px rgba(255,255,255,0.35)' : '0 0 8px rgba(255,255,255,0.2), 0 0 2px rgba(0,0,0,0.3)');
+
+            if (highlighted && href) {
+                emoji.addEventListener('mouseenter', (event) => {
+                    const tooltip = document.getElementById('urlTooltip');
+                    tooltip.innerHTML = href + (caption ? '<br><span style="display:block; margin-top:4px;">' + caption + '</span>' : '');
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = (event.clientX + 14) + 'px';
+                    tooltip.style.top = (event.clientY - 20) + 'px';
+                });
+                emoji.addEventListener('mousemove', (event) => {
+                    const tooltip = document.getElementById('urlTooltip');
+                    tooltip.style.left = (event.clientX + 14) + 'px';
+                    tooltip.style.top = (event.clientY - 20) + 'px';
+                });
+                emoji.addEventListener('mouseleave', () => {
+                    const tooltip = document.getElementById('urlTooltip');
+                    tooltip.style.display = 'none';
+                });
+            }
+
+            emojiHub.appendChild(emoji);
+            placedEmojis.push([x, y]);
+
+            if (caption) {
+                const label = document.createElement('span');
+                label.className = 'link-caption';
+                label.textContent = caption;
+                label.style.left = (x + 18) + 'px';
+                label.style.top = (y + 54) + 'px';
+                label.style.maxWidth = '200px';
+                emojiHub.appendChild(label);
+            }
+        }
+
+        const shuffledLinks = shuffle(netArtistLinks);
+
+        for (let i = 0; i < 160; i++) {
+            let tries = 0;
+            let x = 0;
+            let y = 0;
+
+            while (tries < 90) {
+                const angle = Math.random() * Math.PI * 2;
+                const radius = 430 + Math.random() * 300;
+                x = centerX + Math.cos(angle) * radius + (Math.random() * 120 - 60);
+                y = centerY + Math.sin(angle) * radius + (Math.random() * 120 - 60);
+
+                const distanceFromCenter = Math.hypot(x - centerX, y - centerY);
+                if (distanceFromCenter > 380 && distanceFromCenter < 880) {
+                    if (x > keepout.minX && x < keepout.maxX && y > keepout.minY && y < keepout.maxY) {
+                        tries++;
+                        continue;
+                    }
+                    break;
+                }
+                tries++;
+            }
+
+            if (tries >= 90) continue;
+
+            const size = (Math.random() * 2.8 + 1.4).toFixed(2);
+            const rotation = Math.floor(Math.random() * 36) - 18;
+            const delay = (Math.random() * 5.5).toFixed(2);
+            const opacity = (Math.random() * 0.15 + 0.84).toFixed(2);
+            const highlighted = i < 16;
+            const linkHref = highlighted ? shuffledLinks[i] : '';
+            const caption = linkHref.includes('neal.fun/deep-sea/') ? 'THE ONE THAT MADE IT ALL CLICK ;)' : '';
+            const animationName = highlighted ? 'emoji-pulse' : nonClickableAnimations[Math.floor(Math.random() * nonClickableAnimations.length)];
+            const emojiText = highlighted ? clickableDoor : emojiPool[Math.floor(Math.random() * emojiPool.length)];
+
+            addEmoji(x, y, emojiText, highlighted ? Number(size) + 0.8 : Number(size), rotation, delay, opacity, animationName, highlighted, linkHref, caption);
+        }
+
+        for (let i = 0; i < 720; i++) {
+            const x = Math.floor(Math.random() * 9200);
+            const y = Math.floor(Math.random() * 3200);
+            const randomEmoji = emojiPool[Math.floor(Math.random() * emojiPool.length)];
+            const size = (Math.random() * 2.8 + 0.6).toFixed(2);
+            const rotation = Math.floor(Math.random() * 22) - 11;
+            const delay = (Math.random() * 4.8).toFixed(2);
+            const opacity = (Math.random() * 0.18 + 0.74).toFixed(2);
+            const animationName = nonClickableAnimations[Math.floor(Math.random() * nonClickableAnimations.length)];
+
+            if (Math.hypot(x - centerX, y - centerY) > 320) {
+                if (x > keepout.minX && x < keepout.maxX && y > keepout.minY && y < keepout.maxY) {
+                    continue;
+                }
+                addEmoji(x, y, randomEmoji, size, rotation, delay, opacity, animationName);
+            }
+        }
     </script>
 </body>
 </html>
