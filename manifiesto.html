@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="assets/css/site.css">
 <script src="assets/js/analytics.js" defer></script>
 <style>
-:root { --parch: #FBF6E6; --rod-w: min(860px, calc(100vw - 40px)); }
+:root { --parch: #FBF6E6; --paper-w: min(860px, calc(100vw - 40px)); }
 body { background: var(--blue); }
 header { max-width: 860px; margin: 0 auto; padding: 96px 20px 30px; color: var(--white); display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
 header h1 { font-weight: 800; font-size: clamp(44px, 8vw, 96px); letter-spacing: -.05em; line-height: .85; }
@@ -22,15 +22,9 @@ header h1 span { display: block; font: 400 .4em/1.2 var(--voice); letter-spacing
 .lang button { border: none; color: var(--ink); background: var(--white); padding: 6px 14px; font: 500 13px var(--mono); }
 .lang button.on { background: var(--yellow); }
 
-/* the scroll: a rolled rod stuck at the top, paper unrolling down, a second rod waiting at the bottom */
-.scroll { position: relative; width: var(--rod-w); margin: 0 auto 140px; }
-.rod { position: sticky; z-index: 5; height: 44px; margin: 0 -26px; border-radius: 22px; border: 3px solid var(--ink);
-  background: linear-gradient(180deg, #9C7A44, #D4B57A 30%, #F3DFAE 55%, #C9A86A); }
-.rod::before, .rod::after { content: ''; position: absolute; top: 50%; translate: 0 -50%; width: 34px; height: 34px; border-radius: 50%; background: var(--red); border: 3px solid var(--ink); }
-.rod::before { left: -22px; } .rod::after { right: -22px; }
-.rod.top { top: 10px; }
-.rod.bottom { bottom: 10px; }
-.paper { background: var(--parch); border-left: 3px solid var(--ink); border-right: 3px solid var(--ink); margin: -22px 0; padding: 70px clamp(22px, 7vw, 80px) 60px; position: relative; }
+/* the scroll: one long sheet of paper */
+.scroll { position: relative; width: var(--paper-w); margin: 0 auto 140px; }
+.paper { background: var(--parch); border: 3px solid var(--ink); border-radius: 22px; box-shadow: 8px 8px 0 var(--ink); overflow: hidden; padding: 70px clamp(22px, 7vw, 80px) 60px; position: relative; }
 .paper::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, transparent 0 34px, rgba(23,21,31,.04) 34px 35px); }
 
 article { font: 400 clamp(17px, 1.6vw, 19px)/1.65 var(--voice); color: var(--ink); max-width: 64ch; margin: 0 auto; position: relative; }
@@ -74,9 +68,6 @@ body { padding-bottom: 96px; }
 .tl-now { font: 700 13px var(--voice); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .tl-left { white-space: nowrap; opacity: .75; }
 @media (max-width: 700px) {
-  .rod { margin: 0 -10px; height: 34px; }
-  .rod::before, .rod::after { width: 26px; height: 26px; }
-  .rod::before { left: -12px; } .rod::after { right: -12px; }
   .tl { left: 10px; right: 128px; bottom: 12px; padding: 8px 10px 6px; }
   .tl-stop { width: 12px; height: 12px; }
   .tl-stop::after { display: none; }
@@ -93,7 +84,6 @@ body { padding-bottom: 96px; }
   </div>
 </header>
 <div class="scroll">
-  <div class="rod top"></div>
   <div class="paper">
     <article lang="es" id="es">
       <h1>FUNSCROLL: Contra la trampa del Doomscroll</h1>
@@ -249,7 +239,6 @@ body { padding-bottom: 96px; }
       <div class="fin"><b>the end.</b><div class="who halo" id="who2"></div><p>This scroll is over. Now go <a href="funscrollers.html">meet the funscrollers</a> or <a href="kit.html">make your own</a>.</p></div>
     </article>
   </div>
-  <div class="rod bottom"></div>
 </div>
 <nav class="tl" id="tl" aria-label="timeline">
   <div class="tl-track"><div class="tl-fill"></div><div id="stops"></div><div class="tl-me halo" id="me"></div></div>
