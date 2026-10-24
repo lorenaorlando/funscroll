@@ -248,7 +248,7 @@ section { position: relative; overflow: clip; }
     <span class="tag">proof that it can be done</span>
     <h2 style="margin-top:14px">some people are already building it.</h2>
     <p>Behind this door: one of the sites that inspired FUNSCROLL. Which one? No idea. It opens somewhere else, because leaving is allowed here.</p>
-    <a href="funscrollers.html" class="door-btn" id="door">
+    <a href="funscrollers.html" class="door-btn" id="door" target="_blank" rel="noopener">
       <span class="shp" data-s="circle" data-c="red" data-m="wow"></span>
       <span class="knob"></span>
       <b>take me somewhere weird</b>
@@ -279,13 +279,18 @@ section { position: relative; overflow: clip; }
 document.getElementById('bigScrollcito').innerHTML = FUN.SCROLLCITO;
 document.getElementById('byeScrollcito').innerHTML = FUN.SCROLLCITO;
 
-// the door: a random funscroller
+// the door: a real link whose destination is re-rolled right before each click
 const door = document.getElementById('door');
-door.addEventListener('click', e => {
-  e.preventDefault();
-  const f = FUNSCROLLERS[Math.floor(Math.random() * FUNSCROLLERS.length)];
-  window.open(f.url, '_blank', 'noopener');
-  door.querySelector('small').textContent = `last time: ${f.name} ↗ · again?`;
+let lastDoor = null;
+const rollDoor = () => {
+  lastDoor = FUNSCROLLERS[Math.floor(Math.random() * FUNSCROLLERS.length)];
+  door.href = lastDoor.url;
+};
+rollDoor();
+door.addEventListener('pointerdown', rollDoor);
+door.addEventListener('click', () => {
+  door.querySelector('small').textContent = `last time: ${lastDoor.name} ↗ · again?`;
+  setTimeout(rollDoor, 0);
 });
 
 // whimsical: every letter does its own thing on hover

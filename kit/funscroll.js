@@ -163,11 +163,17 @@
     $$('[data-fs-letters]', root).forEach(splitLetters);
     $$('[data-fs-drag]', root).forEach(initDrag);
     $$('[data-fs-cursor]', root).forEach(el => el.style.cursor = emojiCursor(el.dataset.fsCursor));
-    $$('[data-fs-door]', root).forEach(el => el.addEventListener('click', e => {
-      e.preventDefault();
+    // doors are real links: the destination is re-rolled right before every click
+    $$('[data-fs-door]', root).forEach(el => {
       const list = JSON.parse(el.dataset.fsDoor || '[]');
-      if (list.length) window.open(list[Math.floor(Math.random() * list.length)], '_blank', 'noopener');
-    }));
+      if (!list.length) return;
+      const roll = () => { el.href = list[Math.floor(Math.random() * list.length)]; };
+      el.target = '_blank';
+      el.rel = 'noopener';
+      roll();
+      el.addEventListener('pointerdown', roll);
+      el.addEventListener('click', () => setTimeout(roll, 0));
+    });
 
     const io = new IntersectionObserver(entries => entries.forEach(en => {
       if (en.isIntersecting) en.target.classList.add('fs-in');

@@ -80,7 +80,7 @@ section { position: relative; overflow: clip; }
       <h1 data-fs-letters="wave">funscrollers</h1>
       <p>Sites that already scroll differently. They're the proof: you can design something other than a feed. Open one, get lost, come back (or don't).</p>
     </div>
-    <a href="#deck" class="door-btn" id="door">
+    <a href="#deck" class="door-btn" id="door" target="_blank" rel="noopener">
       <span class="shp" data-s="circle" data-c="red" data-m="wow"></span>
       <span class="knob"></span>
       <b>take me somewhere weird</b>
@@ -176,12 +176,18 @@ document.getElementById('shuffle').addEventListener('click', () => {
   render(a);
 });
 
-document.getElementById('door').addEventListener('click', e => {
-  e.preventDefault();
-  const f = FUNSCROLLERS[Math.floor(Math.random() * FUNSCROLLERS.length)];
-  window.open(f.url, '_blank', 'noopener');
-  collect(f.url);
-  e.currentTarget.querySelector('small').textContent = `last time: ${f.name} ↗ · again?`;
+const door = document.getElementById('door');
+let lastDoor = null;
+const rollDoor = () => {
+  lastDoor = FUNSCROLLERS[Math.floor(Math.random() * FUNSCROLLERS.length)];
+  door.href = lastDoor.url;
+};
+rollDoor();
+door.addEventListener('pointerdown', rollDoor);
+door.addEventListener('click', () => {
+  collect(lastDoor.url);
+  door.querySelector('small').textContent = `last time: ${lastDoor.name} ↗ · again?`;
+  setTimeout(rollDoor, 0);
 });
 
 document.getElementById('list').innerHTML = FUNSCROLLERS.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener">${f.name}</a> — ${host(f.url)}</li>`).join('');
