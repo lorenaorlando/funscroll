@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="kit/funscroll.css">
 <link rel="stylesheet" href="assets/css/site.css">
 <style>
@@ -21,17 +21,17 @@ pre .c { color: #8C889A; }
 .hero { background: var(--yellow); padding: 18vh 0 14vh; }
 .hero h1 { font-weight: 800; font-size: clamp(70px, 13vw, 200px); letter-spacing: -.07em; line-height: .8; }
 .hero h1 span { color: var(--blue); }
-.hero p { font: 400 clamp(24px, 2.8vw, 40px)/1.06 var(--serif); max-width: 720px; margin: 26px 0 34px; }
+.hero p { font: 400 clamp(24px, 2.8vw, 40px)/1.06 var(--voice); max-width: 720px; margin: 26px 0 34px; }
 .hero .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 26px; }
 .hero pre { max-width: 760px; font-size: 14px; }
 
 .recipes { background: var(--white); padding: 14vh 0; }
 .recipes > .wrap > h2, .assets h2 { font-weight: 800; font-size: clamp(46px, 7vw, 100px); letter-spacing: -.05em; line-height: .9; }
-.recipes .sub, .assets .sub { font: italic 400 clamp(20px, 2.2vw, 28px)/1.15 var(--serif); margin: 12px 0 50px; max-width: 760px; }
+.recipes .sub, .assets .sub { font: italic 400 clamp(20px, 2.2vw, 28px)/1.15 var(--voice); margin: 12px 0 50px; max-width: 760px; }
 .recipe { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: stretch; padding: 34px 0; border-top: 3px dashed var(--ink); }
 .recipe h3 { font-weight: 800; font-size: 34px; letter-spacing: -.04em; line-height: 1; }
 .recipe h3 small { font: 500 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 8px; opacity: .6; }
-.recipe p { font: 400 21px/1.15 var(--serif); margin: 10px 0 14px; }
+.recipe p { font: 400 21px/1.15 var(--voice); margin: 10px 0 14px; }
 .demo { border: 3px solid var(--ink); border-radius: 22px; min-height: 240px; display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; padding: 26px; position: relative; overflow: hidden; box-shadow: 6px 6px 0 var(--ink); }
 .demo .shp { --size: 80px; }
 .demo .big { font-weight: 800; font-size: clamp(44px, 6vw, 80px); letter-spacing: -.05em; line-height: .9; text-align: center; }
@@ -42,7 +42,7 @@ pre .c { color: #8C889A; }
 .tile { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 22px; padding: 22px; box-shadow: 6px 6px 0 var(--ink); display: flex; flex-direction: column; gap: 12px; }
 .tile .show { height: 170px; display: grid; place-items: center; background: var(--butter); border-radius: 14px; border: 2.5px solid var(--ink); }
 .tile h3 { font-weight: 800; font-size: 22px; letter-spacing: -.03em; }
-.tile p { font: 400 18px/1.15 var(--serif); }
+.tile p { font: 400 18px/1.15 var(--voice); }
 .tile .btn { font-size: 16px; padding: 8px 16px; align-self: flex-start; margin-top: auto; }
 .assets pre { margin-top: 10px; }
 
@@ -51,7 +51,7 @@ pre .c { color: #8C889A; }
 }
 </style>
 </head>
-<body data-base="">
+<body data-alt="es/kit.html">
 
 <a class="topbar" href="index.html" aria-label="funscroll home"><img src="assets/img/funscroll-icon.svg" alt=""></a>
 
@@ -77,7 +77,7 @@ pre .c { color: #8C889A; }
 <section class="recipes">
   <div class="wrap">
     <h2>recipes</h2>
-    <p class="sub">Every effect is one attribute. Each one tries out an idea from the <a href="manifiesto.html">manifesto</a>. Mix them, break them, make them yours.</p>
+    <p class="sub">Every effect is one attribute. Each one tries out an idea from the <a href="manifiesto.html#en">manifesto</a>. Mix them, break them, make them yours.</p>
 
     <div class="recipe">
       <div>
@@ -241,7 +241,7 @@ pre .c { color: #8C889A; }
 <span class="c">&lt;!-- the webring widget --&gt;</span>
 &lt;div id="funscroll-ring"&gt;&lt;/div&gt;
 &lt;script src="https://funscroll.life/kit/ring.js" defer&gt;&lt;/script&gt;</pre>
-    <p style="margin-top:30px; font: 400 24px/1.1 var(--serif)">Made something? <a href="funscrollers.html#ring" style="color:var(--yellow)">Join the funscroll ring →</a></p>
+    <p style="margin-top:30px; font: 400 24px/1.1 var(--voice)">Made something? <a href="funscrollers.html#ring" style="color:var(--yellow)">Join the funscroll ring →</a></p>
   </div>
 </section>
 

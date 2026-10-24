@@ -9,7 +9,7 @@
   --butter: #FFF3B0;
   --blush: #FFD3C9;
   --display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --serif: 'Instrument Serif', Georgia, serif;
+  --voice: 'Recursive', system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='38' viewBox='0 0 34 38'%3E%3Cpath d='M3 3 L3 31 L11 24 L17 36 L23 33 L17 21 L28 21 Z' fill='%23FFDF4F' stroke='%2317151F' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") 3 3, auto;
 }
@@ -26,7 +26,9 @@ body {
 }
 a { color: inherit; cursor: pointer; }
 button { font: inherit; color: inherit; cursor: pointer; }
-.serif { font-family: var(--serif); font-weight: 400; }
+.voice { font-family: var(--voice); font-weight: 400; }
+/* Recursive's casual axis: legible but playful */
+html { font-variation-settings: 'CASL' 1; }
 .mono { font-family: var(--mono); }
 
 /* ---------- face shapes ---------- */
@@ -62,7 +64,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .helm.open .label, .helm .handle:hover .label { opacity: 1; }
 .helm-hint {
-  position: fixed; right: 160px; bottom: 60px; z-index: 49; font: italic 20px/1.1 var(--serif);
+  position: fixed; right: 160px; bottom: 60px; z-index: 49; font: italic 20px/1.1 var(--voice);
   pointer-events: none; transition: opacity .4s; text-align: right;
 }
 .helm.open + .helm-hint, body.scrolled .helm-hint { opacity: 0; }
@@ -97,7 +99,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tag { font: 500 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .bubble {
   position: relative; display: inline-block; background: var(--white); border: 2.5px solid var(--ink);
-  border-radius: 22px; padding: 12px 18px; font: italic 22px/1.1 var(--serif);
+  border-radius: 22px; padding: 12px 18px; font: italic 22px/1.1 var(--voice);
 }
 .bubble::after {
   content: ''; position: absolute; left: 26px; bottom: -14px; width: 20px; height: 20px; background: var(--white);
@@ -122,3 +124,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* white outline so ink drawings survive on dark backgrounds */
 .halo, .track .mini { filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff); }
+
+/* EN | ES switch */
+.langswitch {
+  position: fixed; left: 72px; top: 24px; z-index: 45; display: flex; border: 2.5px solid var(--ink); border-radius: 20px;
+  overflow: hidden; box-shadow: 3px 3px 0 var(--ink); font: 500 12px var(--mono);
+}
+.langswitch > * { padding: 4px 10px; background: var(--white); color: var(--ink); text-decoration: none; }
+.langswitch .on { background: var(--yellow); }
+.langswitch a:hover { background: var(--sky); }

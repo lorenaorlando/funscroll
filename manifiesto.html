@@ -8,79 +8,75 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,900;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="kit/funscroll.css">
 <link rel="stylesheet" href="assets/css/site.css">
 <style>
-:root { --parch: #F6F0DF; --parch-edge: #E3D6B4; }
-html, body { height: 100%; overflow: hidden; }
-body { background: var(--blue); display: flex; flex-direction: column; }
-header { display: flex; align-items: center; gap: 16px; padding: 16px 22px 0 80px; color: var(--white); flex-wrap: wrap; }
-header h1 { font-weight: 800; font-size: clamp(26px, 3vw, 40px); letter-spacing: -.04em; }
-header h1 span { font: italic 400 1em var(--serif); letter-spacing: 0; color: var(--yellow); }
+:root { --parch: #FBF6E6; --rod-w: min(860px, calc(100vw - 40px)); }
+body { background: var(--blue); }
+header { max-width: 860px; margin: 0 auto; padding: 96px 20px 30px; color: var(--white); display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+header h1 { font-weight: 800; font-size: clamp(44px, 8vw, 96px); letter-spacing: -.05em; line-height: .85; }
+header h1 span { display: block; font: 400 .4em/1.2 var(--voice); letter-spacing: 0; color: var(--yellow); margin-top: 8px; }
 .lang { margin-left: auto; display: flex; border: 2.5px solid var(--ink); border-radius: 30px; overflow: hidden; box-shadow: 3px 3px 0 var(--ink); }
 .lang button { border: none; color: var(--ink); background: var(--white); padding: 6px 14px; font: 500 13px var(--mono); }
 .lang button.on { background: var(--yellow); }
-.stage { flex: 1; position: relative; margin: 18px 70px 0; min-height: 0; }
-.rod { position: absolute; top: -14px; bottom: -14px; width: 46px; border-radius: 23px; z-index: 3; border: 3px solid var(--ink);
-  background: linear-gradient(90deg, #C9A86A, #F3DFAE 40%, #D4B57A 70%, #9C7A44); }
-.rod::before, .rod::after { content: ''; position: absolute; left: 50%; translate: -50% 0; width: 30px; height: 30px; border-radius: 50%; background: var(--red); border: 3px solid var(--ink); }
-.rod::before { top: -22px; } .rod::after { bottom: -22px; }
-.rod.l { left: -24px; } .rod.r { right: -24px; }
-.paper { position: absolute; inset: 0; background: var(--parch); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
-  overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior: contain; }
-.paper::-webkit-scrollbar { display: none; }
-article { height: 100%; padding: 44px 60px 40px; column-width: 340px; column-gap: 70px; column-fill: auto; column-rule: 1.5px dashed rgba(23,21,31,.18);
-  font: 300 17px/1.55 'Fraunces', Georgia, serif; color: var(--ink); width: max-content; min-width: 100%; }
+
+/* the scroll: a rolled rod stuck at the top, paper unrolling down, a second rod waiting at the bottom */
+.scroll { position: relative; width: var(--rod-w); margin: 0 auto 140px; }
+.rod { position: sticky; z-index: 5; height: 44px; margin: 0 -26px; border-radius: 22px; border: 3px solid var(--ink);
+  background: linear-gradient(180deg, #9C7A44, #D4B57A 30%, #F3DFAE 55%, #C9A86A); }
+.rod::before, .rod::after { content: ''; position: absolute; top: 50%; translate: 0 -50%; width: 34px; height: 34px; border-radius: 50%; background: var(--red); border: 3px solid var(--ink); }
+.rod::before { left: -22px; } .rod::after { right: -22px; }
+.rod.top { top: 10px; }
+.rod.bottom { bottom: 10px; }
+.paper { background: var(--parch); border-left: 3px solid var(--ink); border-right: 3px solid var(--ink); margin: -22px 0; padding: 70px clamp(22px, 7vw, 80px) 60px; position: relative; }
+.paper::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, transparent 0 34px, rgba(23,21,31,.04) 34px 35px); }
+
+article { font: 400 clamp(17px, 1.6vw, 19px)/1.65 var(--voice); color: var(--ink); max-width: 64ch; margin: 0 auto; position: relative; }
 article[hidden] { display: none; }
-article h1 { font: 900 50px/.92 'Fraunces', serif; letter-spacing: -.02em; margin-bottom: 26px; break-after: avoid; }
-article h2 { font: 900 30px/1 'Fraunces', serif; letter-spacing: -.01em; margin: 26px 0 12px; break-after: avoid; color: var(--blue); }
-article h3 { font: 800 19px/1.1 var(--display); letter-spacing: -.02em; margin: 18px 0 6px; break-after: avoid; }
-article h2 + p::first-letter { font: 900 3.4em/.8 'Fraunces', serif; float: left; margin: 6px 8px 0 0; color: var(--red); }
-article p { margin-bottom: 12px; text-wrap: pretty; }
-article ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
-article li { font: 500 13px var(--mono); border: 1.5px solid var(--ink); border-radius: 20px; padding: 3px 10px; background: var(--white); }
-article code { font: 500 13px var(--mono); background: rgba(59,91,255,.1); padding: 1px 4px; border-radius: 4px; }
+article h1 { font: 800 clamp(40px, 6vw, 68px)/.92 var(--display); letter-spacing: -.045em; margin-bottom: 40px; text-wrap: balance; }
+article h2 { font: 800 clamp(28px, 3.6vw, 40px)/1 var(--display); letter-spacing: -.035em; margin: 64px 0 18px; color: var(--blue); text-wrap: balance; }
+article h2::before { content: ''; display: block; width: 64px; height: 64px; margin: 0 auto 26px; background: no-repeat center/contain; }
+article h2:nth-of-type(3n+1)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23FF5436' stroke='%2317151F' stroke-width='4.5' stroke-linecap='round'%3E%3Ccircle cx='50' cy='50' r='44'/%3E%3Cg fill='none'%3E%3Ccircle cx='39' cy='46' r='4.5' fill='%2317151F' stroke='none'/%3E%3Ccircle cx='61' cy='46' r='4.5' fill='%2317151F' stroke='none'/%3E%3Cpath d='M40 58 Q50 68 60 58'/%3E%3C/g%3E%3C/svg%3E"); }
+article h2:nth-of-type(3n+2)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23FFDF4F' stroke='%2317151F' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 6 L95 90 Q96 94 91 94 H9 Q4 94 5 90 Z'/%3E%3Cg fill='none'%3E%3Ccircle cx='39' cy='62' r='4.5' fill='%2317151F' stroke='none'/%3E%3Ccircle cx='61' cy='62' r='4.5' fill='%2317151F' stroke='none'/%3E%3Cellipse cx='50' cy='78' rx='5' ry='7' fill='%2317151F'/%3E%3C/g%3E%3C/svg%3E"); }
+article h2:nth-of-type(3n)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%233B5BFF' stroke='%2317151F' stroke-width='4.5' stroke-linecap='round'%3E%3Crect x='8' y='8' width='84' height='84' rx='16'/%3E%3Cg fill='none'%3E%3Cpath d='M34 46 Q39 50 44 46 M56 46 Q61 50 66 46'/%3E%3Cpath d='M40 58 Q50 68 60 58'/%3E%3C/g%3E%3C/svg%3E"); }
+article h3 { font: 800 21px/1.15 var(--display); letter-spacing: -.02em; margin: 30px 0 8px; }
+article h2 + p::first-letter { font: 800 3.6em/.78 var(--display); float: left; margin: 8px 10px 0 0; color: var(--red); }
+article p { margin-bottom: 18px; text-wrap: pretty; }
+article ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 20px; }
+article li { font: 600 14px var(--voice); border: 2px solid var(--ink); border-radius: 20px; padding: 4px 12px; background: var(--white); }
+article li:nth-child(3n+1) { background: var(--yellow); } article li:nth-child(3n+2) { background: var(--sky); }
+article code { font: 500 .82em var(--mono); background: rgba(59,91,255,.1); padding: 1px 5px; border-radius: 5px; }
 article a { color: var(--blue); }
-article .video { break-inside: avoid; margin: 10px 0 16px; border: 2.5px solid var(--ink); border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; }
+article .video { margin: 14px 0 24px; border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 5px 5px 0 var(--ink); }
 article .video iframe { width: 100%; height: 100%; border: 0; display: block; }
-article .fin { break-before: column; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 18px; }
-article .fin b { font: 900 70px/1 'Fraunces', serif; color: var(--red); }
-article .fin .who { width: 110px; }
+article .fin { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; margin-top: 90px; }
+article .fin b { font: 800 80px/1 var(--display); letter-spacing: -.05em; color: var(--red); }
+article .fin .who { width: 100px; }
 article .fin .who svg { animation: wave 1.2s ease-in-out infinite alternate; transform-origin: 50% 90%; }
 @keyframes wave { from { rotate: -10deg; } to { rotate: 10deg; } }
-footer { display: flex; align-items: center; gap: 16px; padding: 26px 180px 26px 80px; color: var(--white); font: 500 13px var(--mono); }
-footer .bar { flex: 1; height: 10px; border: 2px solid var(--ink); border-radius: 10px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; color: var(--yellow); }
-footer .bar::after { content: ''; position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--fs-p, 0)); background: var(--yellow); }
-footer .left { background: var(--white); color: var(--ink); border: 2px solid var(--ink); border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
-.peek { position: absolute; z-index: 4; --size: 64px; }
+
 .helm-hint { display: none; }
+.left { position: fixed; left: 18px; bottom: 22px; z-index: 40; background: var(--white); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 20px; padding: 6px 14px; font: 500 13px var(--mono); box-shadow: 3px 3px 0 var(--ink); }
 @media (max-width: 700px) {
-  header { padding-left: 70px; }
-  .stage { margin: 14px 26px 0; }
-  .rod { width: 30px; } .rod.l { left: -16px; } .rod.r { right: -16px; }
-  article { column-width: calc(100vw - 110px); column-gap: 50px; padding: 30px 34px; font-size: 16px; }
-  footer { padding: 18px 130px 18px 20px; }
-  footer #where { display: none; }
-  article h1 { font-size: 34px; }
-  article h2 { font-size: 26px; }
-  .peek { display: none; }
+  .rod { margin: 0 -10px; height: 34px; }
+  .rod::before, .rod::after { width: 26px; height: 26px; }
+  .rod::before { left: -12px; } .rod::after { right: -12px; }
+  .left { bottom: 14px; left: 12px; }
 }
 </style>
 </head>
-<body data-base="" data-track="off">
+<body data-track="off">
 <a class="topbar" href="index.html" aria-label="funscroll home"><img src="assets/img/funscroll-icon.svg" alt=""></a>
 <header>
-  <h1>manifiesto <span>— un pergamino</span></h1>
-  <div class="lang" role="group" aria-label="language">
+  <h1><span id="kicker">contra la trampa del doomscroll</span></h1>
+  <div class="lang" role="group" aria-label="idioma / language">
     <button data-l="es" class="on">ES</button><button data-l="en">EN</button>
   </div>
 </header>
-<div class="stage">
-  <span class="shp peek" data-s="circle" data-c="yellow" data-m="wow" style="left:42%; top:-46px" data-fs-float></span>
-  <span class="shp peek" data-s="triangle" data-c="red" data-m="grin" style="right:20%; bottom:-40px" data-fs-float></span>
-  <div class="rod l"></div><div class="rod r"></div>
-  <div class="paper" id="paper">
+<div class="scroll">
+  <div class="rod top"></div>
+  <div class="paper">
     <article lang="es" id="es">
       <h1>FUNSCROLL: Contra la trampa del Doomscroll</h1>
       <h2>Secuestrados por el Doomscroll</h2>
@@ -140,7 +136,7 @@ footer .left { background: var(--white); color: var(--ink); border: 2px solid va
       <p>Esta web funciona bajo la filosofía del “always under construction”, que la desata de formatos definidos. El plan es que se vaya alimentando, cambiando y redefiniendo con el paso del tiempo. Tiene la libertad de editarse y reinterpretarse, desafiando la lógica de las identidades fijas e inmutables de nuestros perfiles en redes sociales.</p>
       <h2>Entonces, ¿qué es el funscroll?</h2>
       <p>El FUNSCROLL es lo que el creador quiera que sea, no tiene reglas ni límites, solo fuentes de inspiración. Se presenta como la posibilidad de abrir una grieta en la monotonía de nuestro uso de dispositivos. Un espacio de navegación nutritiva y lúdica que transforma la experiencia del internet desde sus formas y usos. Recuperar la diversión es recuperar la autonomía. Romper con la lógica del consumo pasivo y del algoritmo es un acto de desobediencia digital. La creación de interfaces FUNSCROLLeables puede cambiar el paradigma de nuestra relación con el internet a partir de la construcción de espacios que inviten al usuario a ser parte activa de la experiencia. Rompe con hábitos repetitivos y los patrones de comportamiento impuestos por las plataformas.</p>
-      <div class="fin"><b>fin.</b><div class="who halo" id="who1"></div><p>Este pergamino se acabó. Ahora ve a <a href="funscrollers.html">ver a los funscrollers</a> o <a href="kit.html">haz el tuyo</a>.</p></div>
+      <div class="fin"><b>fin.</b><div class="who halo" id="who1"></div><p>Este pergamino se acabó. Ahora ve a <a href="es/funscrollers.html">ver a los funscrollers</a> o <a href="es/kit.html">haz el tuyo</a>.</p></div>
     </article>
     <article lang="en" id="en" hidden>
       <h1>FUNSCROLL: Escaping the Doomscroll trap</h1>
@@ -235,55 +231,43 @@ footer .left { background: var(--white); color: var(--ink); border: 2px solid va
       <div class="fin"><b>the end.</b><div class="who halo" id="who2"></div><p>This scroll is over. Now go <a href="funscrollers.html">meet the funscrollers</a> or <a href="kit.html">make your own</a>.</p></div>
     </article>
   </div>
+  <div class="rod bottom"></div>
 </div>
-<footer>
-  <span id="where">desenrolla →</span>
-  <div class="bar" id="bar"></div>
-  <span class="left" id="left">fin en ~? min</span>
-</footer>
+<span class="left" id="left"></span>
 <script src="assets/js/site.js"></script>
 <script src="kit/funscroll.js"></script>
 <script>
 document.getElementById('who1').innerHTML = FUN.SCROLLCITO;
 document.getElementById('who2').innerHTML = FUN.SCROLLCITO;
-const paper = document.getElementById('paper'), bar = document.getElementById('bar');
-const left = document.getElementById('left'), where = document.getElementById('where');
+const left = document.getElementById('left'), kicker = document.getElementById('kicker');
 let lang = 'es';
 const T = {
-  es: { hint: 'desenrolla → (rueda, trackpad o swipe)', left: m => `fin en ~${m} min`, end: 'llegaste al final ✿' },
-  en: { hint: 'unroll → (wheel, trackpad or swipe)', left: m => `ends in ~${m} min`, end: 'you reached the end ✿' },
+  es: { title: 'manifiesto', kicker: 'un pergamino · contra la trampa del doomscroll', left: m => `↓ fin en ~${m} min`, end: 'llegaste al final ✿' },
+  en: { title: 'manifesto', kicker: 'a scroll · escaping the doomscroll trap', left: m => `↓ ends in ~${m} min`, end: 'you reached the end ✿' },
 };
-// vertical wheel unrolls the scroll sideways
-paper.addEventListener('wheel', e => {
-  if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { paper.scrollLeft += e.deltaY; e.preventDefault(); }
-}, { passive: false });
-addEventListener('keydown', e => {
-  const step = { ArrowRight: 120, ArrowDown: 120, ArrowLeft: -120, ArrowUp: -120, PageDown: innerWidth * .8, PageUp: -innerWidth * .8, ' ': innerWidth * .8 }[e.key];
-  if (step) { paper.scrollBy({ left: step, behavior: 'smooth' }); e.preventDefault(); }
-});
-function words() { return document.getElementById(lang).innerText.split(/\s+/).length; }
+const h1 = document.querySelector('header h1');
 function update() {
-  const max = paper.scrollWidth - paper.clientWidth;
-  const p = max > 0 ? paper.scrollLeft / max : 0;
-  bar.style.setProperty('--fs-p', p);
-  const mins = Math.max(0, Math.round(words() * (1 - p) / 220));
+  const max = document.documentElement.scrollHeight - innerHeight;
+  const p = max > 0 ? scrollY / max : 0;
+  const words = document.getElementById(lang).innerText.split(/\s+/).length;
+  const mins = Math.max(1, Math.round(words * (1 - p) / 220));
   left.textContent = p > .985 ? T[lang].end : T[lang].left(mins);
-  where.textContent = T[lang].hint;
-  const helm = document.querySelector('.helm');
-  if (helm) helm.style.setProperty('--r', (paper.scrollLeft * .25) + 'deg');
 }
-paper.addEventListener('scroll', update, { passive: true });
-document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
-  lang = b.dataset.l;
-  document.querySelectorAll('.lang button').forEach(x => x.classList.toggle('on', x === b));
-  document.getElementById('es').hidden = lang !== 'es';
-  document.getElementById('en').hidden = lang !== 'en';
-  document.documentElement.lang = lang;
-  paper.scrollLeft = 0;
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang button').forEach(x => x.classList.toggle('on', x.dataset.l === l));
+  document.getElementById('es').hidden = l !== 'es';
+  document.getElementById('en').hidden = l !== 'en';
+  document.documentElement.lang = l;
+  h1.firstChild.nodeValue = T[l].title;
+  kicker.textContent = T[l].kicker;
+  FUN.setLang();
   update();
-}));
-if (location.hash === '#en') document.querySelector('[data-l=en]').click();
-update();
+}
+h1.insertBefore(document.createTextNode(''), kicker);
+addEventListener('scroll', update, { passive: true });
+document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { setLang(b.dataset.l); scrollTo(0, 0); }));
+setLang(location.hash === '#en' ? 'en' : 'es');
 </script>
 </body>
 </html>

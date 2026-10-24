@@ -37,11 +37,38 @@
 
   const SCROLLCITO = `<svg viewBox="0 0 140 210" fill="none" stroke="#17151F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M70 6 L96 38 H44 Z" fill="#FFDF4F"/><path d="M38 104 Q14 104 10 80"/><path d="M102 104 Q126 104 130 80"/><rect x="38" y="46" width="64" height="118" rx="32" fill="#FF5436"/><circle cx="58" cy="84" r="5" fill="#17151F" stroke="none"/><circle cx="82" cy="84" r="5" fill="#17151F" stroke="none"/><path d="M57 100 Q70 112 83 100"/><path d="M60 128 H80 M60 138 H80 M60 148 H80" stroke-width="5"/><path d="M46 172 H70 L58 202 Z M70 172 H94 L82 202 Z" fill="#FFDF4F"/></svg>`;
 
-  function buildHelm(base) {
+  // pages live in the root (English) and in es/ (Spanish); the manifesto is one bilingual page
+  const lang = () => document.documentElement.lang.startsWith('es') ? 'es' : 'en';
+  const ROOT = document.body.dataset.root || '';
+  const ROUTES = {
+    en: { home: 'index.html', man: 'manifiesto.html#en', fsc: 'funscrollers.html', kit: 'kit.html' },
+    es: { home: 'es/index.html', man: 'manifiesto.html', fsc: 'es/funscrollers.html', kit: 'es/kit.html' },
+  };
+  const WORDS = {
+    en: { man: 'manifesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'this is the menu.<br>it\'s a ship\'s wheel. spin it →', ends: p => `${p}% · this scroll ends`, start: 'this scroll ends ↓', end: 'the end ✿' },
+    es: { man: 'manifiesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'este es el menú.<br>es un timón. gíralo →', ends: p => `${p}% · este scroll se acaba`, start: 'este scroll se acaba ↓', end: 'fin ✿' },
+  };
+  const href = key => ROOT + ROUTES[lang()][key];
+
+  function setLang() {
+    const w = WORDS[lang()];
+    document.querySelectorAll('.helm [data-key]').forEach(a => {
+      a.href = href(a.dataset.key);
+      const label = a.querySelector('.label');
+      if (label) label.textContent = w[a.dataset.key];
+    });
+    const hint = document.querySelector('.helm-hint');
+    if (hint) hint.innerHTML = w.hint;
+    const top = document.querySelector('.topbar');
+    if (top) top.href = href('home');
+    updateTrack();
+  }
+
+  function buildHelm() {
     const items = [
-      { href: base + 'manifiesto.html', label: 'manifiesto', s: 'circle', c: 'red', m: 'happy', a: 0 },
-      { href: base + 'funscrollers.html', label: 'funscrollers', s: 'square', c: 'blue', m: 'wow', a: 120 },
-      { href: base + 'kit.html', label: 'funscroll kit', s: 'triangle', c: 'yellow', m: 'grin', a: 240 },
+      { key: 'man', s: 'circle', c: 'red', m: 'happy', a: 0 },
+      { key: 'fsc', s: 'square', c: 'blue', m: 'wow', a: 120 },
+      { key: 'kit', s: 'triangle', c: 'yellow', m: 'grin', a: 240 },
     ];
     const spokes = [0, 60, 120, 180, 240, 300].map(a =>
       `<line x1="66" y1="66" x2="${66 + Math.sin(a * Math.PI / 180) * 62}" y2="${66 - Math.cos(a * Math.PI / 180) * 62}"/>`).join('');
@@ -54,13 +81,12 @@
         <circle cx="66" cy="66" r="46" stroke-width="10" stroke="#17151F"/>
         <circle cx="66" cy="66" r="46" stroke-width="5" stroke="#FFFFFF" stroke-dasharray="10 14"/>
       </svg>
-      ${items.map(it => `<a class="handle" href="${it.href}" style="--a:${it.a}deg"><span class="inner"><span class="shp" style="--size:100%" data-s="${it.s}" data-c="${it.c}" data-m="${it.m}"></span><span class="label">${it.label}</span></span></a>`).join('')}
-      <a class="hub" href="${base}index.html" aria-label="home">${shapeSVG('circle', 'white', 'wink')}</a>
+      ${items.map(it => `<a class="handle" data-key="${it.key}" style="--a:${it.a}deg"><span class="inner"><span class="shp" style="--size:100%" data-s="${it.s}" data-c="${it.c}" data-m="${it.m}"></span><span class="label"></span></span></a>`).join('')}
+      <a class="hub" data-key="home" aria-label="home">${shapeSVG('circle', 'white', 'wink')}</a>
     </div>`;
     document.body.appendChild(helm);
     const hint = document.createElement('div');
     hint.className = 'helm-hint';
-    hint.innerHTML = 'this is the menu.<br>it\'s a ship\'s wheel. spin it →';
     document.body.appendChild(hint);
     paintShapes(helm);
 
@@ -88,22 +114,41 @@
     turn();
   }
 
+  function updateTrack() {
+    const pct = document.querySelector('.track .pct');
+    if (!pct) return;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? Math.round(scrollY / max * 100) : 0;
+    const w = WORDS[lang()];
+    pct.textContent = p >= 99 ? w.end : p < 1 ? w.start : w.ends(p);
+  }
+
   function buildTrack() {
     const t = document.createElement('div');
     t.className = 'track';
     t.setAttribute('aria-hidden', 'true');
-    t.innerHTML = `<div class="mini">${SCROLLCITO}</div><div class="pct">this scroll ends ↓</div>`;
+    t.innerHTML = `<div class="mini">${SCROLLCITO}</div><div class="pct"></div>`;
     document.body.appendChild(t);
-    const pct = t.querySelector('.pct');
-    addEventListener('scroll', () => {
-      const p = Math.round(scrollY / (document.documentElement.scrollHeight - innerHeight) * 100);
-      pct.textContent = p >= 99 ? 'the end ✿' : `${p}% · this scroll ends`;
-    }, { passive: true });
+    addEventListener('scroll', updateTrack, { passive: true });
   }
 
-  window.FUN = { shapeSVG, paintShapes, SCROLLCITO, buildHelm, buildTrack };
+  // EN | ES switch next to the logo, on pages that have a twin in the other language
+  function buildLangSwitch() {
+    const alt = document.body.dataset.alt;
+    if (!alt) return;
+    const here = lang();
+    const el = document.createElement('div');
+    el.className = 'langswitch';
+    el.innerHTML = here === 'en'
+      ? `<span class="on">EN</span><a href="${alt}" hreflang="es">ES</a>`
+      : `<a href="${alt}" hreflang="en">EN</a><span class="on">ES</span>`;
+    document.body.appendChild(el);
+  }
+
+  window.FUN = { shapeSVG, paintShapes, SCROLLCITO, setLang, lang };
   paintShapes();
-  const base = document.body.dataset.base || '';
-  buildHelm(base);
+  buildHelm();
   if (document.body.dataset.track !== 'off') buildTrack();
+  buildLangSwitch();
+  setLang();
 })();
