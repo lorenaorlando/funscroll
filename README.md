@@ -29,3 +29,10 @@ When you change text on an English page, change its twin in `es/` too.
 
 `kit/funscroll.js` + `kit/funscroll.css`: dependency-free effects driven by `data-fs-*` attributes.
 The full list is in the comment at the top of `kit/funscroll.js`, and live demos are on `kit.html`.
+
+## Analytics
+
+`assets/js/analytics.js` is loaded on every page and stays off until an ID is filled in at the top of the file
+(Google Analytics 4 is wired in; Plausible and Umami also receive the events if their own script is added).
+Events it counts: `door_open`, `outbound_click`, `file_download`, `contact_email`, `menu_click`, `language_switch`,
+`timeline_jump`, `prompt_copy`, `useless_button` and `manifesto_finished`.

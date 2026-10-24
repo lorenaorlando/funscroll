@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="kit/funscroll.css">
 <link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/analytics.js" defer></script>
 <style>
 :root { --parch: #FBF6E6; --rod-w: min(860px, calc(100vw - 40px)); }
 body { background: var(--blue); }
@@ -57,12 +58,29 @@ article .fin .who svg { animation: wave 1.2s ease-in-out infinite alternate; tra
 @keyframes wave { from { rotate: -10deg; } to { rotate: 10deg; } }
 
 .helm-hint { display: none; }
-.left { position: fixed; left: 18px; bottom: 22px; z-index: 40; background: var(--white); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 20px; padding: 6px 14px; font: 500 13px var(--mono); box-shadow: 3px 3px 0 var(--ink); }
+/* reading timeline: fills as you read, one stop per chapter */
+body { padding-bottom: 96px; }
+.tl { position: fixed; left: 16px; right: 168px; bottom: 18px; z-index: 40; background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 22px; box-shadow: 4px 4px 0 var(--ink); padding: 10px 16px 8px; }
+.tl-track { position: relative; height: 14px; border: 2.5px solid var(--ink); border-radius: 10px; background: var(--butter); margin: 0 6px; }
+.tl-fill { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--p, 0) * 100%); background: var(--red); border-radius: 8px; }
+.tl-stop { position: absolute; top: 50%; width: 16px; height: 16px; translate: -50% -50%; border-radius: 50%; border: 2.5px solid var(--ink); background: var(--white); padding: 0; cursor: pointer; transition: scale .2s, background .2s; }
+.tl-stop.done { background: var(--yellow); }
+.tl-stop.now { background: var(--blue); scale: 1.35; }
+.tl-stop:hover, .tl-stop:focus-visible { scale: 1.5; outline: none; }
+.tl-stop::after { content: attr(data-title); position: absolute; bottom: 24px; left: 50%; translate: -50% 0; white-space: nowrap; font: 600 12px var(--voice); background: var(--ink); color: var(--white); padding: 5px 9px; border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.tl-stop:hover::after, .tl-stop:focus-visible::after { opacity: 1; }
+.tl-me { position: absolute; top: 50%; left: calc(var(--p, 0) * 100%); width: 22px; height: 34px; translate: -50% -60%; pointer-events: none; z-index: 2; transition: left .1s; }
+.tl-info { display: flex; justify-content: space-between; gap: 12px; margin-top: 7px; font: 500 12px var(--mono); }
+.tl-now { font: 700 13px var(--voice); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.tl-left { white-space: nowrap; opacity: .75; }
 @media (max-width: 700px) {
   .rod { margin: 0 -10px; height: 34px; }
   .rod::before, .rod::after { width: 26px; height: 26px; }
   .rod::before { left: -12px; } .rod::after { right: -12px; }
-  .left { bottom: 14px; left: 12px; }
+  .tl { left: 10px; right: 128px; bottom: 12px; padding: 8px 10px 6px; }
+  .tl-stop { width: 12px; height: 12px; }
+  .tl-stop::after { display: none; }
+  .tl-left { display: none; }
 }
 </style>
 </head>
@@ -233,7 +251,10 @@ article .fin .who svg { animation: wave 1.2s ease-in-out infinite alternate; tra
   </div>
   <div class="rod bottom"></div>
 </div>
-<span class="left" id="left"></span>
+<nav class="tl" id="tl" aria-label="timeline">
+  <div class="tl-track"><div class="tl-fill"></div><div id="stops"></div><div class="tl-me halo" id="me"></div></div>
+  <div class="tl-info"><span class="tl-now" id="now"></span><span class="tl-left" id="left"></span></div>
+</nav>
 <script src="assets/js/site.js"></script>
 <script src="kit/funscroll.js"></script>
 <script>
@@ -242,16 +263,51 @@ document.getElementById('who2').innerHTML = FUN.SCROLLCITO;
 const left = document.getElementById('left'), kicker = document.getElementById('kicker');
 let lang = 'es';
 const T = {
-  es: { title: 'manifiesto', kicker: 'un pergamino · contra la trampa del doomscroll', left: m => `↓ fin en ~${m} min`, end: 'llegaste al final ✿' },
-  en: { title: 'manifesto', kicker: 'a scroll · escaping the doomscroll trap', left: m => `↓ ends in ~${m} min`, end: 'you reached the end ✿' },
+  es: { title: 'manifiesto', kicker: 'un pergamino · contra la trampa del doomscroll', left: m => `fin en ~${m} min`, end: 'llegaste al final ✿' },
+  en: { title: 'manifesto', kicker: 'a scroll · escaping the doomscroll trap', left: m => `ends in ~${m} min`, end: 'you reached the end ✿' },
 };
 const h1 = document.querySelector('header h1');
+const tl = document.getElementById('tl'), stopsEl = document.getElementById('stops'), nowEl = document.getElementById('now');
+document.getElementById('me').innerHTML = FUN.SCROLLCITO;
+let stops = [], words = 0;
+const finished = {};
+const absTop = el => el.getBoundingClientRect().top + scrollY;
+// the reading line sits a third of the way down the screen
+const line = () => scrollY + innerHeight * .3;
+function buildStops() {
+  const art = document.getElementById(lang);
+  words = art.innerText.split(/\s+/).length;
+  const top = absTop(art), h = art.offsetHeight;
+  stops = [...art.querySelectorAll('h2')].map(h2 => ({ el: h2, title: h2.textContent.trim(), at: (absTop(h2) - top) / h }));
+  stopsEl.innerHTML = '';
+  stops.forEach(st => {
+    const b = document.createElement('button');
+    b.className = 'tl-stop';
+    b.style.left = (st.at * 100) + '%';
+    b.dataset.title = st.title;
+    b.setAttribute('aria-label', st.title);
+    b.addEventListener('click', () => scrollTo({ top: absTop(st.el) - innerHeight * .3 + 4, behavior: 'smooth' }));
+    st.btn = b;
+    stopsEl.appendChild(b);
+  });
+  update();
+}
 function update() {
+  const art = document.getElementById(lang);
+  const top = absTop(art), h = art.offsetHeight;
   const max = document.documentElement.scrollHeight - innerHeight;
-  const p = max > 0 ? scrollY / max : 0;
-  const words = document.getElementById(lang).innerText.split(/\s+/).length;
+  let p = Math.min(1, Math.max(0, (line() - top) / h));
+  if (scrollY >= max - 2) p = 1;
+  tl.style.setProperty('--p', p);
+  let cur = 0;
+  stops.forEach((st, i) => { if (p >= st.at - .001) cur = i; });
+  stops.forEach((st, i) => { st.btn.classList.toggle('done', i < cur); st.btn.classList.toggle('now', i === cur); });
+  const before = !stops.length || p < stops[0].at;
+  nowEl.textContent = before ? art.querySelector('h1').textContent.trim() : stops[cur].title;
+  stops.forEach((st, i) => { if (before) st.btn.classList.remove('now'); });
   const mins = Math.max(1, Math.round(words * (1 - p) / 220));
   left.textContent = p > .985 ? T[lang].end : T[lang].left(mins);
+  if (p > .985 && !finished[lang] && window.FUN_TRACK) { finished[lang] = true; FUN_TRACK('manifesto_finished', { lang }); }
 }
 function setLang(l) {
   lang = l;
@@ -262,10 +318,13 @@ function setLang(l) {
   h1.firstChild.nodeValue = T[l].title;
   kicker.textContent = T[l].kicker;
   FUN.setLang();
-  update();
+  buildStops();
 }
 h1.insertBefore(document.createTextNode(''), kicker);
 addEventListener('scroll', update, { passive: true });
+addEventListener('resize', buildStops);
+addEventListener('load', buildStops);
+document.fonts && document.fonts.ready.then(buildStops);
 document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { setLang(b.dataset.l); scrollTo(0, 0); }));
 setLang(location.hash === '#en' ? 'en' : 'es');
 </script>
