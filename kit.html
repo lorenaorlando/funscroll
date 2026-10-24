@@ -66,6 +66,18 @@ pre .c { color: #8C889A; }
 .ideas span { font: 600 17px/1.3 var(--voice); background: var(--white); border: 2.5px solid var(--ink); border-radius: 30px; padding: 10px 18px; }
 .ideas span:nth-child(3n+1) { background: var(--sky); } .ideas span:nth-child(3n+2) { background: var(--blush); }
 
+.media { margin-top: 50px; background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 26px; padding: 30px; box-shadow: 8px 8px 0 var(--ink); }
+.media .mk { font-weight: 800; font-size: clamp(32px, 4vw, 52px); letter-spacing: -.04em; line-height: 1; }
+.media .mk-sub { font: 400 19px/1.35 var(--voice); margin: 10px 0 18px; max-width: 640px; }
+.media h4 { font-weight: 800; font-size: 22px; letter-spacing: -.02em; margin: 34px 0 14px; }
+.mk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+.mk-item { display: flex; flex-direction: column; gap: 6px; text-decoration: none; min-width: 0; }
+.mk-img { aspect-ratio: 1; border: 2.5px solid var(--ink); border-radius: 16px; display: grid; place-items: center; padding: 12px; transition: translate .2s;
+  background: repeating-conic-gradient(#EDEAF2 0 25%, #FFFFFF 0 50%) 0 0 / 18px 18px; }
+.mk-item:hover .mk-img { translate: 0 -4px; }
+.mk-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.mk-item code { font: 500 10.5px var(--mono); word-break: break-all; opacity: .75; }
+
 @media (max-width: 800px) {
   .recipe { grid-template-columns: 1fr; }
 }
@@ -322,8 +334,58 @@ pre .c { color: #8C889A; }
       <div class="tile"><div class="show"><img src="assets/img/scrollcito.svg" width="90" alt="scrollcito"></div><h3>scrollcito</h3><p>The mascot: a scrollbar thumb that escaped. ▲ hat, ▼ shoes.</p><a class="btn" href="assets/img/scrollcito.svg" download>⬇ SVG</a></div>
       <div class="tile"><div class="show" style="gap:10px; grid-auto-flow:row"><img src="assets/img/badge-88x31.png" width="88" height="31" alt="funscrollable badge" style="image-rendering:pixelated"><img src="assets/img/badge-176x62.png" width="176" height="62" alt=""></div><h3>88×31 badge</h3><p>The classic web-button size, from when websites had badges.</p><a class="btn" href="assets/img/badge-176x62.png" download>⬇ PNG</a></div>
     </div>
+<!-- media -->
+    <div class="media">
+      <h3 class="mk">media kit</h3>
+      <p class="mk-sub">Every logo and badge as a PNG, in English and Spanish. Click one to open it, or take them all at once.</p>
+      <a class="btn" href="assets/media/funscroll-media-kit.zip" download style="background:var(--yellow)">⬇ all of it (.zip)</a>
+      <h4>this is a funscroll site</h4>
+      <div class="mk-grid">
+        <a class="mk-item" href="assets/media/this-is-a-funscroll-site-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/this-is-a-funscroll-site-amarillo.png" alt="this is a funscroll site amarillo" loading="lazy"></span><code>this-is-a-funscroll-site-amarillo.png</code></a>
+        <a class="mk-item" href="assets/media/this-is-a-funscroll-site-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/this-is-a-funscroll-site-azul.png" alt="this is a funscroll site azul" loading="lazy"></span><code>this-is-a-funscroll-site-azul.png</code></a>
+        <a class="mk-item" href="assets/media/this-is-a-funscroll-site-transparente.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/this-is-a-funscroll-site-transparente.png" alt="this is a funscroll site transparente" loading="lazy"></span><code>this-is-a-funscroll-site-transparente.png</code></a>
+        <a class="mk-item" href="assets/media/this-is-a-funscroll-site-cuadrado-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/this-is-a-funscroll-site-cuadrado-amarillo.png" alt="this is a funscroll site cuadrado amarillo" loading="lazy"></span><code>this-is-a-funscroll-site-cuadrado-amarillo.png</code></a>
+        <a class="mk-item" href="assets/media/this-is-a-funscroll-site-cuadrado-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/this-is-a-funscroll-site-cuadrado-azul.png" alt="this is a funscroll site cuadrado azul" loading="lazy"></span><code>this-is-a-funscroll-site-cuadrado-azul.png</code></a>
+        <a class="mk-item" href="assets/media/this-is-a-funscroll-site-cuadrado-transparente.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/this-is-a-funscroll-site-cuadrado-transparente.png" alt="this is a funscroll site cuadrado transparente" loading="lazy"></span><code>this-is-a-funscroll-site-cuadrado-transparente.png</code></a>
+      </div>
+      <h4>este es un sitio funscroll (in Spanish)</h4>
+      <div class="mk-grid">
+        <a class="mk-item" href="assets/media/este-es-un-sitio-funscroll-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/este-es-un-sitio-funscroll-amarillo.png" alt="este es un sitio funscroll amarillo" loading="lazy"></span><code>este-es-un-sitio-funscroll-amarillo.png</code></a>
+        <a class="mk-item" href="assets/media/este-es-un-sitio-funscroll-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/este-es-un-sitio-funscroll-azul.png" alt="este es un sitio funscroll azul" loading="lazy"></span><code>este-es-un-sitio-funscroll-azul.png</code></a>
+        <a class="mk-item" href="assets/media/este-es-un-sitio-funscroll-transparente.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/este-es-un-sitio-funscroll-transparente.png" alt="este es un sitio funscroll transparente" loading="lazy"></span><code>este-es-un-sitio-funscroll-transparente.png</code></a>
+        <a class="mk-item" href="assets/media/este-es-un-sitio-funscroll-cuadrado-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/este-es-un-sitio-funscroll-cuadrado-amarillo.png" alt="este es un sitio funscroll cuadrado amarillo" loading="lazy"></span><code>este-es-un-sitio-funscroll-cuadrado-amarillo.png</code></a>
+        <a class="mk-item" href="assets/media/este-es-un-sitio-funscroll-cuadrado-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/este-es-un-sitio-funscroll-cuadrado-azul.png" alt="este es un sitio funscroll cuadrado azul" loading="lazy"></span><code>este-es-un-sitio-funscroll-cuadrado-azul.png</code></a>
+        <a class="mk-item" href="assets/media/este-es-un-sitio-funscroll-cuadrado-transparente.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/este-es-un-sitio-funscroll-cuadrado-transparente.png" alt="este es un sitio funscroll cuadrado transparente" loading="lazy"></span><code>este-es-un-sitio-funscroll-cuadrado-transparente.png</code></a>
+      </div>
+      <h4>logo + name</h4>
+      <div class="mk-grid">
+        <a class="mk-item" href="assets/media/logo-funscroll-fondo-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/logo-funscroll-fondo-amarillo.png" alt="logo funscroll fondo amarillo" loading="lazy"></span><code>logo-funscroll-fondo-amarillo.png</code></a>
+        <a class="mk-item" href="assets/media/logo-funscroll-fondo-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/logo-funscroll-fondo-azul.png" alt="logo funscroll fondo azul" loading="lazy"></span><code>logo-funscroll-fondo-azul.png</code></a>
+        <a class="mk-item" href="assets/media/logo-funscroll-transparente.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/logo-funscroll-transparente.png" alt="logo funscroll transparente" loading="lazy"></span><code>logo-funscroll-transparente.png</code></a>
+      </div>
+      <h4>round logo</h4>
+      <div class="mk-grid">
+        <a class="mk-item" href="assets/media/logo-redondo-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/logo-redondo-azul.png" alt="logo redondo azul" loading="lazy"></span><code>logo-redondo-azul.png</code></a>
+        <a class="mk-item" href="assets/media/logo-redondo-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/logo-redondo-amarillo.png" alt="logo redondo amarillo" loading="lazy"></span><code>logo-redondo-amarillo.png</code></a>
+      </div>
+      <h4>profile pictures (GitHub & co.)</h4>
+      <div class="mk-grid">
+        <a class="mk-item" href="assets/media/perfil-redes-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/perfil-redes-amarillo.png" alt="perfil redes amarillo" loading="lazy"></span><code>perfil-redes-amarillo.png</code></a>
+        <a class="mk-item" href="assets/media/perfil-redes-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/perfil-redes-azul.png" alt="perfil redes azul" loading="lazy"></span><code>perfil-redes-azul.png</code></a>
+      </div>
+      <h4>just scrollcito</h4>
+      <div class="mk-grid">
+        <a class="mk-item" href="assets/media/mascota-transparente.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/mascota-transparente.png" alt="mascota transparente" loading="lazy"></span><code>mascota-transparente.png</code></a>
+        <a class="mk-item" href="assets/media/mascota-fondo-amarillo.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/mascota-fondo-amarillo.png" alt="mascota fondo amarillo" loading="lazy"></span><code>mascota-fondo-amarillo.png</code></a>
+        <a class="mk-item" href="assets/media/mascota-fondo-azul.png" target="_blank" rel="noopener"><span class="mk-img"><img src="assets/media/mascota-fondo-azul.png" alt="mascota fondo azul" loading="lazy"></span><code>mascota-fondo-azul.png</code></a>
+      </div>
+    </div>
+<!-- /media -->
 <pre style="margin-top:30px"><span class="c">&lt;!-- badge in a corner of your site --&gt;</span>
 &lt;a href="https://funscroll.life"&gt;&lt;img src="https://funscroll.life/assets/img/badge-176x62.png" width="88" height="31" alt="funscrollable"&gt;&lt;/a&gt;
+
+<span class="c">&lt;!-- or the bigger "this is a funscroll site" badge --&gt;</span>
+&lt;a href="https://funscroll.life"&gt;&lt;img src="https://funscroll.life/assets/media/this-is-a-funscroll-site-amarillo.png" width="240" alt="this is a funscroll site"&gt;&lt;/a&gt;
 
 <span class="c">&lt;!-- the webring widget --&gt;</span>
 &lt;div id="funscroll-ring"&gt;&lt;/div&gt;
