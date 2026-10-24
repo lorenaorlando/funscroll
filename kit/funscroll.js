@@ -96,7 +96,9 @@
         const i = +s.dataset.i;
         if (mode === 'scatter') {
           // letters fly apart at the edges of the screen and come together in the middle
-          const k = Math.pow(Math.abs(p - .5) * 2, 2.2);
+          const r = el.getBoundingClientRect();
+          const d = Math.abs((r.top + r.height / 2 - vh / 2) / vh);
+          const k = Math.pow(clamp((d - .3) / .5, 0, 1), 2);
           s.style.transform = `translate(${s.dataset.rx * 260 * k}px, ${s.dataset.ry * 200 * k}px) rotate(${s.dataset.rr * 160 * k}deg)`;
         } else if (mode === 'wave') {
           s.style.transform = `translateY(${Math.sin(p * 14 + i * .6) * 18}px)`;
