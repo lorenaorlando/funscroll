@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUNSCROLL — the funscrollers</title>
+<meta name="description" content="Websites that already scroll differently: the family tree of FUNSCROLL, and a webring you can join.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/funscroll.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+section { position: relative; overflow: clip; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; position: relative; }
+
+.top { background: var(--red); color: var(--white); padding: 18vh 0 14vh; }
+.top .wrap { display: flex; gap: 50px; align-items: center; flex-wrap: wrap; }
+.top .txt { flex: 1 1 520px; }
+.top h1 { font-weight: 800; font-size: clamp(64px, 11vw, 170px); letter-spacing: -.06em; line-height: .82; }
+.top p { font: 400 clamp(24px, 2.6vw, 36px)/1.08 var(--serif); max-width: 620px; margin-top: 26px; }
+.door-btn { width: clamp(220px, 24vw, 300px); aspect-ratio: .7; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 20px 34px; background: var(--yellow); color: var(--ink); border: 4px solid var(--ink); border-radius: 200px 200px 14px 14px; box-shadow: 10px 10px 0 var(--ink); text-decoration: none; position: relative; text-align: center; transition: rotate .4s cubic-bezier(.2,2,.4,1); margin: 0 auto; }
+.door-btn:hover { rotate: 4deg; }
+.door-btn .knob { position: absolute; right: 18%; top: 55%; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); }
+.door-btn .shp { --size: 58%; position: absolute; top: 14%; }
+.door-btn b { font-weight: 800; font-size: clamp(22px, 2.2vw, 28px); letter-spacing: -.03em; line-height: 1; }
+.door-btn small { font: 500 12px var(--mono); margin-top: 8px; }
+
+.deck { background: var(--butter); padding: 14vh 0 18vh; }
+.deck h2, .ring h2 { font-weight: 800; font-size: clamp(46px, 7vw, 104px); letter-spacing: -.05em; line-height: .9; }
+.deck .sub, .ring .sub { font: italic 400 clamp(20px, 2.2vw, 28px)/1.15 var(--serif); margin: 14px 0 30px; max-width: 760px; }
+.deck .bar { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 40px; }
+.deck .bar .count { font: 500 14px var(--mono); }
+.table { display: flex; flex-wrap: wrap; gap: 26px 22px; justify-content: center; }
+.card { width: 220px; height: 310px; perspective: 900px; }
+.card .in { position: relative; width: 100%; height: 100%; transition: transform .6s cubic-bezier(.2,1.3,.4,1); transform-style: preserve-3d; }
+.card.flip .in { transform: rotateY(180deg); }
+.card .face { position: absolute; inset: 0; backface-visibility: hidden; border: 3px solid var(--ink); border-radius: 18px; box-shadow: 6px 6px 0 var(--ink); padding: 14px; display: flex; flex-direction: column; }
+.card .back { transform: rotateY(180deg); background: var(--ink); color: var(--white); }
+.card .art { height: 128px; border: 3px solid var(--ink); border-radius: 12px; background: var(--white); display: grid; place-items: center; font-size: 62px; }
+.card .n { font-weight: 800; font-size: 22px; letter-spacing: -.03em; line-height: 1; margin-top: 12px; }
+.card .d { font: 500 11px var(--mono); opacity: .7; margin-top: 4px; word-break: break-all; }
+.card .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font: 500 11px var(--mono); }
+.card .foot b { background: var(--ink); color: var(--white); padding: 4px 9px; border-radius: 12px; font-weight: 500; text-transform: uppercase; }
+.card .back .q { font: italic 400 24px/1.08 var(--serif); margin-top: 6px; }
+.card .back .go { margin-top: auto; align-self: flex-start; font-size: 17px; padding: 10px 18px; color: var(--ink); background: var(--yellow); box-shadow: 4px 4px 0 var(--white); border-color: var(--white); }
+.card.seen .face.front::after { content: '✓ collected'; position: absolute; top: 20px; right: -10px; rotate: 12deg; background: var(--white); border: 2px solid var(--ink); border-radius: 12px; font: 500 11px var(--mono); padding: 3px 8px; }
+
+.ring { background: var(--blue); color: var(--white); padding: 16vh 0 22vh; }
+.ring .preview { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 24px; padding: 34px; box-shadow: 8px 8px 0 var(--ink); margin: 30px 0 50px; }
+.ring .preview .tag { display: block; margin-bottom: 18px; opacity: .6; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+.step { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 24px; padding: 24px; box-shadow: 6px 6px 0 var(--ink); }
+.step .shp { --size: 58px; float: right; }
+.step h3 { font-weight: 800; font-size: 26px; letter-spacing: -.03em; line-height: 1; }
+.step p { font: 400 20px/1.15 var(--serif); margin-top: 10px; }
+.step code, .snippet { font: 500 12px/1.5 var(--mono); }
+.snippet { display: block; background: var(--ink); color: var(--yellow); padding: 12px; border-radius: 12px; margin-top: 12px; white-space: pre-wrap; word-break: break-all; }
+.members { margin-top: 40px; font: 500 14px var(--mono); }
+.members a { color: var(--yellow); }
+
+.credits { background: var(--ink); color: var(--white); padding: 12vh 0 24vh; }
+.credits h2 { font-weight: 800; font-size: 40px; letter-spacing: -.04em; }
+.credits li { break-inside: avoid; }
+.credits ol { columns: 340px; margin-top: 24px; font: 500 14px/2 var(--mono); padding-left: 22px; }
+.credits a { color: var(--yellow); }
+</style>
+</head>
+<body data-base="">
+
+<a class="topbar" href="index.html" aria-label="funscroll home"><img src="assets/img/funscroll-icon.svg" alt=""></a>
+
+<section class="top">
+  <span class="shp abs" data-s="flower" data-c="yellow" data-m="grin" style="--size:90px; left:4%; top:12%" data-fs-spin="400" data-fs-drag></span>
+  <span class="shp abs" data-s="square" data-c="blue" data-m="happy" style="--size:70px; left:48%; bottom:8%" data-fs-parallax="-0.8" data-fs-drag></span>
+  <div class="wrap">
+    <div class="txt">
+      <span class="tag">the family tree</span>
+      <h1 data-fs-letters="wave">funscrollers</h1>
+      <p>Sites that already scroll differently. They're the proof: you can design something other than a feed. Open one, get lost, come back (or don't).</p>
+    </div>
+    <a href="#deck" class="door-btn" id="door">
+      <span class="shp" data-s="circle" data-c="red" data-m="wow"></span>
+      <span class="knob"></span>
+      <b>take me somewhere weird</b>
+      <small>opens a random one ↗</small>
+    </a>
+  </div>
+</section>
+
+<section class="deck" id="deck">
+  <div class="wrap">
+    <h2>the deck</h2>
+    <p class="sub">One card per site. Tap a card to flip it. Drag them around. Every site you open gets collected (only in your browser, nobody's counting but you).</p>
+    <div class="bar">
+      <button class="btn" id="shuffle">🔀 shuffle</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="table" id="table"></div>
+  </div>
+</section>
+
+<section class="ring" id="ring">
+  <span class="shp abs" data-s="circle" data-c="yellow" data-m="wink" style="--size:100px; right:5%; top:8%" data-fs-float></span>
+  <div class="wrap">
+    <h2>the funscroll ring</h2>
+    <p class="sub">A webring, like in the old internet: a little widget that lives on every member's site and sends people to the next one. Its only job is to make you leave.</p>
+    <div class="preview">
+      <span class="tag">this is the widget, live ↓</span>
+      <div id="funscroll-ring"></div>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="shp" data-s="triangle" data-c="yellow" data-m="grin"></span><h3>1 · make it funscrollable</h3><p>Play with the scroll, give it an ending, let people leave. The <a href="kit.html">funscroll kit</a> can help.</p></div>
+      <div class="step"><span class="shp" data-s="square" data-c="red" data-m="wow"></span><h3>2 · add the widget</h3><p>Paste this where you want it:</p><code class="snippet">&lt;div id="funscroll-ring"&gt;&lt;/div&gt;
+&lt;script src="https://funscroll.life/kit/ring.js" defer&gt;&lt;/script&gt;</code></div>
+      <div class="step"><span class="shp" data-s="circle" data-c="blue" data-m="happy"></span><h3>3 · send it</h3><p>Tell us about your site. Once it's in, the ring links to you.</p><a class="btn" style="margin-top:16px; font-size:18px; background:var(--yellow)" href="https://github.com/lorenaorlando/funscroll/issues/new?template=join-the-ring.yml" target="_blank" rel="noopener">submit my site ↗</a></div>
+    </div>
+    <p class="members" id="members"></p>
+  </div>
+</section>
+
+<section class="credits">
+  <div class="wrap">
+    <h2>all of them, as a plain list</h2>
+    <ol id="list"></ol>
+  </div>
+</section>
+
+<script src="assets/js/funscrollers.js"></script>
+<script src="kit/ring.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+const colors = ['var(--sky)', 'var(--blush)', 'var(--yellow)', 'var(--white)', 'var(--butter)'];
+const host = u => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
+let seen = [];
+try { seen = JSON.parse(localStorage.getItem('fs-seen') || '[]'); } catch (e) {}
+const save = () => { try { localStorage.setItem('fs-seen', JSON.stringify(seen)); } catch (e) {} };
+const count = document.getElementById('count');
+const showCount = () => count.textContent = seen.length >= FUNSCROLLERS.length
+  ? `collected ${seen.length}/${FUNSCROLLERS.length} 🏆 you won absolutely nothing. congrats.`
+  : `collected ${seen.length}/${FUNSCROLLERS.length}`;
+function collect(url) { if (!seen.includes(url)) { seen.push(url); save(); } render(); }
+
+const table = document.getElementById('table');
+function render(order = FUNSCROLLERS) {
+  table.innerHTML = '';
+  order.forEach(f => {
+    const i = FUNSCROLLERS.indexOf(f);
+    const c = document.createElement('div');
+    c.className = 'card' + (seen.includes(f.url) ? ' seen' : '');
+    c.style.rotate = ((i * 37) % 13 - 6) + 'deg';
+    c.innerHTML = `<div class="in">
+      <div class="face front" style="background:${colors[i % colors.length]}">
+        <div class="art">${f.emoji}</div>
+        <div class="n">${f.name}</div>
+        <div class="d">${host(f.url)}</div>
+        <div class="foot"><b>${f.concept}</b><span>#${String(i + 1).padStart(2, '0')}/${FUNSCROLLERS.length}</span></div>
+      </div>
+      <div class="face back">
+        <span class="tag" style="opacity:.6">why it's here</span>
+        <p class="q">${f.note || 'No spoilers. Go see for yourself.'}</p>
+        <a class="btn go" href="${f.url}" target="_blank" rel="noopener">open ↗</a>
+      </div></div>`;
+    c.addEventListener('click', e => {
+      if (e.target.closest('.go')) { collect(f.url); return; }
+      c.classList.toggle('flip');
+    });
+    table.appendChild(c);
+  });
+  showCount();
+}
+render();
+document.getElementById('shuffle').addEventListener('click', () => {
+  const a = [...FUNSCROLLERS].sort(() => Math.random() - .5);
+  render(a);
+});
+
+document.getElementById('door').addEventListener('click', e => {
+  e.preventDefault();
+  const f = FUNSCROLLERS[Math.floor(Math.random() * FUNSCROLLERS.length)];
+  window.open(f.url, '_blank', 'noopener');
+  collect(f.url);
+  e.currentTarget.querySelector('small').textContent = `last time: ${f.name} ↗ · again?`;
+});
+
+document.getElementById('list').innerHTML = FUNSCROLLERS.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener">${f.name}</a> — ${host(f.url)}</li>`).join('');
+document.getElementById('members').innerHTML = 'in the ring so far: ' + (window.FUNSCROLL_RING || []).map(m => `<a href="${m.url}" target="_blank" rel="noopener">${m.name}</a>`).join(' · ');
+</script>
+<script src="kit/funscroll.js"></script>
+</body>
+</html>

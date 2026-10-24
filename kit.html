@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUNSCROLL KIT — make your website fun to scroll</title>
+<meta name="description" content="A tiny, dependency-free toolbox of scroll and touch effects to make funscrollable websites. Two lines to install.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/funscroll.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+section { position: relative; overflow: clip; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; }
+code, pre { font: 500 13px/1.55 var(--mono); }
+pre { background: var(--ink); color: var(--yellow); padding: 16px 18px; border-radius: 14px; overflow-x: auto; white-space: pre; }
+pre .c { color: #8C889A; }
+
+.hero { background: var(--yellow); padding: 18vh 0 14vh; }
+.hero h1 { font-weight: 800; font-size: clamp(70px, 13vw, 200px); letter-spacing: -.07em; line-height: .8; }
+.hero h1 span { color: var(--blue); }
+.hero p { font: 400 clamp(24px, 2.8vw, 40px)/1.06 var(--serif); max-width: 720px; margin: 26px 0 34px; }
+.hero .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 26px; }
+.hero pre { max-width: 760px; font-size: 14px; }
+
+.recipes { background: var(--white); padding: 14vh 0; }
+.recipes > .wrap > h2, .assets h2 { font-weight: 800; font-size: clamp(46px, 7vw, 100px); letter-spacing: -.05em; line-height: .9; }
+.recipes .sub, .assets .sub { font: italic 400 clamp(20px, 2.2vw, 28px)/1.15 var(--serif); margin: 12px 0 50px; max-width: 760px; }
+.recipe { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: stretch; padding: 34px 0; border-top: 3px dashed var(--ink); }
+.recipe h3 { font-weight: 800; font-size: 34px; letter-spacing: -.04em; line-height: 1; }
+.recipe h3 small { font: 500 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 8px; opacity: .6; }
+.recipe p { font: 400 21px/1.15 var(--serif); margin: 10px 0 14px; }
+.demo { border: 3px solid var(--ink); border-radius: 22px; min-height: 240px; display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; padding: 26px; position: relative; overflow: hidden; box-shadow: 6px 6px 0 var(--ink); }
+.demo .shp { --size: 80px; }
+.demo .big { font-weight: 800; font-size: clamp(44px, 6vw, 80px); letter-spacing: -.05em; line-height: .9; text-align: center; }
+.demo .replay { position: absolute; right: 12px; bottom: 12px; font-size: 13px; padding: 6px 12px; box-shadow: 3px 3px 0 var(--ink); }
+
+.assets { background: var(--blue); color: var(--white); padding: 14vh 0 22vh; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+.tile { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 22px; padding: 22px; box-shadow: 6px 6px 0 var(--ink); display: flex; flex-direction: column; gap: 12px; }
+.tile .show { height: 170px; display: grid; place-items: center; background: var(--butter); border-radius: 14px; border: 2.5px solid var(--ink); }
+.tile h3 { font-weight: 800; font-size: 22px; letter-spacing: -.03em; }
+.tile p { font: 400 18px/1.15 var(--serif); }
+.tile .btn { font-size: 16px; padding: 8px 16px; align-self: flex-start; margin-top: auto; }
+.assets pre { margin-top: 10px; }
+
+@media (max-width: 800px) {
+  .recipe { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body data-base="">
+
+<a class="topbar" href="index.html" aria-label="funscroll home"><img src="assets/img/funscroll-icon.svg" alt=""></a>
+
+<section class="hero">
+  <span class="shp abs" data-s="triangle" data-c="red" data-m="grin" style="--size:110px; right:8%; top:14%" data-fs-spin="300" data-fs-drag></span>
+  <span class="shp abs" data-s="half" data-c="blue" data-m="happy" style="--size:120px; right:22%; bottom:6%" data-fs-parallax="-0.7" data-fs-drag></span>
+  <div class="wrap">
+    <span class="tag">v0.1 · free · no frameworks · no build step</span>
+    <h1 style="margin-top:16px">funscroll <span>kit</span></h1>
+    <p>A tiny toolbox to make your website fun to scroll. Add two lines, then sprinkle <code style="font-size:.6em">data-fs-*</code> attributes on anything.</p>
+<pre><span class="c">&lt;!-- in your &lt;head&gt; --&gt;</span>
+&lt;link rel="stylesheet" href="https://funscroll.life/kit/funscroll.css"&gt;
+<span class="c">&lt;!-- before &lt;/body&gt; --&gt;</span>
+&lt;script src="https://funscroll.life/kit/funscroll.js"&gt;&lt;/script&gt;</pre>
+    <div class="row">
+      <a class="btn" href="kit/funscroll.js" download>⬇ funscroll.js</a>
+      <a class="btn" href="kit/funscroll.css" download>⬇ funscroll.css</a>
+      <a class="btn" href="https://github.com/lorenaorlando/funscroll/tree/main/kit" target="_blank" rel="noopener" style="background:var(--blush)">source on GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="recipes">
+  <div class="wrap">
+    <h2>recipes</h2>
+    <p class="sub">Every effect is one attribute. Each one tries out an idea from the <a href="manifiesto.html">manifesto</a>. Mix them, break them, make them yours.</p>
+
+    <div class="recipe">
+      <div>
+        <h3><small>slide up / down / left / right</small>reveal</h3>
+        <p>Things arrive when they enter the screen, from wherever you want.</p>
+<pre>&lt;div data-fs-reveal="left"&gt;…&lt;/div&gt;
+<span class="c">&lt;!-- up · down · left · right · pop · spin --&gt;</span></pre>
+      </div>
+      <div class="demo" id="revealDemo" style="background:var(--sky)">
+        <span class="shp" data-s="circle" data-c="red" data-m="happy" data-fs-reveal="left"></span>
+        <span class="shp" data-s="square" data-c="yellow" data-m="wow" data-fs-reveal="pop"></span>
+        <span class="shp" data-s="triangle" data-c="blue" data-m="grin" data-fs-reveal="spin"></span>
+        <span class="shp" data-s="half" data-c="white" data-m="wink" data-fs-reveal="right"></span>
+        <button class="btn replay" id="replay">↻ again</button>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>dancescroll</small>letters</h3>
+        <p>Text splits into letters that play with the scroll. <i>scatter</i> assembles in the middle of the screen, <i>wave</i> ripples, <i>dance</i> reacts to how fast you scroll.</p>
+<pre>&lt;h1 data-fs-letters="dance"&gt;hello&lt;/h1&gt;
+<span class="c">&lt;!-- scatter · wave · dance --&gt;</span></pre>
+      </div>
+      <div class="demo" style="background:var(--yellow); flex-direction:column">
+        <div class="big" data-fs-letters="dance">scroll fast!</div>
+        <div class="big" data-fs-letters="wave" style="color:var(--blue)">wave wave</div>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>dancescroll</small>dance</h3>
+        <p>The whole element leans and wobbles with your scroll speed. Stop, and it rests.</p>
+<pre>&lt;div data-fs-dance&gt;…&lt;/div&gt;</pre>
+      </div>
+      <div class="demo" style="background:var(--blush)">
+        <span class="shp" data-s="flower" data-c="red" data-m="grin" data-fs-dance style="--size:110px"></span>
+        <span class="shp" data-s="arch" data-c="blue" data-m="happy" data-fs-dance style="--size:110px"></span>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>parallax · spin</small>move at your own speed</h3>
+        <p>Layers move faster, slower, sideways or in circles while you scroll. Depth, the cheap way.</p>
+<pre>&lt;div data-fs-parallax="-0.5"&gt;…&lt;/div&gt;
+&lt;div data-fs-parallax-x="0.8"&gt;…&lt;/div&gt;
+&lt;div data-fs-spin="360"&gt;…&lt;/div&gt;</pre>
+      </div>
+      <div class="demo" style="background:var(--butter)">
+        <span class="shp" data-s="circle" data-c="blue" data-m="wow" data-fs-parallax="-0.4"></span>
+        <span class="shp" data-s="square" data-c="red" data-m="grin" data-fs-spin="540"></span>
+        <span class="shp" data-s="triangle" data-c="yellow" data-m="happy" data-fs-parallax-x="0.3"></span>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>whimsical</small>float · jelly</h3>
+        <p>Float bobs forever, for no reason. Jelly squishes when you touch it.</p>
+<pre>&lt;img data-fs-float src="…"&gt;
+&lt;button data-fs-jelly&gt;squish&lt;/button&gt;</pre>
+      </div>
+      <div class="demo" style="background:var(--sky)">
+        <span class="shp" data-s="half" data-c="yellow" data-m="sleepy" data-fs-float style="--size:110px"></span>
+        <button class="btn" data-fs-jelly style="background:var(--red); color:var(--white)">squish me</button>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>drag and drop</small>drag</h3>
+        <p>Let people rearrange your page. It's their page too.</p>
+<pre>&lt;div data-fs-drag&gt;…&lt;/div&gt;</pre>
+      </div>
+      <div class="demo" style="background:var(--yellow)">
+        <span class="shp" data-s="circle" data-c="red" data-m="happy" data-fs-drag></span>
+        <span class="shp" data-s="square" data-c="blue" data-m="wink" data-fs-drag></span>
+        <span class="shp" data-s="flower" data-c="white" data-m="grin" data-fs-drag></span>
+        <span class="shp" data-s="triangle" data-c="red" data-m="wow" data-fs-drag></span>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>tiltscroll</small>tilt</h3>
+        <p>On phones, things lean when you tilt the device. On desktop, they follow the mouse. iPhones need permission, so call <code>FS.enableTilt()</code> from a button.</p>
+<pre>&lt;div data-fs-tilt="30"&gt;…&lt;/div&gt;
+&lt;button onclick="FS.enableTilt()"&gt;tilt!&lt;/button&gt;</pre>
+      </div>
+      <div class="demo" style="background:var(--blush)">
+        <span class="shp" data-s="arch" data-c="yellow" data-m="wow" data-fs-tilt="40"></span>
+        <span class="shp" data-s="circle" data-c="blue" data-m="happy" data-fs-tilt="20"></span>
+        <button class="btn replay" onclick="FS.enableTilt()">📱 tilt</button>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>custom cursors</small>cursor</h3>
+        <p>Any emoji becomes the cursor inside an element.</p>
+<pre>&lt;section data-fs-cursor="🍓"&gt;…&lt;/section&gt;</pre>
+      </div>
+      <div class="demo" data-fs-cursor="🍓" style="background:var(--butter)">
+        <div class="big">hover here 🍓</div>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>no way out? way out.</small>door</h3>
+        <p>A button that takes people somewhere random, outside your site. The anti-retention button.</p>
+<pre>&lt;a data-fs-door='["https://neal.fun/deep-sea/",
+  "https://zzz.zoomquilt.org"]'&gt;surprise me&lt;/a&gt;</pre>
+      </div>
+      <div class="demo" style="background:var(--sky)">
+        <a class="btn" style="background:var(--yellow)" data-fs-door='["https://neal.fun/deep-sea/","https://zzz.zoomquilt.org","https://playhtml.fun/fridge"]' href="#">🚪 surprise me</a>
+      </div>
+    </div>
+
+    <div class="recipe">
+      <div>
+        <h3><small>slowscroll · sideways scroll · (not) infinite</small>sections</h3>
+        <p>Turn a section into a sideways ride, or slow it down so time feels different. The <a href="index.html">home page</a> uses both.</p>
+<pre>&lt;section data-fs-horizontal&gt;
+  &lt;div class="fs-sticky"&gt;
+    &lt;div data-fs-track&gt;…panels…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section data-fs-slow="0.3"&gt;
+  &lt;div class="fs-sticky"&gt;
+    &lt;div data-fs-track&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+<span class="c">&lt;!-- a bar that fills as the page ends --&gt;</span>
+&lt;div data-fs-progress style="position:fixed;…"&gt;&lt;/div&gt;</pre>
+      </div>
+      <div class="demo" style="background:var(--ink); color:var(--white); flex-direction:column">
+        <div class="big" style="color:var(--yellow)">see it live</div>
+        <a class="btn" href="index.html" style="color:var(--ink)">go to the home page →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="assets">
+  <div class="wrap">
+    <h2>logos, badges & the ring</h2>
+    <p class="sub">For your own funscrollable sites. Put the badge in a corner, join the ring, tell people where the idea comes from.</p>
+    <div class="tiles">
+      <div class="tile"><div class="show"><img src="assets/img/funscroll-icon.svg" width="110" height="110" alt="funscroll logo"></div><h3>compact logo</h3><p>Scrollcito on a blue tile. Works tiny, as a favicon or a corner stamp.</p><a class="btn" href="assets/img/funscroll-icon.svg" download>⬇ SVG</a></div>
+      <div class="tile"><div class="show"><img src="assets/img/scrollcito.svg" width="90" alt="scrollcito"></div><h3>scrollcito</h3><p>The mascot: a scrollbar thumb that escaped. ▲ hat, ▼ shoes.</p><a class="btn" href="assets/img/scrollcito.svg" download>⬇ SVG</a></div>
+      <div class="tile"><div class="show" style="gap:10px; grid-auto-flow:row"><img src="assets/img/badge-88x31.png" width="88" height="31" alt="funscrollable badge" style="image-rendering:pixelated"><img src="assets/img/badge-176x62.png" width="176" height="62" alt=""></div><h3>88×31 badge</h3><p>The classic web-button size, from when websites had badges.</p><a class="btn" href="assets/img/badge-176x62.png" download>⬇ PNG</a></div>
+    </div>
+<pre style="margin-top:30px"><span class="c">&lt;!-- badge in a corner of your site --&gt;</span>
+&lt;a href="https://funscroll.life"&gt;&lt;img src="https://funscroll.life/assets/img/badge-176x62.png" width="88" height="31" alt="funscrollable"&gt;&lt;/a&gt;
+
+<span class="c">&lt;!-- the webring widget --&gt;</span>
+&lt;div id="funscroll-ring"&gt;&lt;/div&gt;
+&lt;script src="https://funscroll.life/kit/ring.js" defer&gt;&lt;/script&gt;</pre>
+    <p style="margin-top:30px; font: 400 24px/1.1 var(--serif)">Made something? <a href="funscrollers.html#ring" style="color:var(--yellow)">Join the funscroll ring →</a></p>
+  </div>
+</section>
+
+<script src="assets/js/site.js"></script>
+<script src="kit/funscroll.js"></script>
+<script>
+document.getElementById('replay').addEventListener('click', () => {
+  document.querySelectorAll('#revealDemo [data-fs-reveal]').forEach(el => {
+    el.classList.remove('fs-in');
+    setTimeout(() => el.classList.add('fs-in'), 400);
+  });
+});
+</script>
+</body>
+</html>

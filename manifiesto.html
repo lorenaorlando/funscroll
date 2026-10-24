@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUNSCROLL — el manifiesto (un pergamino)</title>
+<meta name="description" content="FUNSCROLL: contra la trampa del doomscroll. El ensayo completo, en forma de pergamino que se desenrolla y se acaba.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,900;1,9..144,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/funscroll.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+:root { --parch: #F6F0DF; --parch-edge: #E3D6B4; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--blue); display: flex; flex-direction: column; }
+header { display: flex; align-items: center; gap: 16px; padding: 16px 22px 0 80px; color: var(--white); flex-wrap: wrap; }
+header h1 { font-weight: 800; font-size: clamp(26px, 3vw, 40px); letter-spacing: -.04em; }
+header h1 span { font: italic 400 1em var(--serif); letter-spacing: 0; color: var(--yellow); }
+.lang { margin-left: auto; display: flex; border: 2.5px solid var(--ink); border-radius: 30px; overflow: hidden; box-shadow: 3px 3px 0 var(--ink); }
+.lang button { border: none; color: var(--ink); background: var(--white); padding: 6px 14px; font: 500 13px var(--mono); }
+.lang button.on { background: var(--yellow); }
+.stage { flex: 1; position: relative; margin: 18px 70px 0; min-height: 0; }
+.rod { position: absolute; top: -14px; bottom: -14px; width: 46px; border-radius: 23px; z-index: 3; border: 3px solid var(--ink);
+  background: linear-gradient(90deg, #C9A86A, #F3DFAE 40%, #D4B57A 70%, #9C7A44); }
+.rod::before, .rod::after { content: ''; position: absolute; left: 50%; translate: -50% 0; width: 30px; height: 30px; border-radius: 50%; background: var(--red); border: 3px solid var(--ink); }
+.rod::before { top: -22px; } .rod::after { bottom: -22px; }
+.rod.l { left: -24px; } .rod.r { right: -24px; }
+.paper { position: absolute; inset: 0; background: var(--parch); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+  overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior: contain; }
+.paper::-webkit-scrollbar { display: none; }
+article { height: 100%; padding: 44px 60px 40px; column-width: 340px; column-gap: 70px; column-fill: auto; column-rule: 1.5px dashed rgba(23,21,31,.18);
+  font: 300 17px/1.55 'Fraunces', Georgia, serif; color: var(--ink); width: max-content; min-width: 100%; }
+article[hidden] { display: none; }
+article h1 { font: 900 50px/.92 'Fraunces', serif; letter-spacing: -.02em; margin-bottom: 26px; break-after: avoid; }
+article h2 { font: 900 30px/1 'Fraunces', serif; letter-spacing: -.01em; margin: 26px 0 12px; break-after: avoid; color: var(--blue); }
+article h3 { font: 800 19px/1.1 var(--display); letter-spacing: -.02em; margin: 18px 0 6px; break-after: avoid; }
+article h2 + p::first-letter { font: 900 3.4em/.8 'Fraunces', serif; float: left; margin: 6px 8px 0 0; color: var(--red); }
+article p { margin-bottom: 12px; text-wrap: pretty; }
+article ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+article li { font: 500 13px var(--mono); border: 1.5px solid var(--ink); border-radius: 20px; padding: 3px 10px; background: var(--white); }
+article code { font: 500 13px var(--mono); background: rgba(59,91,255,.1); padding: 1px 4px; border-radius: 4px; }
+article a { color: var(--blue); }
+article .video { break-inside: avoid; margin: 10px 0 16px; border: 2.5px solid var(--ink); border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; }
+article .video iframe { width: 100%; height: 100%; border: 0; display: block; }
+article .fin { break-before: column; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 18px; }
+article .fin b { font: 900 70px/1 'Fraunces', serif; color: var(--red); }
+article .fin .who { width: 110px; }
+article .fin .who svg { animation: wave 1.2s ease-in-out infinite alternate; transform-origin: 50% 90%; }
+@keyframes wave { from { rotate: -10deg; } to { rotate: 10deg; } }
+footer { display: flex; align-items: center; gap: 16px; padding: 26px 180px 26px 80px; color: var(--white); font: 500 13px var(--mono); }
+footer .bar { flex: 1; height: 10px; border: 2px solid var(--ink); border-radius: 10px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; color: var(--yellow); }
+footer .bar::after { content: ''; position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--fs-p, 0)); background: var(--yellow); }
+footer .left { background: var(--white); color: var(--ink); border: 2px solid var(--ink); border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
+.peek { position: absolute; z-index: 4; --size: 64px; }
+.helm-hint { display: none; }
+@media (max-width: 700px) {
+  header { padding-left: 70px; }
+  .stage { margin: 14px 26px 0; }
+  .rod { width: 30px; } .rod.l { left: -16px; } .rod.r { right: -16px; }
+  article { column-width: calc(100vw - 110px); column-gap: 50px; padding: 30px 34px; font-size: 16px; }
+  footer { padding: 18px 130px 18px 20px; }
+  footer #where { display: none; }
+  article h1 { font-size: 34px; }
+  article h2 { font-size: 26px; }
+  .peek { display: none; }
+}
+</style>
+</head>
+<body data-base="" data-track="off">
+<a class="topbar" href="index.html" aria-label="funscroll home"><img src="assets/img/funscroll-icon.svg" alt=""></a>
+<header>
+  <h1>manifiesto <span>— un pergamino</span></h1>
+  <div class="lang" role="group" aria-label="language">
+    <button data-l="es" class="on">ES</button><button data-l="en">EN</button>
+  </div>
+</header>
+<div class="stage">
+  <span class="shp peek" data-s="circle" data-c="yellow" data-m="wow" style="left:42%; top:-46px" data-fs-float></span>
+  <span class="shp peek" data-s="triangle" data-c="red" data-m="grin" style="right:20%; bottom:-40px" data-fs-float></span>
+  <div class="rod l"></div><div class="rod r"></div>
+  <div class="paper" id="paper">
+    <article lang="es" id="es">
+      <h1>FUNSCROLL: Contra la trampa del Doomscroll</h1>
+      <h2>Secuestrados por el Doomscroll</h2>
+      <p>El doomscroll es la práctica más común en el uso de internet del presente. Nace por las imposiciones de algoritmos, formatos y hábitos de consumo diseñado intencionalmente por las redes sociales. Un sistema de consumo pasivo cuya interactividad no es directa, su función es la recopilación de datos y creación de un perfilamiento íntimo del usuario que finalmente utiliza esa información con fines comerciales. Las redes sociales mutaron de ser un lugar de encuentro público a un centro comercial, donde casi todo el estímulo visual que recibimos al visitarlo tiene adjunta una etiqueta de precio. Encerrados en esa dinámica de consumo pasivo, al humano se le arranca de forma muy sutil no solo su cualidad de ser vivo, sino también su autonomía. El usuario no elige qué ver; la máquina algorítmica toma las decisiones por él y se las presenta sin la opción de bidireccionalidad u autonomía. Esto corresponde a los intereses de la empresa que maneja ese algoritmo: cómo quieren que reaccione el usuario siempre en función de la acumulación de datos con fines de exponerlo a la publicidad más atractiva posible para él.</p>
+      <p>Este uso es limitado en sus interacciones. El autor de los posts no puede elegir cómo las personas van a interactuar con lo que publica, se limita a una serie de respuestas ya predefinidas e inamovibles: like, comentario, guardado y compartido. Más allá de esos límites no hay otra forma de establecer una acción del usuario con el autor. Esta dinámica es intencional, adiestra a los usuarios a accionar de maneras específicas una y otra vez, cerrando la puerta a otro tipo de relación con lo publicado. También adiestra al que publica a adaptarse a estas acciones limitadas y medir el impacto de su publicación bajo estos parámetros arbitrarios, inventados por las empresas de tecnología, que en modo abstracto carecen de significado.</p>
+      <h2>El hábito adictivo y pasivo del doomscroll</h2>
+      <p>Otra característica de este problema es que con el tiempo pasó de ser una forma de consumo a un hábito que termina desarrollado en adicción. Adicción silenciosa y generalizada que un gran porcentaje de usuarios de redes no reconoce a pesar de que está ahí. El vacío que sienten las personas en momentos de espera u ocio al no tener el celular en la mano, tal como un chupón o un cigarrillo, es un síntoma de gravedad. El doomscroll exige atención ilimitada y pasiva durante horas, simula un rapto o un acto de hipnosis desprendiéndole la autonomía al usuario. Este consumo pasivo es completamente improductivo intelectualmente e incluso puede llegar a ser negativo emocionalmente. La sesión de scroll no deja rastros de memoria (a menos que el usuario pase el primer obstáculo de fricción que requiere la actividad del guardado); después de horas de recibir todo tipo de información desestructurada y randomizada, pocas veces somos capaces de recordar todo lo que vimos. La excepción de este caso es el rage-bait, que sí queda registrado en la memoria anclado a un sentimiento negativo y destructivo. El doomscroll resulta en una actividad de adormecimiento que pocas veces aporta algo constructivo al individuo.</p>
+      <p>Es un desperdicio limitar la interacción humana con un dispositivo que tiene capacidad de recibir un input, al contrario de cualquier formato unidireccional donde el usuario no tiene cómo relacionarse con lo que consume de forma directa e inmediata que no puede explorar y tocar digitalmente. Puede que el diseño de estas interacciones domestiquen un uso del usuario que sea repetitivo, predecible, que entre dentro de un patrón y así termine convertido en hábito. Cuando una interfaz invita no solo a interactuar activamente con ella sino también a salir de ella en pro de la experiencia exploratoria implícita que tuvo el internet en sus inicios, esto resulta amenazante para las plataformas cuyo objetivo es no dejarte salir de ellas, sino mantenerte repitiendo el patrón que te imponen desde su interfaz.</p>
+      <h2>No way out</h2>
+      <p>Es de público conocimiento que el uso de links externos en redes sociales, aunque no de forma evidente, es castigado. Darle una señal a la audiencia para salir de la plataforma e interrumpir el scroll o swap di stories correspondería a un pecado dentro de ese sistema. Quizás porque saben que de repente, si un usuario entra a ese link, pueda encontrar algo más interesante de lo que estaba viendo antes, o que lo lleve a una plataforma de la competencia, o que simplemente rompa el hábito que constantemente tiene que ser repetido en función de crear una adicción a la plataforma y, por lo tanto, se pierda la atención que será dirigida a ver publicidad. Es una especie de secuestro digital: la atención queda encerrada en un solo sitio donde el usuario tiene las llaves para salir, pero ha sido tan condicionado al encierro que al momento que entra a ese sitio olvida la existencia de esa llave. Las redes sociales no quieren que el usuario salga de ellas, su objetivo es la retención. No es casualidad que una de las métricas más importantes hoy en día en los analytics sea precisamente la de la retención, que recalca lo poco atractivo (es decir, lo poco polémico, escandaloso, amarillista o simplemente estúpido) del contenido que el usuario postea, llevándolo lentamente a adaptarse a un esquema de búsqueda de atención a toda costa donde se desfiguren las intenciones iniciales de la propuesta del autor.</p>
+      <h2>FUNSCROLL: la alternativa</h2>
+      <p>El FUNSCROLL se presenta como una alternativa al doomscroll. Como bien dice su nombre, invita a una experiencia que remite a la diversión, no a la condena. Es la creación de nuevas interfaces digitales libres de patrones de interacción repetitivos. En el FUNSCROLL la lógica de uso es libre: scrollear de abajo hacia arriba, de arriba hacia abajo, el descubrimiento de interacciones no esperadas, el incentivo a salir de la interfaz. La intención es crear un espacio donde la propuesta vaya más allá de lo informativo, que el visionado en él sea una experiencia. Tiene una propuesta más cercana a la creación artística que a la de un portal informativo.</p>
+      <h2>El funscroll sin objetivos: la libertad de lo inútil</h2>
+      <p>Es por defecto un espacio sin objetivos concretos, que no pretende producir resultados cuantificables. El éxito de un espacio digital como este es imposible de medir, ya que no existen métricas para medir la sensación de diversión, descubrimiento, felicidad y curiosidad. Los datos comunes en las métricas suelen ser más fríos y desalmados. El FUNSCROLL fomenta la libertad de lo inútil. En un presente de funnels, leads, conversions y CTAs, aquí las interacciones inútiles, que no generen más que asombro o curiosidad sin un objetivo comercial de ningún tipo, son bienvenidas. Se abre la puerta a la incoherencia y lo absurdo, si es que el autor quiere jugar con esas ideas. Va mano a mano con el ocio, con los momentos donde el ser humano no necesita ser productivo; momentos que sirven para nutrir nuestras vidas pero han sido desperdiciados por la imposición del doomscroll.</p>
+      <p>El ideal del FUNSCROLL propone nuevas formas de relacionarnos con el internet y los dispositivos que usamos día a día, inspiradas en la libertad exploratoria y el misterio interactivo de cómo se vivió la web 1.0. Rompe con la lógica algorítmica y libera del grid matemático a nuestras existencias digitales. Cambia el hábito adictivo del doomscroll por una experiencia voluntaria. Es un llamado a la manifestación creativa de nuestras identidades, ideales o proyectos en internet. Una manifestación que al otro lado de la pantalla invite al usuario a interactuar con las pantallas de otras formas, aprovechando el hábito ya establecido del scroll para ser experimentado de formas no lineales, incitando al salto entre enlaces que enriquezcan y expandan la experiencia inicial.</p>
+      <p>El objetivo, si es que hay alguno más allá de difundir esta idea, es el de la creación de nuevos sets de usos de todos esos dispositivos que, a pesar de estar colmados por una casi infinita serie de herramientas y posibilidades, las apps dominantes lograron domesticar al usuario para que la mayor parte de su uso esté encerrado en 3 o 4 apps distintas.</p>
+      <h2>Humanizando la pantalla: funscroll y el usuario</h2>
+      <p>La interactividad es movimiento y el movimiento es vida. Una interfaz FUNSCROLLeable se caracteriza por reconocer que hay un humano del otro lado, no un consumidor pasivo. Al asumir este principio se abre la puerta a toda una serie de posibilidades para el usuario: el descubrimiento, la sorpresa y todo lo que pueda generar sensaciones nutritivas y positivas en él. Se convierte, así, en parte de la coreografía de la interfaz, como un acto de danza donde se invita a los espectadores a bailar también. La experiencia es bidireccional; el autor ofrece un universo donde el usuario puede ser parte activa.</p>
+      <p>Cultivar otro tipo de comportamientos entre el usuario y la pantalla resultará beneficioso, pues representa una ruptura del hábito de scrollear pasivamente e interactuar con el otro mediante un set limitado de acciones establecidos por las plataformas. Sirve como el típico reemplazo de impulsos que se aconseja en los procesos de dejar las adicciones; en vez de entrar a una plataforma predecible, el usuario de forma voluntaria reemplaza una experiencia que corroe su ser por una que lo nutre.</p>
+      <h2>Las sensaciones del funscroll</h2>
+      <p>Hay ciertos elementos interesantes de invocar en este tipo de interfaces. Se invita a crear resignificaciones digitales de experiencias reales como lo táctil, el sentido del paso del tiempo, la profundidad, lo tridimensional, todo aquello que remita a la experiencia humana. Las sensaciones tienen un lugar protagonista: más que ver (<i>to see</i>) una web, sentimos (<i>to feel</i>) la web. Todo lo que genere un impulso activo y voluntario del usuario reemplaza el doom por fun, por la curiosidad, por la sensación de fascinación, donde el elemento inmersivo puede aportar una capa de significado y posibles modos de crear.</p>
+      <h2>Ideas inspiradoras para el diseño funscroll</h2>
+      <p>El FUNSCROLL puede moverse en todas las direcciones: de arriba abajo, del centro a abajo o arriba, de la esquina izquierda a la derecha, al revés, en cámara lenta o rápida. La exploración scrolleable del espacio tiene la libertad de desafiar al scroll vertical como única forma de interacción con la pantalla. Sugiere acciones manuales: click, tap, una constante manipulación de nuestros dispositivos. Puede evocar distintas formas de experimentar el tiempo mediante la velocidad del scroll y de los elementos animados, entre otros. Es libre de mutar en todos sus modos de uso, velocidades, imaginarios, interacciones y lo que conforma su universo conceptual.</p>
+      <p>La idea del FUNSCROLL no tiene lineamientos fijos, pues invita a que cada autor pueda experimentar con su visión creativa dentro de las posibilidades de la interfaz. Sin embargo, hay ciertos conceptos disparadores que pueden servir de base en su ejecución. La experimentación e interpretación de estos conceptos es abierta:</p>
+      <h3>Conceptos creativos del funscroll</h3>
+      <ul><li>Frolic</li><li>Whimsical</li><li>Float</li><li>Dance</li><li>Move</li><li>Say</li><li>Image</li><li>Think</li></ul>
+      <h3>Propiedades de código y estados del DOM</h3>
+      <p>Y en términos técnicos, estas son algunas de las propiedades de interactividad nativa y estados del DOM que materializan este movimiento y le dan vida al imaginario del FUNSCROLL:</p>
+      <p><b>CSS:</b> <code>position: absolute</code>, <code>position: sticky</code>, <code>:hover</code>, slide up / down / from right / from left, <code>scroll-behavior: smooth</code>, efectos parallax, <code>clip-path</code> / masking, cursores personalizados.</p>
+      <p><b>JavaScript / eventos del DOM:</b> <code>mouseenter</code>, <code>mouseleave</code>, tap, click, double tap, drag and drop.</p>
+      <h2>Glosario del funscroll: nuevas formas de navegar</h2>
+      <h3>Dancescroll</h3>
+      <p>El acto del scroll pasa a ser una coreografía entre la interfaz y el usuario.</p>
+      <h3>Slowscroll</h3>
+      <p>Se ralentiza el ritmo del scroll en función de evocar sensaciones distintas del tiempo.</p>
+      <h3>Smartscroll</h3>
+      <p>Scrollear e interactuar con la pantalla con ingenio y curiosidad.</p>
+      <h3>(not) Infinite scroll</h3>
+      <p>Hacer una larga experiencia de scrollear que, aunque tome tiempo, eventualmente llega a un final. Darle un cierre a la experiencia.</p>
+      <h3>Orientationscroll / Tilt-interaction</h3>
+      <p>El acto de inclinar o rotar físicamente el dispositivo (aprovechando el giroscopio y acelerómetro nativos) para alterar el flujo del scroll.</p>
+      <h2>El funscroll y la responsividad</h2>
+      <p>Si bien la creación bajo el FUNSCROLL tiene libertad de ser diseñada con cualquier tipo de dispositivo en mente, es evidente que una pantalla grande (en términos de móvil, tablet, desktop) ofrece un lienzo más grande y un set más diverso de interacciones. Incluso sería interesante explorar una interfaz que mute radicalmente según el dispositivo en el que se use. Los dispositivos con giroscopio y acelerómetro, como celulares y tablets, tienen muchísimo potencial para explotar muchos más sistemas de interacciones.</p>
+      <h2>Caso de estudio: funscroll en <a href="https://lorenaorlando.com/" target="_blank" rel="noopener">lorenaorlando.com</a></h2>
+      <figure class="video"><iframe src="https://www.youtube.com/embed/qTI0qx394Us" title="lorenaorlando.com walkthrough" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></figure>
+      <p>Después de fantasear e ir construyendo la idea de este nuevo término y propuesta, quise llevar esos conceptos a la práctica mediante el diseño de mi página web personal. Ésta fue construida en Framer, con un uso mínimo de wireframes referenciales y fragmentos de código muy puntuales. Como parte del proceso creativo inicial hice una colección de +100 elementos gráficos junto a numerosas imágenes de mi archivo personal, incluyendo fotografías familiares, series fotográficas, portadas de álbumes e incluso una pequeña colección de memes de mi autoría. La selección de las imágenes fue intencionalmente azarosa: quise integrar la naturaleza desestructurada de la propuesta desde su misma construcción.</p>
+      <h3>Comunicación no-verbal y uso de emojis</h3>
+      <p>La propuesta de esta web es comunicar la mayor cantidad de cosas posibles usando la menor cantidad de palabras posibles (salvo en la integración de distintos embeds). Usando la comunicación no verbal como eje de la experiencia en ella, tratando de crear un idioma hecho de símbolos, metáforas, imágenes y movimiento, abriéndole el paso, también, a la fantasía. Este idioma se caracterizó por la diversidad de elementos gráficos y de archivo personal que, aunque pertenezcan a distintos imaginarios y naturalezas, coexisten bajo una nueva coherencia narrativa propia. Tanto lo plástico, como lo animal, como lo mineral, lo digital, lo orgánico, lo personal y lo artificial se entremezclan, creando la sensación de lanzar una caja gigante con una gran variedad de objetos en una cama.</p>
+      <p>Es bajo esta misma lógica de lo no-verbal que, en la sección del timeline de mi carrera, escogí representar los hitos de mi vida con emojis. Los emojis son otra forma de idioma universal, una suerte de jeroglíficos del internet que tienen sus propios códigos e interpretaciones; sin embargo, están abiertos a distintos usos que dependen del contexto. Si bien hay eventos que pueden representarse fácilmente con emojis, otros proyectos creativos fueron más difíciles de describir con este lenguaje, pero justamente el aspecto críptico de estas descripciones es una invitación al descubrimiento basado en la curiosidad. Ya que el emoji evoca en vez de dictar una definición, el usuario se proyecta en las interpretaciones que le da a estos símbolos, haciendo una experiencia compartida donde la autora (yo) no tiene poder de establecer definiciones fijas y depende del usuario las interpretaciones que asuma desde su experiencia de dichos elementos visuales.</p>
+      <h3>El archivo viviente: un anti-portafolio</h3>
+      <p>Aproveché el espacio para hacer una muestra de casi todo mi trabajo artístico del 2003 hasta el día de hoy; sin embargo, la web no tiene el objetivo de fungir como portafolio. En vez de crear un archivo sistematizado y racional, opté por la vía de un archivo viviente, mutante, que despliega sus ramas a la par del movimiento del usuario, creando un universo propio. Seguido por un timeline de hitos artísticos y experiencias de vida. Tal timeline está en constante ampliación y edición, no solo a medida que pasa el tiempo linealmente, sino también en el proceso de recuperación de recuerdos y descubrimiento de archivos personales perdidos o no digitalizados.</p>
+      <h3>Proceso creativo: forzar el navegador como un lienzo</h3>
+      <p>En términos estéticos, tuvimos un proceso de improvisación mediante iteraciones de colores, assets, animaciones y posiciones. Los elementos elegidos fueron encontrando su lugar y movimiento de forma orgánica. En este sentido, mi aproximación al modelado de este espacio fue más cercana a lo que se crearía en un software como Photoshop o mediante el collage. Fue una contienda contra las lógicas matemáticas implícitas del diseño web. Siendo este un medio construido a base de código, por más libre que parezca la posibilidad de un lienzo blanco digital, los elementos dentro de él aún deben corresponder a los sistemas un poco más rígidos nativos de la programación. Es un intento consciente de forzar al navegador a comportarse de forma plástica: más parecido a un lienzo que a una línea de terminal.</p>
+      <h3>Romper la UI: nuevos elementos de navegación</h3>
+      <p>La falta de lógica y orden (en términos de lo que se le exige a cualquier artista en su presencia digital) acompañadas por el lenguaje no-verbal y la invitación a una interacción intuitiva son anclados por dos elementos fijos que acompañan el scroll: una bola de disco giratoria que hace las veces de un menú tradicional (y sus elementos internos también están representados a través de imágenes, evitando la palabra) y una isla flotante con mi cabeza asomándose tras ella que acompaña al usuario en gran parte del scroll. Este choque contra los elementos simbólicos tradicionales del UI y los formatos impuestos por el marketing sobre la presentación visual de la identidad de un artista en internet, puede causar una descolocación mental del usuario, como si hubiese viajado de un país a otro dentro del internet. Al no haber símbolos predecibles como el corazón del like, el marcador del save, la burbuja del comentario u otros grafos del UI como el menú hamburger o la lupa de búsqueda, el usuario se encuentra ante un vacío similar al de la web primitiva de la década de los noventa. De repente, debe adaptarse al idioma de ese nuevo país de la forma más intuitiva posible. Cada interacción, entonces, equivale a una pregunta sobre direcciones a un extraño en la calle, o al golpeteo en una puerta de un establecimiento cerrado, forma parte de la adaptación natural del ser humano a la novedad y al asombro.</p>
+      <h3>Always under construction</h3>
+      <p>Esta web funciona bajo la filosofía del “always under construction”, que la desata de formatos definidos. El plan es que se vaya alimentando, cambiando y redefiniendo con el paso del tiempo. Tiene la libertad de editarse y reinterpretarse, desafiando la lógica de las identidades fijas e inmutables de nuestros perfiles en redes sociales.</p>
+      <h2>Entonces, ¿qué es el funscroll?</h2>
+      <p>El FUNSCROLL es lo que el creador quiera que sea, no tiene reglas ni límites, solo fuentes de inspiración. Se presenta como la posibilidad de abrir una grieta en la monotonía de nuestro uso de dispositivos. Un espacio de navegación nutritiva y lúdica que transforma la experiencia del internet desde sus formas y usos. Recuperar la diversión es recuperar la autonomía. Romper con la lógica del consumo pasivo y del algoritmo es un acto de desobediencia digital. La creación de interfaces FUNSCROLLeables puede cambiar el paradigma de nuestra relación con el internet a partir de la construcción de espacios que inviten al usuario a ser parte activa de la experiencia. Rompe con hábitos repetitivos y los patrones de comportamiento impuestos por las plataformas.</p>
+      <div class="fin"><b>fin.</b><div class="who halo" id="who1"></div><p>Este pergamino se acabó. Ahora ve a <a href="funscrollers.html">ver a los funscrollers</a> o <a href="kit.html">haz el tuyo</a>.</p></div>
+    </article>
+    <article lang="en" id="en" hidden>
+      <h1>FUNSCROLL: Escaping the Doomscroll trap</h1>
+      <h2>We are hostages of Doomscrolling</h2>
+      <p>Doomscrolling is the most common practice in present-day internet usage. It is born out of the impositions of algorithms, formats, and consumption habits intentionally designed by social media. A system of passive consumption whose interactivity is never direct; its sole function is data harvesting and the creation of an intimate user profiling that ultimately weaponizes this information for commercial ends.</p>
+      <p>Social media mutated from being public meeting grounds to shopping malls, where almost every visual stimulus we receive upon visiting comes with a price tag attached. Trapped within this dynamic of passive consumption, humans are subtly stripped of not only their quality of living beings, but also their autonomy.</p>
+      <p>The user does not choose what to see; the algorithmic machine makes the decisions for them and serves them on a silver platter, entirely devoid of bidirectionality or autonomy. This aligns strictly with the interests of the corporation behind the algorithm: dictating how they want the user to react, always in function of data accumulation, with the ultimate goal of exposing them to the most commercially enticing advertising possible.</p>
+      <p>This usage is deeply constrained in its interactions. The author of the posts cannot choose how people will interact with what they publish; they are restricted to a series of predefined, immovable responses: like, comment, save, and share. Beyond those boundaries, there is no other way to establish an action between the user and the author.</p>
+      <p>This dynamic is intentional: it conditions users to act in specific, repetitive ways over and over again, closing the door on any other type of relationship with the published content. It also conditions the creator to adapt to these limited actions, forcing them to measure the impact of their work under these arbitrary parameters invented by tech companies, parameters that, in an abstract sense, are entirely devoid of meaning.</p>
+      <h2>The addictive habit of doomscrolling</h2>
+      <p>Another defining characteristic of this problem is that, over time, it shifted from a form of consumption into a habit that ultimately hardens into an addiction. A silent, pervasive addiction that a massive percentage of social media users fail to recognize, despite it being right there.</p>
+      <p>The emptiness people feel in moments of waiting or leisure when they don’t have a phone in their hand that acts just like a pacifier or a cigarette, is a severe symptom. The doomscroll demands limitless, passive attention for hours; it simulates a hijacking or an act of hypnosis, draining the user’s autonomy.</p>
+      <p>This passive consumption is entirely unproductive intellectually and can even turn negative emotionally. A scroll session leaves no memory traces; after hours of receiving all kinds of unstructured and randomized information, we are seldom capable of remembering what we saw.</p>
+      <p>The sole exception to this rule is rage-bait, which does get stamped into memory, anchored to a negative and destructive sentiment. The doomscroll ultimately results in an activity of numbing down that rarely contributes anything constructive to the individual.</p>
+      <p>It is a complete waste to limit human interaction with a device that possesses the capacity to receive an input, contrary to any unidirectional format where the user has no way of relating directly and immediately to what they consume, unable to explore it or touch it digitally.</p>
+      <p>The design of these interactions tames user behavior into something repetitive and predictable, forcing it into a pattern that eventually petrifies into a habit. When an interface invites you not only to interact actively with it but also to step outside of it in favor of the implicit exploratory experience that the internet possessed in its early days, it becomes a direct threat to platforms whose sole objective is to never let you leave, keeping you repeating the loop they impose through their UI.</p>
+      <h2>NO WAY OUT</h2>
+      <p>It is public knowledge that using external links on social media, though not overtly stated, is heavily penalized. Dropping a signal for the audience to leave the platform and interrupt the scroll or the swap of stories amounts to a sin within that system.</p>
+      <p>Perhaps because they know that if a user clicks that link, they might suddenly find something far more interesting than what they were watching before, or it might lead them to a competitor’s platform, or simply shatter the loop that must be constantly repeated to feed the addiction, subsequently losing the attention capital that was meant to be funneled into advertising.</p>
+      <p>It is a form of digital kidnapping: attention is locked inside a single place where the user actually holds the keys to get out, but has been so deeply conditioned to confinement that the moment they step inside, they forget the key even exists.</p>
+      <p>Social media do not want the user to leave; their target is retention. It is no coincidence that one of the most vital metrics in today’s analytics is precisely retention. It highlights how unappealing the content posted by the user is, slowly dragging them to adapt to a scheme of attention-seeking at all costs where the initial intentions of the author’s proposal become entirely disfigured.</p>
+      <h2>FUNSCROLL: The Alternative</h2>
+      <p>FUNSCROLL presents itself as an alternative to the doomscroll. True to its name, it invites an experience that harks back to playfulness, not condemnation. It is the creation of new digital interfaces liberated from repetitive interaction loops.</p>
+      <p>Within the FUNSCROLL, the logic of use is entirely free: scrolling from bottom to top, top to bottom, discovering unexpected interactions, and incentivizing the user to exit the interface. The intention is to build a space where the premise goes far beyond the merely informative and where the act of viewing becomes a lived experience. Its proposal stands much closer to artistic creation than to an informational portal.</p>
+      <h2>The freedom of the useless</h2>
+      <p>By default, it is a space without concrete goals, refusing to yield quantifiable results. The success of a digital space like this is impossible to gauge, as there are no metrics to measure playfulness, discovery, happiness, or curiosity. Standard analytical data tends to be cold and soulless.</p>
+      <p>FUNSCROLL fosters the freedom of the useless. In a present dictated by funnels, leads, conversions, and CTAs, here, the useless interactions that generate nothing but wonder or curiosity without any commercial objective whatsoever are fiercely welcomed. The door is thrown open to incoherence and the absurd, should the author choose to play with those concepts.</p>
+      <p>It walks hand in hand with leisure, those moments where the human being does not need to be productive; moments meant to nourish our lives that have been squandered by the enforcement of the doomscroll.</p>
+      <p>The ideal of the FUNSCROLL proposes new ways of relating to the internet and the devices we use every single day, inspired by the exploratory freedom and the interactive mystery of how Web 1.0 was once experienced. It shatters algorithmic logic and liberates our digital existences from the mathematical grid. It trades the addictive habit of the doomscroll for a voluntary experience.</p>
+      <p>It is a call to the creative manifestation of our identities, ideals, or projects on the internet. A manifestation that, on the other side of the screen, invites the user to interact with displays in alternative ways, hijacking the already established habit of the scroll to experience it non-linearly.</p>
+      <p>Incited by jumps between links that enrich and expand the initial exposure. The goal, if there is any beyond broadcasting this idea, is to create entirely new sets of uses for all those devices which, despite being packed with an almost infinite array of tools and possibilities, the dominant apps have successfully managed to domesticate the user into spending the vast majority of their usage locked inside 3 or 4 platforms.</p>
+      <h2>Humanizing the Screen</h2>
+      <p>Interactivity is movement and movement is life. A funscrolleable interface is characterized by recognizing that there is a human on the other side, not a passive consumer. By embracing this principle, a vast horizon of possibilities unlocks for the user: discovery, surprise, and everything capable of generating nourishing and positive sensations within them.</p>
+      <p>The user thus becomes part of the interface’s choreography, like a dance act where the audience is invited to dance along too. The experience is bidirectionally built; the author offers a universe where the user can be an active participant.</p>
+      <p>Cultivating a different set of behaviors between the user and the screen will prove beneficial, as it represents a clean break from the habit of scrolling passively and interacting with others through a restricted set of actions dictated by corporate platforms.</p>
+      <h2>Inspiring ideas for FUNSCROLL design</h2>
+      <p>The FUNSCROLL interface can move in all directions: from top to bottom, from the center downwards or upwards, from the left corner to the right, backwards, in slow motion, or at high speed. The scrolleable exploration of space has the liberty to defy vertical scrolling as the solitary way of interacting with a screen. It demands manual actions: click, tap, a constant manipulation of our devices.</p>
+      <h2>FUNSCROLL Creative concepts</h2>
+      <ul>
+      <li>Frolic & Whimsical</li>
+      <li>Float & Dance</li>
+      <li>Move & Say</li>
+      <li>Image & Think</li>
+      </ul>
+      <h2>Suggestions of code properties and DOM states</h2>
+      <h3>CSS</h3>
+      <ul>
+      <li>position: absolute / sticky</li>
+      <li>hover / scroll-behavior: smooth</li>
+      <li>parallax effects & custom cursors</li>
+      </ul>
+      <h3>JavaScript / DOM Events</h3>
+      <ul>
+      <li>mouseenter & mouseleave</li>
+      <li>tap, click, double tap</li>
+      <li>drag and drop</li>
+      </ul>
+      <h2>FUNSCROLL as a sensation</h2>
+      <p>There are certain compelling elements worth invoking in these types of interfaces. It invites us to create digital resignifications of real-world experiences such as touch, the perception of passing time, depth, and three-dimensionality: everything that points back to the human experience.</p>
+      <p>Sensations take center stage: rather than seeing a website, we feel the website. Anything that sparks an active, voluntary impulse from the user replaces the doom with fun, with curiosity, with a sense of fascination.</p>
+      <h2>The FUNSCROLL Glossary</h2>
+      <h3>Dancescroll</h3>
+      <p>The act of scrolling becomes a carefully designed choreography between the interface and the user.</p>
+      <h3>Slowscroll</h3>
+      <p>The rhythm of the scroll is intentionally decelerated to evoke alternative perceptions of time.</p>
+      <h3>Smartscroll</h3>
+      <p>Scrolling and interacting with the screen driven by wit and curiosity.</p>
+      <h3>(not) Infinite scroll</h3>
+      <p>Crafting a long scrolling experience that, while taking time, eventually reaches a definitive end. Giving the experience a sense of closure.</p>
+      <h3>Orientationscroll / Tilt-interaction</h3>
+      <p>The act of physically tilting or rotating the device to alter the flow of the scroll.</p>
+      <h2>Responsiveness & FUNSCROLL</h2>
+      <p>Devices equipped with gyroscopes and accelerometers, such as smartphones and tablets, hold massive potential to exploit deeper systems of interaction.</p>
+      <h2>Non-Verbal Communication</h2>
+      <p>The premise of this website is to communicate as much as possible using as few words as possible (save for the integration of various embeds). It positions non-verbal communication as the core axis of the experience.</p>
+      <h2>Case Study: LORENAORLANDO.COM</h2>
+      <figure class="video"><iframe src="https://www.youtube.com/embed/qTI0qx394Us" title="lorenaorlando.com walkthrough" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></figure>
+      <p>After fantasizing and piece-by-piece building the framework for this new term and proposal, I wanted to translate these concepts into practice through the design of my personal website. It was built using Framer, relying on a minimal use of referential wireframes.</p>
+      <p>Within the timeline section of the page I chose to represent my life milestones and artistic achievements using emojis.</p>
+      <h2>The Living Archive: An Anti-Portfolio</h2>
+      <p>I hijacked the space to showcase almost the entirety of my artistic work from 2003 up to the present day; however, the website does not aim to function as a traditional portfolio. Instead of structuring a systematized, rational archive, I opted for a living, mutating ecosystem that unfolds its branches in tandem with the user’s movement.</p>
+      <h2>Creative process: Canvas</h2>
+      <p>In aesthetic terms, I stepped into an improvisation process through iterations of colors, assets, animations, and spatial positionings. The chosen elements found their place and rhythm organically. It was a direct battle against the implicit mathematical logics of web design.</p>
+      <h2>Shattering the UI</h2>
+      <p>The lack of logic and order are anchored by two fixed elements that shadow the scroll: a spinning disco ball that serves as a traditional menu and a floating island with my head peeking from behind it.</p>
+      <p>Deprived of predictable UI affordances like the like heart, the save bookmark, the comment bubble, or other layout staples like the hamburger menu, the user encounters a void similar to that of the primitive web of the nineties.</p>
+      <p>Suddenly, they must adapt to the language of this new country in the most intuitive way possible.</p>
+      <h2>Always Under Construction</h2>
+      <p>This website operates under the “always under construction” philosophy, untethering it from defined formats. The plan is for it to constantly feed, alter, and redefine itself over time.</p>
+      <h2>So…what is FUNSCROLL?</h2>
+      <p>FUNSCROLL is whatever the creator wants it to be; it has no rules or limits, only sources of inspiration. It presents itself as the possibility of cracking open a rift in the monotony of our daily device usage. To reclaim play is to reclaim autonomy. To break away from the logic of passive consumption and the algorithm is an act of digital disobedience.</p>
+      <div class="fin"><b>the end.</b><div class="who halo" id="who2"></div><p>This scroll is over. Now go <a href="funscrollers.html">meet the funscrollers</a> or <a href="kit.html">make your own</a>.</p></div>
+    </article>
+  </div>
+</div>
+<footer>
+  <span id="where">desenrolla →</span>
+  <div class="bar" id="bar"></div>
+  <span class="left" id="left">fin en ~? min</span>
+</footer>
+<script src="assets/js/site.js"></script>
+<script src="kit/funscroll.js"></script>
+<script>
+document.getElementById('who1').innerHTML = FUN.SCROLLCITO;
+document.getElementById('who2').innerHTML = FUN.SCROLLCITO;
+const paper = document.getElementById('paper'), bar = document.getElementById('bar');
+const left = document.getElementById('left'), where = document.getElementById('where');
+let lang = 'es';
+const T = {
+  es: { hint: 'desenrolla → (rueda, trackpad o swipe)', left: m => `fin en ~${m} min`, end: 'llegaste al final ✿' },
+  en: { hint: 'unroll → (wheel, trackpad or swipe)', left: m => `ends in ~${m} min`, end: 'you reached the end ✿' },
+};
+// vertical wheel unrolls the scroll sideways
+paper.addEventListener('wheel', e => {
+  if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { paper.scrollLeft += e.deltaY; e.preventDefault(); }
+}, { passive: false });
+addEventListener('keydown', e => {
+  const step = { ArrowRight: 120, ArrowDown: 120, ArrowLeft: -120, ArrowUp: -120, PageDown: innerWidth * .8, PageUp: -innerWidth * .8, ' ': innerWidth * .8 }[e.key];
+  if (step) { paper.scrollBy({ left: step, behavior: 'smooth' }); e.preventDefault(); }
+});
+function words() { return document.getElementById(lang).innerText.split(/\s+/).length; }
+function update() {
+  const max = paper.scrollWidth - paper.clientWidth;
+  const p = max > 0 ? paper.scrollLeft / max : 0;
+  bar.style.setProperty('--fs-p', p);
+  const mins = Math.max(0, Math.round(words() * (1 - p) / 220));
+  left.textContent = p > .985 ? T[lang].end : T[lang].left(mins);
+  where.textContent = T[lang].hint;
+  const helm = document.querySelector('.helm');
+  if (helm) helm.style.setProperty('--r', (paper.scrollLeft * .25) + 'deg');
+}
+paper.addEventListener('scroll', update, { passive: true });
+document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+  lang = b.dataset.l;
+  document.querySelectorAll('.lang button').forEach(x => x.classList.toggle('on', x === b));
+  document.getElementById('es').hidden = lang !== 'es';
+  document.getElementById('en').hidden = lang !== 'en';
+  document.documentElement.lang = lang;
+  paper.scrollLeft = 0;
+  update();
+}));
+if (location.hash === '#en') document.querySelector('[data-l=en]').click();
+update();
+</script>
+</body>
+</html>

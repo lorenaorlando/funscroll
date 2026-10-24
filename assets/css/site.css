@@ -1,0 +1,124 @@
+/* funscroll.life — shared styles */
+:root {
+  --ink: #17151F;
+  --yellow: #FFDF4F;
+  --blue: #3B5BFF;
+  --red: #FF5436;
+  --white: #FFFFFF;
+  --sky: #DCE3FF;
+  --butter: #FFF3B0;
+  --blush: #FFD3C9;
+  --display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='38' viewBox='0 0 34 38'%3E%3Cpath d='M3 3 L3 31 L11 24 L17 36 L23 33 L17 21 L28 21 Z' fill='%23FFDF4F' stroke='%2317151F' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") 3 3, auto;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body {
+  font-family: var(--display);
+  color: var(--ink);
+  background: var(--yellow);
+  cursor: var(--cursor);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; cursor: pointer; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.serif { font-family: var(--serif); font-weight: 400; }
+.mono { font-family: var(--mono); }
+
+/* ---------- face shapes ---------- */
+.shp { display: inline-block; width: var(--size, 90px); aspect-ratio: 1; flex-shrink: 0; }
+.shp svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.shp.abs { position: absolute; }
+
+/* ---------- helm menu (el timón) ---------- */
+.helm {
+  position: fixed; right: 22px; bottom: 22px; z-index: 50;
+  width: 132px; height: 132px; --r: 0deg;
+  transition: transform .5s cubic-bezier(.2,1.6,.4,1);
+  transform-origin: 100% 100%;
+}
+.helm.open { transform: scale(1.75); }
+.helm .wheel { position: absolute; inset: 0; transform: rotate(var(--r)); }
+.helm .rim { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff); }
+.helm .hub {
+  position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; translate: -50% -50%;
+  border: none; background: none; padding: 0; transform: rotate(calc(-1 * var(--r)));
+}
+.helm .handle {
+  position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px;
+  transform: rotate(var(--a)) translateY(-70px) rotate(calc(-1 * var(--a)));
+  text-decoration: none;
+}
+.helm .handle .inner { display: block; width: 100%; height: 100%; transform: rotate(calc(-1 * var(--r))); transition: scale .3s; }
+.helm .handle:hover .inner { scale: 1.2; }
+.helm .label {
+  position: absolute; left: 50%; top: 100%; translate: -50% 0; white-space: nowrap;
+  font: 600 9px/1 var(--mono); background: var(--ink); color: var(--white);
+  padding: 4px 6px; border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.helm.open .label, .helm .handle:hover .label { opacity: 1; }
+.helm-hint {
+  position: fixed; right: 160px; bottom: 60px; z-index: 49; font: italic 20px/1.1 var(--serif);
+  pointer-events: none; transition: opacity .4s; text-align: right;
+}
+.helm.open + .helm-hint, body.scrolled .helm-hint { opacity: 0; }
+
+/* ---------- scroll track with scrollcito ---------- */
+.track {
+  position: fixed; right: 10px; top: 16px; bottom: 190px; width: 26px; z-index: 40;
+  border: 2.5px dashed var(--ink); border-radius: 14px; background: rgba(255,255,255,.55); pointer-events: none;
+}
+.track .mini {
+  position: absolute; left: 50%; width: 30px; height: 46px; translate: -50% 0;
+  top: calc(var(--fs-page, 0) * (100% - 46px));
+}
+.track .pct {
+  position: absolute; right: 30px; top: calc(var(--fs-page, 0) * (100% - 46px) + 12px);
+  font: 500 11px var(--mono); white-space: nowrap; background: var(--white);
+  border: 2px solid var(--ink); border-radius: 10px; padding: 2px 6px;
+}
+
+/* ---------- small things ---------- */
+.pill {
+  display: inline-block; font-weight: 600; font-size: 20px; padding: 10px 22px; border-radius: 40px;
+  border: 2.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); background: var(--white); text-decoration: none;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; letter-spacing: -.02em;
+  padding: 14px 26px; border-radius: 60px; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+  background: var(--white); text-decoration: none; transition: translate .15s, box-shadow .15s;
+}
+.btn:hover { translate: -2px -2px; box-shadow: 7px 7px 0 var(--ink); }
+.btn:active { translate: 4px 4px; box-shadow: 1px 1px 0 var(--ink); }
+.tag { font: 500 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.bubble {
+  position: relative; display: inline-block; background: var(--white); border: 2.5px solid var(--ink);
+  border-radius: 22px; padding: 12px 18px; font: italic 22px/1.1 var(--serif);
+}
+.bubble::after {
+  content: ''; position: absolute; left: 26px; bottom: -14px; width: 20px; height: 20px; background: var(--white);
+  border-right: 2.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); transform: rotate(45deg) skew(10deg, 10deg);
+}
+.topbar {
+  position: fixed; left: 18px; top: 16px; z-index: 45; display: flex; align-items: center; gap: 10px;
+  text-decoration: none; font-weight: 800; font-size: 22px; letter-spacing: -.04em;
+}
+.topbar img { width: 42px; height: 42px; transition: rotate .4s cubic-bezier(.2,2,.4,1); }
+.topbar:hover img { rotate: -18deg; }
+
+@media (max-width: 700px) {
+  .helm { right: 12px; bottom: 12px; width: 110px; height: 110px; }
+  .helm .handle { transform: rotate(var(--a)) translateY(-58px) rotate(calc(-1 * var(--a))); width: 40px; height: 40px; margin: -20px 0 0 -20px; }
+  .helm.open { transform: scale(1.5); }
+  .helm-hint { display: none; }
+  .track { right: 4px; width: 18px; bottom: 150px; }
+  .track .mini { width: 22px; height: 34px; }
+  .track .pct { display: none; }
+}
+
+/* white outline so ink drawings survive on dark backgrounds */
+.halo, .track .mini { filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff); }

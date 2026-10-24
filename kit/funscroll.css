@@ -1,0 +1,48 @@
+/* funscroll kit v0.1 · funscroll.life/kit
+   a tiny toolbox to make websites fun to scroll */
+
+[data-fs-letters] .fs-l { display: inline-block; will-change: transform; }
+[data-fs-letters] .fs-w { display: inline-block; white-space: nowrap; }
+
+/* reveal: elements slide in from a direction when they enter the screen */
+[data-fs-reveal] { transition: transform .9s cubic-bezier(.2,1.4,.4,1), opacity .6s ease; }
+[data-fs-reveal]:not(.fs-in) { opacity: 0; }
+[data-fs-reveal="up"]:not(.fs-in)    { transform: translateY(80px); }
+[data-fs-reveal="down"]:not(.fs-in)  { transform: translateY(-80px); }
+[data-fs-reveal="left"]:not(.fs-in)  { transform: translateX(-120px) rotate(-6deg); }
+[data-fs-reveal="right"]:not(.fs-in) { transform: translateX(120px) rotate(6deg); }
+[data-fs-reveal="pop"]:not(.fs-in)   { transform: scale(.2) rotate(-20deg); }
+[data-fs-reveal="spin"]:not(.fs-in)  { transform: rotate(-200deg) scale(.4); }
+
+/* float: gentle bobbing forever */
+[data-fs-float] { animation: fs-float var(--fs-float-dur, 4s) ease-in-out infinite alternate; }
+@keyframes fs-float {
+  from { translate: 0 -10px; rotate: -3deg; }
+  to   { translate: 0 10px;  rotate: 3deg; }
+}
+
+/* jelly: squish on hover / tap */
+[data-fs-jelly] { transition: scale .5s cubic-bezier(.2,2.2,.4,1); }
+[data-fs-jelly]:hover, [data-fs-jelly]:active { scale: 1.12 .9; }
+
+/* drag */
+[data-fs-drag] { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+[data-fs-drag].fs-dragging { cursor: grabbing; z-index: 999; }
+
+/* horizontal + slow sections */
+[data-fs-horizontal], [data-fs-slow] { position: relative; }
+[data-fs-horizontal] > .fs-sticky, [data-fs-slow] > .fs-sticky {
+  position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+}
+[data-fs-horizontal] [data-fs-track] { display: flex; height: 100%; width: max-content; will-change: transform; }
+[data-fs-slow] [data-fs-track] { will-change: transform; }
+
+/* progress bar */
+[data-fs-progress] { --fs-p: 0; }
+[data-fs-progress]::after { content: ''; position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--fs-p)); background: currentColor; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-fs-float] { animation: none; }
+  [data-fs-reveal] { transition: none; }
+  [data-fs-reveal]:not(.fs-in) { opacity: 1; transform: none; }
+}

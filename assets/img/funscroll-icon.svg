@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="#17151F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- compact funscroll logo: scrollcito on a blue tile -->
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="#3B5BFF"/>
+  <g transform="translate(64 66) rotate(-14) translate(-64 -66)">
+    <path d="M64 14 L82 36 H46 Z" fill="#FFDF4F"/>
+    <rect x="42" y="42" width="44" height="72" rx="22" fill="#FF5436"/>
+    <circle cx="56" cy="66" r="4" fill="#17151F" stroke="none"/>
+    <circle cx="72" cy="66" r="4" fill="#17151F" stroke="none"/>
+    <path d="M55 78 Q64 87 73 78"/>
+    <path d="M57 96 H71 M57 104 H71" stroke-width="4"/>
+  </g>
+</svg>
