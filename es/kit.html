@@ -19,7 +19,7 @@ pre { background: var(--ink); color: var(--yellow); padding: 16px 18px; border-r
 pre .c { color: #8C889A; }
 
 .hero { background: var(--yellow); padding: 18vh 0 14vh; }
-.hero h1 { font-weight: 800; font-size: clamp(70px, 13vw, 200px); letter-spacing: -.07em; line-height: .8; }
+.hero h1 { font-weight: 800; font-size: clamp(70px, 13vw, 200px); letter-spacing: -.035em; line-height: .8; }
 .hero h1 span { color: var(--blue); }
 .hero p { font: 400 clamp(24px, 2.8vw, 40px)/1.06 var(--voice); max-width: 720px; margin: 26px 0 34px; }
 .hero .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 26px; }
@@ -46,6 +46,26 @@ pre .c { color: #8C889A; }
 .tile .btn { font-size: 16px; padding: 8px 16px; align-self: flex-start; margin-top: auto; }
 .assets pre { margin-top: 10px; }
 
+.vibe { background: var(--butter); padding: 14vh 0; }
+.vibe h2 { font-weight: 800; font-size: clamp(46px, 7vw, 100px); letter-spacing: -.045em; line-height: .9; }
+.vibe .manifest { font: 400 clamp(22px, 2.4vw, 30px)/1.3 var(--voice); max-width: 820px; margin: 22px 0 60px; }
+.vibe .manifest p + p { margin-top: 16px; }
+.vibe .manifest b { font-family: var(--display); font-weight: 800; letter-spacing: -.02em; }
+.vibe h3.part { font-weight: 800; font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -.04em; margin: 70px 0 24px; display: flex; align-items: center; gap: 14px; }
+.vibe h3.part .shp { --size: 52px; }
+.tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.tip { background: var(--white); border: 3px solid var(--ink); border-radius: 22px; padding: 22px; box-shadow: 5px 5px 0 var(--ink); }
+.tip h4 { font-weight: 800; font-size: 22px; letter-spacing: -.03em; line-height: 1.05; }
+.tip p { font: 400 17px/1.45 var(--voice); margin-top: 8px; }
+.prompts { display: grid; gap: 18px; }
+.prompt { background: var(--ink); color: var(--white); border-radius: 20px; padding: 22px 22px 18px; display: grid; gap: 12px; }
+.prompt .tag { color: var(--yellow); }
+.prompt p { font: 400 17px/1.5 var(--voice); }
+.prompt button { justify-self: start; font-size: 14px; padding: 6px 14px; box-shadow: 3px 3px 0 var(--white); border-color: var(--white); background: var(--yellow); color: var(--ink); }
+.ideas { display: flex; flex-wrap: wrap; gap: 12px; }
+.ideas span { font: 600 17px/1.3 var(--voice); background: var(--white); border: 2.5px solid var(--ink); border-radius: 30px; padding: 10px 18px; }
+.ideas span:nth-child(3n+1) { background: var(--sky); } .ideas span:nth-child(3n+2) { background: var(--blush); }
+
 @media (max-width: 800px) {
   .recipe { grid-template-columns: 1fr; }
 }
@@ -70,6 +90,7 @@ pre .c { color: #8C889A; }
       <a class="btn" href="../kit/funscroll.js" download>⬇ funscroll.js</a>
       <a class="btn" href="../kit/funscroll.css" download>⬇ funscroll.css</a>
       <a class="btn" href="https://github.com/lorenaorlando/funscroll/tree/main/kit" target="_blank" rel="noopener" style="background:var(--blush)">código en GitHub ↗</a>
+      <a class="btn" href="#vibe" style="background:var(--red); color:var(--white)">¿nunca programaste? empieza aquí ↓</a>
     </div>
   </div>
 </section>
@@ -226,6 +247,72 @@ pre .c { color: #8C889A; }
   </div>
 </section>
 
+<!-- vibe -->
+<section class="vibe" id="vibe">
+  <div class="wrap">
+    <span class="tag">tu funscroll con vibe coding</span>
+    <h2 style="margin-top:14px">no necesitas ser programadora ni programador.</h2>
+    <div class="manifest">
+      <p>Durante años, tener una web propia significaba saber programar o pagarle a alguien que supiera. Por eso casi todos nos mudamos a las mismas tres o cuatro apps, y nuestro trabajo terminó viviendo en el feed de otro.</p>
+      <p><b>Eso cambió.</b> Con el vibe coding describes con tus palabras lo que imaginas, una IA escribe el código, y tú lo vas moldeando hasta que se siente bien. Hoy cualquiera puede hacer su web: artistas, músicos, cocineras, adolescentes, abuelas.</p>
+      <p>Y eso hace posible salir de las redes. Tu propio rincón de internet, hecho a tu manera, donde ningún algoritmo decide quién lo ve. <b>Hacer tu propia web es la forma más práctica de salir del doomscroll.</b></p>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="circle" data-c="red" data-m="happy"></span>cómo empezar</h3>
+    <div class="tips">
+      <div class="tip"><h4>1 · empieza por una sensación</h4><p>Antes de pensar en "header, menú, footer", pregúntate qué quieres que sienta la gente. ¿Calma? ¿Perderse? ¿Abrir un cajón lleno de cosas? Dile eso a la IA primero.</p></div>
+      <div class="tip"><h4>2 · un solo archivo HTML basta</h4><p>Pide "un solo archivo index.html con el CSS y el JavaScript adentro". Lo abres con doble click, sin instalar nada. Desde ahí creces.</p></div>
+      <div class="tip"><h4>3 · dale el kit a la IA</h4><p>Pega en tu chat las dos líneas del funscroll kit y la lista de atributos <code>data-fs-*</code>. Después pídele que los use. Te ahorras mucho ensayo y error.</p></div>
+      <div class="tip"><h4>4 · un cambio a la vez</h4><p>Pasos chiquitos: "haz el título más grande", "ahora que las fotos floten". Si pides diez cosas juntas, algo se rompe y no sabrás qué.</p></div>
+      <div class="tip"><h4>5 · pruébala en tu teléfono</h4><p>Casi todo el mundo va a entrar desde el teléfono. Revísala ahí seguido y pide arreglos concretos: "en mi teléfono el texto se sale de la pantalla".</p></div>
+      <div class="tip"><h4>6 · guarda copias</h4><p>Cuando algo funcione, guarda una copia (index-v3.html) o usa GitHub. Así experimentas sin miedo a perder lo que tenías.</p></div>
+      <div class="tip"><h4>7 · publícala gratis</h4><p>GitHub Pages, Netlify o Neocities alojan webs sencillas gratis. Un dominio propio cuesta pocos dólares al año y la hace tuya de verdad.</p></div>
+      <div class="tip"><h4>8 · pide que te explique</h4><p>"Explícame lo que acabas de cambiar como si fuera nueva en esto." Aprendes sin darte cuenta y vas a poder arreglar cositas tú misma.</p></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="triangle" data-c="yellow" data-m="wow"></span>para que no se vea vibe-codeada</h3>
+    <div class="tips">
+      <div class="tip"><h4>trae tus propias cosas</h4><p>Tus fotos, dibujos, escaneos, tu letra, notas de voz. La IA hace la estructura; lo que la hace tuya es el material que solo tú tienes.</p></div>
+      <div class="tip"><h4>dile que no a lo predeterminado</h4><p>La IA tiende a repetir los mismos looks: degradados morados, tarjetas redondeadas, todo centrado. Pide algo específico: "como un fanzine de los 90", "como la etiqueta de un museo", "como la cocina de mi abuela".</p></div>
+      <div class="tip"><h4>pocas letras, pocos colores</h4><p>Dos tipografías y tres o cuatro colores bastan. Elígelos tú (Google Fonts tiene cientos) y dile a la IA exactamente cuáles.</p></div>
+      <div class="tip"><h4>rompe la grilla a propósito</h4><p>Pide que las cosas se encimen, se inclinen, estén fuera de lugar. El orden viene por defecto; el desorden hay que pedirlo.</p></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="square" data-c="blue" data-m="grin"></span>cositas finas</h3>
+    <div class="tips">
+      <div class="tip"><h4>dale un final</h4><p>Una pantalla final, una despedida, un "ya puedes cerrar esta pestaña". Es lo más anti-doomscroll que puedes hacer.</p></div>
+      <div class="tip"><h4>esconde secretos</h4><p>Una palabra que cambia al pasarle el mouse, un doble click que hace algo inesperado. Pequeños premios para los curiosos.</p></div>
+      <div class="tip"><h4>tu propio cursor</h4><p>Un emoji, un dibujo tuyo, una manito. Cambia todo el ambiente con una sola línea (<code>data-fs-cursor</code>).</p></div>
+      <div class="tip"><h4>imágenes livianas</h4><p>Pide las imágenes en WebP y no muy grandes. Una web divertida que tarda un minuto en cargar deja de ser divertida.</p></div>
+      <div class="tip"><h4>piensa en todo el mundo</h4><p>Pide "texto alternativo en las imágenes" y que respete "prefers-reduced-motion", para que también puedan entrar las personas a las que el movimiento marea. El kit ya hace lo segundo.</p></div>
+      <div class="tip"><h4>enlaza hacia afuera</h4><p>Pon links a las webs que amas. Lo contrario de una plataforma: una web que se alegra cuando te vas a descubrir otra cosa.</p></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="flower" data-c="red" data-m="wink"></span>prompts para copiar</h3>
+    <div class="prompts">
+      <div class="prompt"><span class="tag">tu primer funscroll</span><p>Hazme un solo archivo index.html con el CSS y el JavaScript adentro. Es mi web personal. Carga el funscroll kit (https://funscroll.life/kit/funscroll.css y https://funscroll.life/kit/funscroll.js) y usa sus atributos data-fs-*. Quiero mi nombre gigante con data-fs-letters="scatter", unas frases sobre mí que aparezcan con data-fs-reveal, y una pantalla final que se despida. Colores: [tus colores]. Tipografías: [tus tipografías].</p><button class="btn copy">copiar</button></div>
+      <div class="prompt"><span class="tag">un anti-portafolio</span><p>Convierte esta lista de mis obras en una página donde las imágenes floten (data-fs-float), se puedan arrastrar (data-fs-drag) y se muevan a distintas velocidades al scrollear (data-fs-parallax con valores entre -0.6 y 0.6). Sin grilla: acomódalas como un collage. Al hacer click en una imagen, se abre en grande.</p><button class="btn copy">copiar</button></div>
+      <div class="prompt"><span class="tag">una página lenta</span><p>Haz una página para estos poemas donde cada uno aparezca lento, una línea a la vez, dentro de una sección con data-fs-slow="0.25". Mucho espacio vacío, una sola tipografía, y al final un botón que lleve a quien lee a una web al azar de esta lista: [links].</p><button class="btn copy">copiar</button></div>
+      <div class="prompt"><span class="tag">para arreglar cosas</span><p>En mi teléfono [describe lo que ves]. Yo esperaba [lo que querías]. Arregla solo eso, no cambies nada más, y explícame en palabras simples qué estaba mal.</p><button class="btn copy">copiar</button></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="half" data-c="blue" data-m="sleepy"></span>ideas para robar</h3>
+    <div class="ideas">
+      <span>un día del amanecer a la noche: el cielo cambia mientras bajas</span>
+      <span>una receta que scrolleas hacia abajo como si entraras al horno</span>
+      <span>la web de una banda donde cada canción es un cuarto</span>
+      <span>un álbum familiar donde las fotos caen sobre una mesa y tú las reacomodas</span>
+      <span>un diario que solo se scrollea de lado, como una línea de tiempo</span>
+      <span>una tienda sin botón de "comprar": solo objetos con sus historias</span>
+      <span>una página que solo tiene sentido si inclinas el teléfono</span>
+      <span>un museo de tus cuadernos viejos, escaneados</span>
+      <span>un CV contado con emojis</span>
+      <span>un jardín que crece un poquito cada vez que alguien lo visita</span>
+    </div>
+  </div>
+</section>
+<!-- /vibe -->
+
 <section class="assets">
   <div class="wrap">
     <h2>logos, badges y el ring</h2>
@@ -248,6 +335,15 @@ pre .c { color: #8C889A; }
 <script src="../assets/js/site.js"></script>
 <script src="../kit/funscroll.js"></script>
 <script>
+// copy buttons on the prompts
+document.querySelectorAll('.prompt .copy').forEach(b => b.addEventListener('click', () => {
+  const p = b.previousElementSibling, label = b.textContent;
+  const done = () => { b.textContent = '✓'; setTimeout(() => b.textContent = label, 1400); };
+  navigator.clipboard.writeText(p.textContent).then(done).catch(() => {
+    const r = document.createRange(); r.selectNodeContents(p);
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+  });
+}));
 document.getElementById('replay').addEventListener('click', () => {
   document.querySelectorAll('#revealDemo [data-fs-reveal]').forEach(el => {
     el.classList.remove('fs-in');

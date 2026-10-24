@@ -45,8 +45,8 @@
     es: { home: 'es/index.html', man: 'manifiesto.html', fsc: 'es/funscrollers.html', kit: 'es/kit.html' },
   };
   const WORDS = {
-    en: { man: 'manifesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'this is the menu.<br>it\'s a ship\'s wheel. spin it →', ends: p => `${p}% · this scroll ends`, start: 'this scroll ends ↓', end: 'the end ✿' },
-    es: { man: 'manifiesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'este es el menú.<br>es un timón. gíralo →', ends: p => `${p}% · este scroll se acaba`, start: 'este scroll se acaba ↓', end: 'fin ✿' },
+    en: { foot: 'Making something funscrollable? <b>Write to me!</b> I\'d love to see it: how it moves, what surprises, how it ends.', by: 'FUNSCROLL is a project by', man: 'manifesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'this is the menu.<br>it\'s a ship\'s wheel. spin it →', ends: p => `${p}% · this scroll ends`, start: 'this scroll ends ↓', end: 'the end ✿' },
+    es: { foot: '¿Tienes un proyecto funscrolleable? <b>¡Escríbeme!</b> Me encantaría conocerlo: cómo se mueve, qué sorprende y cómo termina.', by: 'FUNSCROLL es un proyecto de', man: 'manifiesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'este es el menú.<br>es un timón. gíralo →', ends: p => `${p}% · este scroll se acaba`, start: 'este scroll se acaba ↓', end: 'fin ✿' },
   };
   const href = key => ROOT + ROUTES[lang()][key];
 
@@ -62,6 +62,7 @@
     const top = document.querySelector('.topbar');
     if (top) top.href = href('home');
     updateTrack();
+    paintFooter();
   }
 
   function buildHelm() {
@@ -145,10 +146,30 @@
     document.body.appendChild(el);
   }
 
+  const EMAIL = 'soylorenaorlando@gmail.com';
+  function buildFooter() {
+    const f = document.createElement('footer');
+    f.className = 'site-foot';
+    document.body.appendChild(f);
+  }
+  function paintFooter() {
+    const f = document.querySelector('.site-foot');
+    if (!f) return;
+    const w = WORDS[lang()];
+    f.innerHTML = `<div class="in">
+      <span class="shp" data-s="flower" data-c="yellow" data-m="grin" style="--size:64px"></span>
+      <p>${w.foot}</p>
+      <a class="mail" href="mailto:${EMAIL}">${EMAIL}</a>
+      <small>${w.by} <a href="https://lorenaorlando.com" target="_blank" rel="noopener">Lorena Orlando</a></small>
+    </div>`;
+    paintShapes(f);
+  }
+
   window.FUN = { shapeSVG, paintShapes, SCROLLCITO, setLang, lang };
   paintShapes();
   buildHelm();
   if (document.body.dataset.track !== 'off') buildTrack();
   buildLangSwitch();
+  buildFooter();
   setLang();
 })();
