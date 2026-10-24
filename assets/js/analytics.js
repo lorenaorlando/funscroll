@@ -2,7 +2,7 @@
    Off until an ID is filled in below. Nothing is loaded or sent while it's empty. */
 (function () {
   const CONFIG = {
-    ga4: '', // Google Analytics 4 measurement ID, like 'G-XXXXXXXXXX'
+    ga4: 'G-RF1V6F07LN', // Google Analytics 4 measurement ID
   };
 
   if (CONFIG.ga4) {
