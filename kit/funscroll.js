@@ -195,7 +195,9 @@
     return Promise.resolve('granted');
   }
 
-  addEventListener('mousemove', e => {
+  // without a gyroscope, a real mouse stands in for the tilt (touches don't, they'd leave things crooked)
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
     tilt.tx = (e.clientX / vw - .5) * 2;
     tilt.ty = (e.clientY / vh - .5) * 2;
   });

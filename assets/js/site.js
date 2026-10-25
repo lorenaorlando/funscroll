@@ -45,20 +45,22 @@
     es: { home: 'es/index.html', man: 'manifiesto.html', fsc: 'es/funscrollers.html', kit: 'es/kit.html' },
   };
   const WORDS = {
-    en: { foot: 'Making something funscrollable? <b>Write to me!</b> I\'d love to see it: how it moves, what surprises, how it ends.', by: 'FUNSCROLL is a project by', man: 'manifesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'this is the menu.<br>it\'s a ship\'s wheel. spin it →', ends: p => `${p}% · this scroll ends`, start: 'this scroll ends ↓', end: 'the end ✿' },
-    es: { foot: '¿Tienes un proyecto funscrolleable? <b>¡Escríbeme!</b> Me encantaría conocerlo: cómo se mueve, qué sorprende y cómo termina.', by: 'FUNSCROLL es un proyecto de', man: 'manifiesto', fsc: 'funscrollers', kit: 'funscroll kit', hint: 'este es el menú.<br>es un timón. gíralo →', ends: p => `${p}% · este scroll se acaba`, start: 'este scroll se acaba ↓', end: 'fin ✿' },
+    en: { foot: 'Making something funscrollable? <b>Write to me!</b> I\'d love to see it: how it moves, what surprises, how it ends.', by: 'FUNSCROLL is a project by', man: 'manifesto', fsc: 'funscrollers', kit: 'funscroll kit', menu: 'menu', hint: '← this is the menu.<br>it\'s a ship\'s wheel. spin it!', ends: p => `${p}% · this scroll ends`, start: 'this scroll ends ↓', end: 'the end ✿' },
+    es: { foot: '¿Tienes un proyecto funscrolleable? <b>¡Escríbeme!</b> Me encantaría conocerlo: cómo se mueve, qué sorprende y cómo termina.', by: 'FUNSCROLL es un proyecto de', man: 'manifiesto', fsc: 'funscrollers', kit: 'funscroll kit', menu: 'menú', hint: '← este es el menú.<br>es un timón. ¡gíralo!', ends: p => `${p}% · este scroll se acaba`, start: 'este scroll se acaba ↓', end: 'fin ✿' },
   };
   const href = key => ROOT + ROUTES[lang()][key];
 
   function setLang() {
     const w = WORDS[lang()];
-    document.querySelectorAll('.helm [data-key]').forEach(a => {
+    document.querySelectorAll('.helm [data-key], .helm-list [data-key]').forEach(a => {
       a.href = href(a.dataset.key);
       const label = a.querySelector('.label');
       if (label) label.textContent = w[a.dataset.key];
     });
     const hint = document.querySelector('.helm-hint');
     if (hint) hint.innerHTML = w.hint;
+    const hub = document.querySelector('.helm .hub');
+    if (hub) hub.textContent = w.menu;
     const top = document.querySelector('.topbar');
     if (top) top.href = href('home');
     updateTrack();
@@ -83,9 +85,14 @@
         <circle cx="66" cy="66" r="46" stroke-width="5" stroke="#FFFFFF" stroke-dasharray="10 14"/>
       </svg>
       ${items.map(it => `<a class="handle" data-key="${it.key}" style="--a:${it.a}deg"><span class="inner"><span class="shp" style="--size:100%" data-s="${it.s}" data-c="${it.c}" data-m="${it.m}"></span><span class="label"></span></span></a>`).join('')}
-      <a class="hub" data-key="home" aria-label="home">${shapeSVG('circle', 'white', 'wink')}</a>
+      <button class="hub" type="button" aria-expanded="false"></button>
     </div>`;
     document.body.appendChild(helm);
+    const list = document.createElement('div');
+    list.className = 'helm-list';
+    list.innerHTML = items.map(it => `<a data-key="${it.key}"><span class="shp" style="--size:28px" data-s="${it.s}" data-c="${it.c}" data-m="${it.m}"></span><span class="label"></span></a>`).join('');
+    document.body.appendChild(list);
+    paintShapes(list);
     const hint = document.createElement('div');
     hint.className = 'helm-hint';
     document.body.appendChild(hint);
@@ -107,11 +114,25 @@
     addEventListener('pointerup', () => { dragging = false; });
     helm.addEventListener('click', e => {
       if (moved) { e.preventDefault(); return; }
-      const onHandle = e.target.closest('.handle, .hub');
+      const hub = helm.querySelector('.hub');
+      const setOpen = v => { helm.classList.toggle('open', v); hub.setAttribute('aria-expanded', v); };
+      // the "menu" button in the middle opens and closes the wheel
+      if (e.target.closest('.hub')) { e.preventDefault(); setOpen(!helm.classList.contains('open')); return; }
+      const onHandle = e.target.closest('.handle');
       const canHover = matchMedia('(hover: hover)').matches;
-      if (!helm.classList.contains('open') && !(onHandle && canHover)) { e.preventDefault(); helm.classList.add('open'); }
+      if (!helm.classList.contains('open') && !(onHandle && canHover)) { e.preventDefault(); setOpen(true); }
     });
-    document.addEventListener('click', e => { if (!helm.contains(e.target)) helm.classList.remove('open'); });
+    document.addEventListener('click', e => {
+      if (!helm.contains(e.target) && !list.contains(e.target)) { helm.classList.remove('open'); helm.querySelector('.hub').setAttribute('aria-expanded', false); }
+    });
+    // on phones the corner (logo, languages, wheel) steps aside while you scroll down and comes back when you scroll up
+    let lastY = scrollY;
+    addEventListener('scroll', () => {
+      const y = scrollY, down = y > lastY + 4, up = y < lastY - 4;
+      if (down && y > 120 && !helm.classList.contains('open')) document.body.classList.add('corner-away');
+      if (up || y < 120) document.body.classList.remove('corner-away');
+      if (down || up) lastY = y;
+    }, { passive: true });
     turn();
   }
 

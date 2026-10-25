@@ -27,6 +27,8 @@
 
 /* drag */
 [data-fs-drag] { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+/* on touch screens the page must still scroll over draggable things: drag sideways, scroll up and down */
+@media (pointer: coarse) { [data-fs-drag] { touch-action: pan-y; } }
 [data-fs-drag].fs-dragging { cursor: grabbing; z-index: 999; }
 
 /* horizontal + slow sections */

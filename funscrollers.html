@@ -49,7 +49,7 @@ section { position: relative; overflow: clip; }
 .card.seen .face.front::after { content: '✓ collected'; position: absolute; top: 20px; right: -10px; rotate: 12deg; background: var(--white); border: 2px solid var(--ink); border-radius: 12px; font: 500 11px var(--mono); padding: 3px 8px; }
 
 .ring { background: var(--blue); color: var(--white); padding: 16vh 0 22vh; }
-.ring .preview { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 24px; padding: 34px; box-shadow: 8px 8px 0 var(--ink); margin: 30px 0 50px; }
+.ring .preview { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 24px; padding: clamp(18px, 4vw, 34px); box-shadow: 8px 8px 0 var(--ink); margin: 30px 0 50px; }
 .ring .preview .tag { display: block; margin-bottom: 18px; opacity: .6; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
 .step { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 24px; padding: 24px; box-shadow: 6px 6px 0 var(--ink); }
@@ -57,6 +57,7 @@ section { position: relative; overflow: clip; }
 .step h3 { font-weight: 800; font-size: 26px; letter-spacing: -.03em; line-height: 1; }
 .step p { font: 400 20px/1.15 var(--voice); margin-top: 10px; }
 .step code, .snippet { font: 500 12px/1.5 var(--mono); }
+.step .mailto { font: 500 13px var(--mono); margin-top: 12px; user-select: all; word-break: break-all; }
 .snippet { display: block; background: var(--ink); color: var(--yellow); padding: 12px; border-radius: 12px; margin-top: 12px; white-space: pre-wrap; word-break: break-all; }
 .members { margin-top: 40px; font: 500 14px var(--mono); }
 .members a { color: var(--yellow); }
@@ -115,7 +116,7 @@ section { position: relative; overflow: clip; }
       <div class="step"><span class="shp" data-s="triangle" data-c="yellow" data-m="grin"></span><h3>1 · make it funscrollable</h3><p>Play with the scroll, give it an ending, let people leave. The <a href="kit.html">funscroll kit</a> can help.</p></div>
       <div class="step"><span class="shp" data-s="square" data-c="red" data-m="wow"></span><h3>2 · add the widget</h3><p>Paste this where you want it:</p><code class="snippet">&lt;div id="funscroll-ring"&gt;&lt;/div&gt;
 &lt;script src="https://funscroll.life/kit/ring.js" defer&gt;&lt;/script&gt;</code></div>
-      <div class="step"><span class="shp" data-s="circle" data-c="blue" data-m="happy"></span><h3>3 · send it</h3><p>Tell us about your site. Once it's in, the ring links to you.</p><a class="btn" style="margin-top:16px; font-size:18px; background:var(--yellow)" href="https://github.com/lorenaorlando/funscroll/issues/new?template=join-the-ring.yml" target="_blank" rel="noopener">submit my site ↗</a></div>
+      <div class="step"><span class="shp" data-s="circle" data-c="blue" data-m="happy"></span><h3>3 · send it</h3><p>Write to me with your site's name and link. Once it's in, the ring links to you.</p><a class="btn" style="margin-top:16px; font-size:18px; background:var(--yellow)" href="mailto:soylorenaorlando@gmail.com?subject=funscroll%20ring%3A%20my%20site&amp;body=Hi%20Lorena%21%0A%0ASite%20name%3A%0ALink%3A%0AWhat%20makes%20it%20funscrollable%20%28what%20moves%2C%20what%20surprises%2C%20how%20it%20ends%29%3A%0AWhich%20funscroll%20concept%20fits%20it%20best%20%28frolic%2C%20whimsical%2C%20float%2C%20dance%2C%20move%2C%20say%2C%20image%2C%20think%29%3A%0A%0AI%20added%20the%20ring%20widget%3A%20yes%20/%20not%20yet%0A">submit my site ✉</a><p class="mailto">soylorenaorlando@gmail.com</p></div>
     </div>
     <p class="members" id="members"></p>
   </div>
