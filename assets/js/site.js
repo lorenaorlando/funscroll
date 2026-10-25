@@ -125,14 +125,6 @@
     document.addEventListener('click', e => {
       if (!helm.contains(e.target) && !list.contains(e.target)) { helm.classList.remove('open'); helm.querySelector('.hub').setAttribute('aria-expanded', false); }
     });
-    // on phones the corner (logo, languages, wheel) steps aside while you scroll down and comes back when you scroll up
-    let lastY = scrollY;
-    addEventListener('scroll', () => {
-      const y = scrollY, down = y > lastY + 4, up = y < lastY - 4;
-      if (down && y > 120 && !helm.classList.contains('open')) document.body.classList.add('corner-away');
-      if (up || y < 120) document.body.classList.remove('corner-away');
-      if (down || up) lastY = y;
-    }, { passive: true });
     turn();
   }
 

@@ -133,8 +133,6 @@ html { font-variation-settings: 'CASL' 1; }
   .helm .hub { width: 46px; height: 46px; font-size: 12px; border-width: 2.5px; }
   .helm-list { right: 12px; top: 200px; }
   .helm-list a { font-size: 17px; }
-  .topbar, .langswitch, .helm { transition: translate .35s ease, transform .5s cubic-bezier(.2,1.6,.4,1); }
-  body.corner-away .topbar, body.corner-away .langswitch, body.corner-away .helm { translate: 0 -260px; }
   .helm-hint { display: none; }
   .track { right: 4px; width: 18px; top: 220px; bottom: 16px; }
   .track .mini { width: 22px; height: 34px; }
