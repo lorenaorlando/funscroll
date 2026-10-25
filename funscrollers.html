@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/funscroll.css">
-<link rel="stylesheet" href="assets/css/site.css">
-<script src="assets/js/analytics.js" defer></script>
+<link rel="stylesheet" href="kit/funscroll.css?v=20261025">
+<link rel="stylesheet" href="assets/css/site.css?v=20261025">
+<script src="assets/js/analytics.js?v=20261025" defer></script>
 <style>
 section { position: relative; overflow: clip; }
 .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; position: relative; }
@@ -129,9 +129,9 @@ section { position: relative; overflow: clip; }
   </div>
 </section>
 
-<script src="assets/js/funscrollers.js"></script>
-<script src="kit/ring.js"></script>
-<script src="assets/js/site.js"></script>
+<script src="assets/js/funscrollers.js?v=20261025"></script>
+<script src="kit/ring.js?v=20261025"></script>
+<script src="assets/js/site.js?v=20261025"></script>
 <script>
 const colors = ['var(--sky)', 'var(--blush)', 'var(--yellow)', 'var(--white)', 'var(--butter)'];
 const host = u => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
@@ -195,6 +195,6 @@ door.addEventListener('click', () => {
 document.getElementById('list').innerHTML = FUNSCROLLERS.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener">${f.name}</a> — ${host(f.url)}</li>`).join('');
 document.getElementById('members').innerHTML = 'in the ring so far: ' + (window.FUNSCROLL_RING || []).map(m => `<a href="${m.url}" target="_blank" rel="noopener">${m.name}</a>`).join(' · ');
 </script>
-<script src="kit/funscroll.js"></script>
+<script src="kit/funscroll.js?v=20261025"></script>
 </body>
 </html>

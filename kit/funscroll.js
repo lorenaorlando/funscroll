@@ -189,12 +189,17 @@
       io.observe(el);
     });
 
-    // jelly: a squish that also works on touch screens
-    $$('[data-fs-jelly]', root).forEach(el => el.addEventListener('pointerdown', () => {
-      el.classList.remove('fs-squish');
-      void el.offsetWidth;
-      el.classList.add('fs-squish');
-    }));
+    // jelly: a squish that also works on touch screens (Web Animations, which iOS plays reliably)
+    $$('[data-fs-jelly]', root).forEach(el => {
+      const squish = () => el.animate([
+        { transform: 'scale(1, 1)' }, { transform: 'scale(1.3, .7)' }, { transform: 'scale(.85, 1.2)' },
+        { transform: 'scale(1.08, .94)' }, { transform: 'scale(1, 1)' }
+      ], { duration: 600, easing: 'ease-out' });
+      let touchedAt = 0;
+      el.addEventListener('touchstart', () => { touchedAt = Date.now(); squish(); }, { passive: true });
+      // phones also send a fake mousedown after a tap; skip it so it squishes once
+      el.addEventListener('mousedown', () => { if (Date.now() - touchedAt > 800) squish(); });
+    });
   }
 
   function enableTilt() {

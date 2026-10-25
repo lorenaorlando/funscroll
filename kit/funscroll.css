@@ -24,10 +24,7 @@
 /* jelly: squish on hover / tap */
 [data-fs-jelly] { transition: scale .5s cubic-bezier(.2,2.2,.4,1); }
 @media (hover: hover) { [data-fs-jelly]:hover { scale: 1.12 .9; } }
-[data-fs-jelly].fs-squish { animation: fs-squish .6s cubic-bezier(.2,1.8,.4,1); }
-@keyframes fs-squish {
-  0% { scale: 1 1; } 25% { scale: 1.3 .7; } 50% { scale: .85 1.2; } 75% { scale: 1.08 .94; } 100% { scale: 1 1; }
-}
+[data-fs-jelly] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 
 /* drag */
 [data-fs-drag] { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }

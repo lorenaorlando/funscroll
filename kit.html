@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/funscroll.css">
-<link rel="stylesheet" href="assets/css/site.css">
-<script src="assets/js/analytics.js" defer></script>
+<link rel="stylesheet" href="kit/funscroll.css?v=20261025">
+<link rel="stylesheet" href="assets/css/site.css?v=20261025">
+<script src="assets/js/analytics.js?v=20261025" defer></script>
 <style>
 section { position: relative; overflow: clip; }
 .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; }
@@ -106,14 +106,80 @@ pre .c { color: #8C889A; }
 <span class="c">&lt;!-- before &lt;/body&gt; --&gt;</span>
 &lt;script src="https://funscroll.life/kit/funscroll.js"&gt;&lt;/script&gt;</pre>
     <div class="row">
-      <a class="btn" href="kit/funscroll.js" download>⬇ funscroll.js</a>
-      <a class="btn" href="kit/funscroll.css" download>⬇ funscroll.css</a>
-      <a class="btn" href="#vibe" style="background:var(--red); color:var(--white)">never coded? start here ↓</a>
+      <a class="btn" href="kit/funscroll.js?v=20261025" download>⬇ funscroll.js</a>
+      <a class="btn" href="kit/funscroll.css?v=20261025" download>⬇ funscroll.css</a>
+      <a class="btn" href="#recipes" style="background:var(--red); color:var(--white)">are you a programmer? straight to the code ↓</a>
     </div>
   </div>
 </section>
 
-<section class="recipes">
+<!-- vibe -->
+<section class="vibe" id="vibe">
+  <div class="wrap">
+    <span class="tag">vibe coding your funscroll</span>
+    <h2 style="margin-top:14px">you don't need to be a programmer.</h2>
+    <div class="manifest">
+      <p>For years, having your own website meant knowing how to code or paying someone who did. So most of us moved into the same three or four apps, and our work ended up living in someone else's feed.</p>
+      <p><b>That changed.</b> With vibe coding you describe what you imagine in your own words, an AI writes the code, and you keep shaping it until it feels right. Anyone can make a website now: artists, musicians, cooks, teenagers, grandparents.</p>
+      <p>That makes leaving social media possible. Your own corner of the internet, built the way you want, where no algorithm decides who sees it. <b>Making your own website is the most practical way to get out of the doomscroll.</b></p>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="circle" data-c="red" data-m="happy"></span>how to start</h3>
+    <div class="tips">
+      <div class="tip"><h4>1 · start from a feeling</h4><p>Before thinking "header, menu, footer", ask yourself what you want people to feel. Calm? Lost? Like opening a drawer full of things? Tell the AI that first.</p></div>
+      <div class="tip"><h4>2 · one HTML file is enough</h4><p>Ask for "a single index.html file with the CSS and JavaScript inside". You can open it by double-clicking, no installs needed. Grow from there.</p></div>
+      <div class="tip"><h4>3 · give the AI the kit</h4><p>Paste the two lines of the funscroll kit and the list of <code>data-fs-*</code> attributes into your chat. Then ask it to use them. It saves a lot of trial and error.</p></div>
+      <div class="tip"><h4>4 · one change at a time</h4><p>Small steps: "make the title bigger", "now make the photos float". If you ask for ten things at once, something will break and you won't know what.</p></div>
+      <div class="tip"><h4>5 · test on your phone</h4><p>Most people will visit from a phone. Check it there often, and ask the AI to fix what looks wrong: "on my phone the text goes off the screen".</p></div>
+      <div class="tip"><h4>6 · keep copies</h4><p>When something works, save a copy (index-v3.html) or use GitHub. Then you can experiment without fear of losing what you had.</p></div>
+      <div class="tip"><h4>7 · publish it for free</h4><p>GitHub Pages, Netlify or Neocities host simple websites for free. A domain of your own costs a few dollars a year and makes it yours.</p></div>
+      <div class="tip"><h4>8 · ask it to explain</h4><p>"Explain what you just changed, like I'm new to this." You'll learn without noticing, and you'll be able to fix small things yourself.</p></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="triangle" data-c="yellow" data-m="wow"></span>so it doesn't look vibe-coded</h3>
+    <div class="tips">
+      <div class="tip"><h4>bring your own stuff</h4><p>Your photos, drawings, scans, handwriting, voice memos. AI makes the structure; what makes it yours is the material only you have.</p></div>
+      <div class="tip"><h4>say no to the defaults</h4><p>AI tends to repeat the same looks: purple gradients, rounded cards, everything centered. Ask for something specific: "like a 90s zine", "like a museum label", "like my grandmother's kitchen".</p></div>
+      <div class="tip"><h4>few fonts, few colors</h4><p>Two fonts and three or four colors are enough. Choose them yourself (Google Fonts has hundreds) and tell the AI exactly which ones.</p></div>
+      <div class="tip"><h4>break the grid on purpose</h4><p>Ask for things to overlap, tilt, be out of place. Order is the default; mess has to be requested.</p></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="square" data-c="blue" data-m="grin"></span>fine touches</h3>
+    <div class="tips">
+      <div class="tip"><h4>give it an ending</h4><p>A final screen, a goodbye, a "you can close this tab now". It's the most anti-doomscroll thing you can do.</p></div>
+      <div class="tip"><h4>hide secrets</h4><p>A word that changes when you hover it, a double-click that does something unexpected. Small rewards for the curious.</p></div>
+      <div class="tip"><h4>your own cursor</h4><p>An emoji, a drawing of yours, a tiny hand. It changes the whole mood with one line (<code>data-fs-cursor</code>).</p></div>
+      <div class="tip"><h4>light images</h4><p>Ask for images in WebP and not too big. A fun website that takes a minute to load stops being fun.</p></div>
+      <div class="tip"><h4>care for everyone</h4><p>Ask for "alt text on images" and to respect "prefers-reduced-motion", so people who get dizzy with motion can visit too. The kit already does the second one.</p></div>
+      <div class="tip"><h4>link out</h4><p>Link to the websites you love. The opposite of a platform: a website that's happy when you leave to discover something else.</p></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="flower" data-c="red" data-m="wink"></span>prompts to copy</h3>
+    <div class="prompts">
+      <div class="prompt"><span class="tag">your first funscroll</span><p>Make me a single index.html file with CSS and JavaScript inside. It's my personal website. Load the funscroll kit (https://funscroll.life/kit/funscroll.css and https://funscroll.life/kit/funscroll.js) and use its data-fs-* attributes. I want my name huge with data-fs-letters="scatter", a few sentences about me that appear with data-fs-reveal, and an ending screen that says goodbye. Colors: [your colors]. Fonts: [your fonts].</p><button class="btn copy">copy</button></div>
+      <div class="prompt"><span class="tag">an anti-portfolio</span><p>Turn this list of my works into a page where the images float (data-fs-float), can be dragged around (data-fs-drag) and move at different speeds while scrolling (data-fs-parallax with values between -0.6 and 0.6). No grid: place them like a collage. Clicking an image opens it big.</p><button class="btn copy">copy</button></div>
+      <div class="prompt"><span class="tag">a slow page</span><p>Make a page for these poems where each one appears slowly, one line at a time, inside a section with data-fs-slow="0.25". Lots of empty space, one font only, and at the end a button that takes the reader to a random website from this list: [links].</p><button class="btn copy">copy</button></div>
+      <div class="prompt"><span class="tag">fixing things</span><p>On my phone [describe what you see]. I expected [what you wanted]. Fix only that, don't change anything else, and explain in simple words what was wrong.</p><button class="btn copy">copy</button></div>
+    </div>
+
+    <h3 class="part"><span class="shp" data-s="half" data-c="blue" data-m="sleepy"></span>ideas to steal</h3>
+    <div class="ideas">
+      <span>a day from sunrise to night: the sky changes as you scroll down</span>
+      <span>a recipe you scroll down like you're going into the oven</span>
+      <span>a band's site where every song is a room</span>
+      <span>a family album where photos fall onto a table and you rearrange them</span>
+      <span>a diary that only scrolls sideways, like a timeline</span>
+      <span>a shop with no "buy" button: just objects with their stories</span>
+      <span>a page that only makes sense when you tilt your phone</span>
+      <span>a museum of your old notebooks, scanned</span>
+      <span>a CV told with emojis</span>
+      <span>a garden that grows a little every time someone visits</span>
+    </div>
+  </div>
+</section>
+<!-- /vibe -->
+
+<section class="recipes" id="recipes">
   <div class="wrap">
     <h2>recipes</h2>
     <p class="sub">Every effect is one attribute. Each one tries out an idea from the <a href="manifiesto.html#en">manifesto</a>. Mix them, break them, make them yours.</p>
@@ -265,71 +331,6 @@ pre .c { color: #8C889A; }
   </div>
 </section>
 
-<!-- vibe -->
-<section class="vibe" id="vibe">
-  <div class="wrap">
-    <span class="tag">vibe coding your funscroll</span>
-    <h2 style="margin-top:14px">you don't need to be a programmer.</h2>
-    <div class="manifest">
-      <p>For years, having your own website meant knowing how to code or paying someone who did. So most of us moved into the same three or four apps, and our work ended up living in someone else's feed.</p>
-      <p><b>That changed.</b> With vibe coding you describe what you imagine in your own words, an AI writes the code, and you keep shaping it until it feels right. Anyone can make a website now: artists, musicians, cooks, teenagers, grandparents.</p>
-      <p>That makes leaving social media possible. Your own corner of the internet, built the way you want, where no algorithm decides who sees it. <b>Making your own website is the most practical way to get out of the doomscroll.</b></p>
-    </div>
-
-    <h3 class="part"><span class="shp" data-s="circle" data-c="red" data-m="happy"></span>how to start</h3>
-    <div class="tips">
-      <div class="tip"><h4>1 · start from a feeling</h4><p>Before thinking "header, menu, footer", ask yourself what you want people to feel. Calm? Lost? Like opening a drawer full of things? Tell the AI that first.</p></div>
-      <div class="tip"><h4>2 · one HTML file is enough</h4><p>Ask for "a single index.html file with the CSS and JavaScript inside". You can open it by double-clicking, no installs needed. Grow from there.</p></div>
-      <div class="tip"><h4>3 · give the AI the kit</h4><p>Paste the two lines of the funscroll kit and the list of <code>data-fs-*</code> attributes into your chat. Then ask it to use them. It saves a lot of trial and error.</p></div>
-      <div class="tip"><h4>4 · one change at a time</h4><p>Small steps: "make the title bigger", "now make the photos float". If you ask for ten things at once, something will break and you won't know what.</p></div>
-      <div class="tip"><h4>5 · test on your phone</h4><p>Most people will visit from a phone. Check it there often, and ask the AI to fix what looks wrong: "on my phone the text goes off the screen".</p></div>
-      <div class="tip"><h4>6 · keep copies</h4><p>When something works, save a copy (index-v3.html) or use GitHub. Then you can experiment without fear of losing what you had.</p></div>
-      <div class="tip"><h4>7 · publish it for free</h4><p>GitHub Pages, Netlify or Neocities host simple websites for free. A domain of your own costs a few dollars a year and makes it yours.</p></div>
-      <div class="tip"><h4>8 · ask it to explain</h4><p>"Explain what you just changed, like I'm new to this." You'll learn without noticing, and you'll be able to fix small things yourself.</p></div>
-    </div>
-
-    <h3 class="part"><span class="shp" data-s="triangle" data-c="yellow" data-m="wow"></span>so it doesn't look vibe-coded</h3>
-    <div class="tips">
-      <div class="tip"><h4>bring your own stuff</h4><p>Your photos, drawings, scans, handwriting, voice memos. AI makes the structure; what makes it yours is the material only you have.</p></div>
-      <div class="tip"><h4>say no to the defaults</h4><p>AI tends to repeat the same looks: purple gradients, rounded cards, everything centered. Ask for something specific: "like a 90s zine", "like a museum label", "like my grandmother's kitchen".</p></div>
-      <div class="tip"><h4>few fonts, few colors</h4><p>Two fonts and three or four colors are enough. Choose them yourself (Google Fonts has hundreds) and tell the AI exactly which ones.</p></div>
-      <div class="tip"><h4>break the grid on purpose</h4><p>Ask for things to overlap, tilt, be out of place. Order is the default; mess has to be requested.</p></div>
-    </div>
-
-    <h3 class="part"><span class="shp" data-s="square" data-c="blue" data-m="grin"></span>fine touches</h3>
-    <div class="tips">
-      <div class="tip"><h4>give it an ending</h4><p>A final screen, a goodbye, a "you can close this tab now". It's the most anti-doomscroll thing you can do.</p></div>
-      <div class="tip"><h4>hide secrets</h4><p>A word that changes when you hover it, a double-click that does something unexpected. Small rewards for the curious.</p></div>
-      <div class="tip"><h4>your own cursor</h4><p>An emoji, a drawing of yours, a tiny hand. It changes the whole mood with one line (<code>data-fs-cursor</code>).</p></div>
-      <div class="tip"><h4>light images</h4><p>Ask for images in WebP and not too big. A fun website that takes a minute to load stops being fun.</p></div>
-      <div class="tip"><h4>care for everyone</h4><p>Ask for "alt text on images" and to respect "prefers-reduced-motion", so people who get dizzy with motion can visit too. The kit already does the second one.</p></div>
-      <div class="tip"><h4>link out</h4><p>Link to the websites you love. The opposite of a platform: a website that's happy when you leave to discover something else.</p></div>
-    </div>
-
-    <h3 class="part"><span class="shp" data-s="flower" data-c="red" data-m="wink"></span>prompts to copy</h3>
-    <div class="prompts">
-      <div class="prompt"><span class="tag">your first funscroll</span><p>Make me a single index.html file with CSS and JavaScript inside. It's my personal website. Load the funscroll kit (https://funscroll.life/kit/funscroll.css and https://funscroll.life/kit/funscroll.js) and use its data-fs-* attributes. I want my name huge with data-fs-letters="scatter", a few sentences about me that appear with data-fs-reveal, and an ending screen that says goodbye. Colors: [your colors]. Fonts: [your fonts].</p><button class="btn copy">copy</button></div>
-      <div class="prompt"><span class="tag">an anti-portfolio</span><p>Turn this list of my works into a page where the images float (data-fs-float), can be dragged around (data-fs-drag) and move at different speeds while scrolling (data-fs-parallax with values between -0.6 and 0.6). No grid: place them like a collage. Clicking an image opens it big.</p><button class="btn copy">copy</button></div>
-      <div class="prompt"><span class="tag">a slow page</span><p>Make a page for these poems where each one appears slowly, one line at a time, inside a section with data-fs-slow="0.25". Lots of empty space, one font only, and at the end a button that takes the reader to a random website from this list: [links].</p><button class="btn copy">copy</button></div>
-      <div class="prompt"><span class="tag">fixing things</span><p>On my phone [describe what you see]. I expected [what you wanted]. Fix only that, don't change anything else, and explain in simple words what was wrong.</p><button class="btn copy">copy</button></div>
-    </div>
-
-    <h3 class="part"><span class="shp" data-s="half" data-c="blue" data-m="sleepy"></span>ideas to steal</h3>
-    <div class="ideas">
-      <span>a day from sunrise to night: the sky changes as you scroll down</span>
-      <span>a recipe you scroll down like you're going into the oven</span>
-      <span>a band's site where every song is a room</span>
-      <span>a family album where photos fall onto a table and you rearrange them</span>
-      <span>a diary that only scrolls sideways, like a timeline</span>
-      <span>a shop with no "buy" button: just objects with their stories</span>
-      <span>a page that only makes sense when you tilt your phone</span>
-      <span>a museum of your old notebooks, scanned</span>
-      <span>a CV told with emojis</span>
-      <span>a garden that grows a little every time someone visits</span>
-    </div>
-  </div>
-</section>
-<!-- /vibe -->
 
 <section class="assets">
   <div class="wrap">
@@ -369,8 +370,8 @@ pre .c { color: #8C889A; }
   </div>
 </section>
 
-<script src="assets/js/site.js"></script>
-<script src="kit/funscroll.js"></script>
+<script src="assets/js/site.js?v=20261025"></script>
+<script src="kit/funscroll.js?v=20261025"></script>
 <script>
 // the tilt demo says whether the phone let us read its motion
 const tiltDemo = document.getElementById('tiltDemo');
