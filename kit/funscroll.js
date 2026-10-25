@@ -109,9 +109,9 @@
       });
     });
 
-    const v = clamp(velocity, -80, 80);
+    const v = clamp(velocity, -40, 40);
     $$('[data-fs-dance]').forEach(el => {
-      el.style.transform = `skewY(${v * .12}deg) rotate(${v * .08}deg)`;
+      el.style.transform = `skewY(${v * .45}deg) rotate(${v * .35}deg) scale(${1 + Math.abs(v) * .006})`;
     });
 
     $$('[data-fs-tilt]').forEach(el => {
@@ -177,16 +177,34 @@
       el.addEventListener('click', () => setTimeout(roll, 0));
     });
 
+    // reveal waits until the element is well into the screen, staggers its siblings,
+    // and plays again every time it comes back
     const io = new IntersectionObserver(entries => entries.forEach(en => {
-      if (en.isIntersecting) en.target.classList.add('fs-in');
-    }), { threshold: .15 });
-    $$('[data-fs-reveal]', root).forEach(el => io.observe(el));
+      if (en.intersectionRatio >= .5) en.target.classList.add('fs-in');
+      else if (!en.isIntersecting) en.target.classList.remove('fs-in');
+    }), { threshold: [0, .5] });
+    $$('[data-fs-reveal]', root).forEach(el => {
+      const sibs = [...el.parentElement.children].filter(c => c.hasAttribute('data-fs-reveal'));
+      if (sibs.length > 1) el.style.transitionDelay = (sibs.indexOf(el) * .25) + 's';
+      io.observe(el);
+    });
+
+    // jelly: a squish that also works on touch screens
+    $$('[data-fs-jelly]', root).forEach(el => el.addEventListener('pointerdown', () => {
+      el.classList.remove('fs-squish');
+      void el.offsetWidth;
+      el.classList.add('fs-squish');
+    }));
   }
 
   function enableTilt() {
+    // the first reading is "straight": whatever angle the phone is held at, tilting from there moves things
+    let g0 = null, b0 = null;
     const listen = () => addEventListener('deviceorientation', e => {
-      tilt.tx = clamp((e.gamma || 0) / 45, -1, 1);
-      tilt.ty = clamp(((e.beta || 0) - 45) / 45, -1, 1);
+      if (e.gamma == null) return;
+      if (g0 === null) { g0 = e.gamma; b0 = e.beta; }
+      tilt.tx = clamp((e.gamma - g0) / 25, -1, 1);
+      tilt.ty = clamp((e.beta - b0) / 25, -1, 1);
     });
     if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) {
       return DeviceOrientationEvent.requestPermission().then(r => { if (r === 'granted') listen(); return r; });

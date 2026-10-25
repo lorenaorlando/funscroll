@@ -135,6 +135,8 @@ html { font-variation-settings: 'CASL' 1; }
   .helm-list a { font-size: 17px; }
   .helm-hint { display: none; }
   .track { right: 4px; width: 18px; top: 220px; bottom: 16px; }
+  /* keep every column clear of the scrollcito track on the right */
+  body .wrap { padding-right: 46px; }
   .track .mini { width: 22px; height: 34px; }
   .track .pct { display: none; }
 }
