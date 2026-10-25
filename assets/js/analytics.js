@@ -1,11 +1,12 @@
 /* funscroll.life — analytics
-   Off until an ID is filled in below. Nothing is loaded or sent while it's empty. */
+   Off until an ID is filled in below. Visitors in Spain are asked for consent before anything loads. */
 (function () {
   const CONFIG = {
     ga4: 'G-RF1V6F07LN', // Google Analytics 4 measurement ID
   };
 
-  if (CONFIG.ga4) {
+  function loadGA() {
+    if (!CONFIG.ga4 || window.gtag) return;
     const s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.ga4;
@@ -15,6 +16,69 @@
     gtag('js', new Date());
     gtag('config', CONFIG.ga4);
   }
+
+  // Visitors in Spain get asked first; Google Analytics only loads after a "yes".
+  // Spain is detected from the browser's time zone, so no IP lookup is needed.
+  const SPAIN = ['Europe/Madrid', 'Atlantic/Canary', 'Africa/Ceuta'];
+  let tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  const askFirst = SPAIN.includes(tz);
+  const KEY = 'fs-consent';
+  const getChoice = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const setChoice = v => { try { localStorage.setItem(KEY, v); } catch (e) {} };
+
+  const WORDS = {
+    es: { text: '🍪 ¿Nos dejas contar visitas? Usamos Google Analytics solo para saber cuánta gente pasa por aquí y qué le gusta. Nada de publicidad.', yes: 'vale', no: 'no, gracias', change: 'cookies' },
+    en: { text: '🍪 Can we count visits? We use Google Analytics only to know how many people drop by and what they enjoy. No ads.', yes: 'okay', no: 'no, thanks', change: 'cookies' },
+  };
+  const w = () => WORDS[(document.documentElement.lang || 'en').startsWith('es') ? 'es' : 'en'];
+
+  function showBanner() {
+    if (document.getElementById('fs-cookies')) return;
+    const b = document.createElement('div');
+    b.id = 'fs-cookies';
+    b.setAttribute('role', 'dialog');
+    b.setAttribute('aria-label', 'cookies');
+    b.innerHTML = `<p>${w().text}</p><div><button data-c="yes">${w().yes}</button><button data-c="no">${w().no}</button></div>`;
+    b.addEventListener('click', e => {
+      const c = e.target.closest('button');
+      if (!c) return;
+      setChoice(c.dataset.c);
+      if (c.dataset.c === 'yes') loadGA();
+      b.remove();
+    });
+    document.body.appendChild(b);
+  }
+
+  const css = document.createElement('style');
+  css.textContent = `
+#fs-cookies { position: fixed; left: 16px; bottom: 16px; z-index: 90; max-width: 400px; background: var(--white, #fff); color: var(--ink, #17151F);
+  border: 3px solid var(--ink, #17151F); border-radius: 22px; box-shadow: 5px 5px 0 var(--ink, #17151F); padding: 16px 18px; font: 400 15px/1.4 var(--voice, sans-serif); }
+#fs-cookies div { display: flex; gap: 10px; margin-top: 12px; }
+#fs-cookies button { font: 800 15px var(--display, sans-serif); padding: 7px 16px; border-radius: 30px; border: 2.5px solid var(--ink, #17151F); background: var(--white, #fff); color: var(--ink, #17151F); cursor: pointer; }
+#fs-cookies button[data-c="yes"] { background: var(--yellow, #FFDF4F); }
+.fs-cookie-link { background: none; border: 0; padding: 0; font: inherit; color: var(--yellow, #FFDF4F); text-decoration: underline; cursor: pointer; }
+body:has(.tl) #fs-cookies { bottom: 100px; }
+@media (max-width: 700px) { #fs-cookies { right: 16px; bottom: 150px; } }`;
+  document.head.appendChild(css);
+
+  if (!askFirst) loadGA();
+  else if (getChoice() === 'yes') loadGA();
+
+  addEventListener('DOMContentLoaded', () => {
+    if (!askFirst) return;
+    if (!getChoice()) showBanner();
+    // a way to change your mind, next to the credit in the footer
+    setTimeout(() => {
+      const credit = document.querySelector('.site-foot small');
+      if (!credit || credit.querySelector('.fs-cookie-link')) return;
+      const link = document.createElement('button');
+      link.className = 'fs-cookie-link';
+      link.textContent = w().change;
+      link.addEventListener('click', showBanner);
+      credit.append(' · ', link);
+    }, 300);
+  });
 
   // one call for every provider; does nothing if none is set up
   function track(name, params = {}) {
