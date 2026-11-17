@@ -22,7 +22,7 @@ When you change text on an English page, change its twin in `es/` too.
 - **The funscrollers (cards):** `assets/js/funscrollers.js`. Each site has a `concept` and an optional `note` (the "why it's here" text on the back of the card).
 - **Webring members:** the `MEMBERS` list at the top of `kit/ring.js`.
 - **Submissions** to the ring arrive by email: the "submit my site" button opens a pre-filled message to soylorenaorlando@gmail.com.
-- **Colors and fonts:** the `:root` block in `assets/css/site.css`. Fonts: Bricolage Grotesque (titles), Recursive with its casual axis (text), JetBrains Mono (labels).
+- **Colors and fonts:** the `:root` block in `assets/css/site.css`. Fonts: Grandstander (titles), Recursive with its casual axis (text), JetBrains Mono (labels).
 - **The menu (the ship's wheel) and the face shapes:** `assets/js/site.js`.
 
 ## The funscroll kit

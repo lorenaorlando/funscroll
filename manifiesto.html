@@ -8,15 +8,15 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/funscroll.css?v=20261025">
-<link rel="stylesheet" href="assets/css/site.css?v=20261025">
-<script src="assets/js/analytics.js?v=20261025" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@400;600;800;900&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/funscroll.css?v=20261117">
+<link rel="stylesheet" href="assets/css/site.css?v=20261117">
+<script src="assets/js/analytics.js?v=20261117" defer></script>
 <style>
 :root { --parch: #FBF6E6; --paper-w: min(860px, calc(100vw - 40px)); }
 body { background: var(--blue); }
 header { max-width: 860px; margin: 0 auto; padding: 96px 20px 30px; color: var(--white); display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
-header h1 { font-weight: 800; font-size: clamp(44px, 8vw, 96px); letter-spacing: -.05em; line-height: .85; }
+header h1 { font-weight: 800; font-size: clamp(38px, 8vw, 96px); letter-spacing: 0; line-height: .85; }
 header h1 span { display: block; font: 400 .4em/1.2 var(--voice); letter-spacing: 0; color: var(--yellow); margin-top: 8px; }
 .lang { margin-left: auto; display: flex; border: 2.5px solid var(--ink); border-radius: 30px; overflow: hidden; box-shadow: 3px 3px 0 var(--ink); }
 .lang button { border: none; color: var(--ink); background: var(--white); padding: 6px 14px; font: 500 13px var(--mono); }
@@ -29,13 +29,13 @@ header h1 span { display: block; font: 400 .4em/1.2 var(--voice); letter-spacing
 
 article { font: 400 clamp(17px, 1.6vw, 19px)/1.65 var(--voice); color: var(--ink); max-width: 64ch; margin: 0 auto; position: relative; }
 article[hidden] { display: none; }
-article h1 { font: 800 clamp(40px, 6vw, 68px)/.92 var(--display); letter-spacing: -.045em; margin-bottom: 40px; text-wrap: balance; }
-article h2 { font: 800 clamp(28px, 3.6vw, 40px)/1 var(--display); letter-spacing: -.035em; margin: 64px 0 18px; color: var(--blue); text-wrap: balance; }
+article h1 { font: 800 clamp(40px, 6vw, 68px)/.92 var(--display); letter-spacing: 0; margin-bottom: 40px; text-wrap: balance; }
+article h2 { font: 800 clamp(28px, 3.6vw, 40px)/1 var(--display); letter-spacing: 0; margin: 64px 0 18px; color: var(--blue); text-wrap: balance; }
 article h2::before { content: ''; display: block; width: 64px; height: 64px; margin: 0 auto 26px; background: no-repeat center/contain; }
 article h2:nth-of-type(3n+1)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23FF5436' stroke='%2317151F' stroke-width='4.5' stroke-linecap='round'%3E%3Ccircle cx='50' cy='50' r='44'/%3E%3Cg fill='none'%3E%3Ccircle cx='39' cy='46' r='4.5' fill='%2317151F' stroke='none'/%3E%3Ccircle cx='61' cy='46' r='4.5' fill='%2317151F' stroke='none'/%3E%3Cpath d='M40 58 Q50 68 60 58'/%3E%3C/g%3E%3C/svg%3E"); }
 article h2:nth-of-type(3n+2)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23FFDF4F' stroke='%2317151F' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 6 L95 90 Q96 94 91 94 H9 Q4 94 5 90 Z'/%3E%3Cg fill='none'%3E%3Ccircle cx='39' cy='62' r='4.5' fill='%2317151F' stroke='none'/%3E%3Ccircle cx='61' cy='62' r='4.5' fill='%2317151F' stroke='none'/%3E%3Cellipse cx='50' cy='78' rx='5' ry='7' fill='%2317151F'/%3E%3C/g%3E%3C/svg%3E"); }
 article h2:nth-of-type(3n)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%233B5BFF' stroke='%2317151F' stroke-width='4.5' stroke-linecap='round'%3E%3Crect x='8' y='8' width='84' height='84' rx='16'/%3E%3Cg fill='none'%3E%3Cpath d='M34 46 Q39 50 44 46 M56 46 Q61 50 66 46'/%3E%3Cpath d='M40 58 Q50 68 60 58'/%3E%3C/g%3E%3C/svg%3E"); }
-article h3 { font: 800 21px/1.15 var(--display); letter-spacing: -.02em; margin: 30px 0 8px; }
+article h3 { font: 800 21px/1.15 var(--display); letter-spacing: 0; margin: 30px 0 8px; }
 article h2 + p::first-letter { font: 800 3.6em/.78 var(--display); float: left; margin: 8px 10px 0 0; color: var(--red); }
 article p { margin-bottom: 18px; text-wrap: pretty; }
 article ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 20px; }
@@ -46,7 +46,9 @@ article a { color: var(--blue); }
 article .video { margin: 14px 0 24px; border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 5px 5px 0 var(--ink); }
 article .video iframe { width: 100%; height: 100%; border: 0; display: block; }
 article .fin { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; margin-top: 90px; }
-article .fin b { font: 800 80px/1 var(--display); letter-spacing: -.05em; color: var(--red); }
+article .fin .license { font: 400 14px/1.7 var(--voice); max-width: 46ch; margin-top: 18px; padding-top: 16px; border-top: 2px dashed rgba(23,21,31,.25); }
+article .fin .license .cc-icons img { background: none; }
+article .fin b { font: 800 80px/1 var(--display); letter-spacing: 0; color: var(--red); }
 article .fin .who { width: 100px; }
 article .fin .who svg { animation: wave 1.2s ease-in-out infinite alternate; transform-origin: 50% 90%; }
 @keyframes wave { from { rotate: -10deg; } to { rotate: 10deg; } }
@@ -68,6 +70,7 @@ body { padding-bottom: 96px; }
 .tl-now { font: 700 13px var(--voice); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .tl-left { white-space: nowrap; opacity: .75; }
 @media (max-width: 700px) {
+  header { padding-top: 190px; }
   .tl { left: 10px; right: 128px; bottom: 12px; padding: 8px 10px 6px; }
   .tl-stop { width: 12px; height: 12px; }
   .tl-stop::after { display: none; }
@@ -144,7 +147,7 @@ body { padding-bottom: 96px; }
       <p>Esta web funciona bajo la filosofía del “always under construction”, que la desata de formatos definidos. El plan es que se vaya alimentando, cambiando y redefiniendo con el paso del tiempo. Tiene la libertad de editarse y reinterpretarse, desafiando la lógica de las identidades fijas e inmutables de nuestros perfiles en redes sociales.</p>
       <h2>Entonces, ¿qué es el funscroll?</h2>
       <p>El FUNSCROLL es lo que el creador quiera que sea, no tiene reglas ni límites, solo fuentes de inspiración. Se presenta como la posibilidad de abrir una grieta en la monotonía de nuestro uso de dispositivos. Un espacio de navegación nutritiva y lúdica que transforma la experiencia del internet desde sus formas y usos. Recuperar la diversión es recuperar la autonomía. Romper con la lógica del consumo pasivo y del algoritmo es un acto de desobediencia digital. La creación de interfaces FUNSCROLLeables puede cambiar el paradigma de nuestra relación con el internet a partir de la construcción de espacios que inviten al usuario a ser parte activa de la experiencia. Rompe con hábitos repetitivos y los patrones de comportamiento impuestos por las plataformas.</p>
-      <div class="fin"><b>fin.</b><div class="who halo" id="who1"></div><p>Este pergamino se acabó. Ahora ve a <a href="es/funscrollers.html">ver a los funscrollers</a> o <a href="es/kit.html">haz el tuyo</a>.</p></div>
+      <div class="fin"><b>fin.</b><div class="who halo" id="who1"></div><p>Este pergamino se acabó. Ahora ve a <a href="es/funscrollers.html">ver a los funscrollers</a> o <a href="es/kit.html">haz el tuyo</a>.</p><p class="license"><a href="https://lorenalandia.fun/funscroll/" target="_blank" rel="noopener">FUNSCROLL</a> © 2026 de <a href="https://lorenaorlando.com/" target="_blank" rel="noopener">Lorena Orlando</a> está bajo la licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener">CC BY-NC-SA 4.0 <span class="cc-icons"><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" width="20" height="20"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" width="20" height="20"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" width="20" height="20"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" width="20" height="20"></span></a></p></div>
     </article>
     <article lang="en" id="en" hidden>
       <h1>FUNSCROLL: Escaping the Doomscroll trap</h1>
@@ -236,7 +239,7 @@ body { padding-bottom: 96px; }
       <p>This website operates under the “always under construction” philosophy, untethering it from defined formats. The plan is for it to constantly feed, alter, and redefine itself over time.</p>
       <h2>So…what is FUNSCROLL?</h2>
       <p>FUNSCROLL is whatever the creator wants it to be; it has no rules or limits, only sources of inspiration. It presents itself as the possibility of cracking open a rift in the monotony of our daily device usage. To reclaim play is to reclaim autonomy. To break away from the logic of passive consumption and the algorithm is an act of digital disobedience.</p>
-      <div class="fin"><b>the end.</b><div class="who halo" id="who2"></div><p>This scroll is over. Now go <a href="funscrollers.html">meet the funscrollers</a> or <a href="kit.html">make your own</a>.</p></div>
+      <div class="fin"><b>the end.</b><div class="who halo" id="who2"></div><p>This scroll is over. Now go <a href="funscrollers.html">meet the funscrollers</a> or <a href="kit.html">make your own</a>.</p><p class="license"><a href="https://lorenalandia.fun/funscroll/" target="_blank" rel="noopener">FUNSCROLL</a> © 2026 by <a href="https://lorenaorlando.com/" target="_blank" rel="noopener">Lorena Orlando</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener">CC BY-NC-SA 4.0 <span class="cc-icons"><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" width="20" height="20"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" width="20" height="20"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" width="20" height="20"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" width="20" height="20"></span></a></p></div>
     </article>
   </div>
 </div>
@@ -244,8 +247,8 @@ body { padding-bottom: 96px; }
   <div class="tl-track"><div class="tl-fill"></div><div id="stops"></div><div class="tl-me halo" id="me"></div></div>
   <div class="tl-info"><span class="tl-now" id="now"></span><span class="tl-left" id="left"></span></div>
 </nav>
-<script src="assets/js/site.js?v=20261025"></script>
-<script src="kit/funscroll.js?v=20261025"></script>
+<script src="assets/js/site.js?v=20261117"></script>
+<script src="kit/funscroll.js?v=20261117"></script>
 <script>
 document.getElementById('who1').innerHTML = FUN.SCROLLCITO;
 document.getElementById('who2').innerHTML = FUN.SCROLLCITO;

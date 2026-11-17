@@ -8,10 +8,10 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/funscroll.css?v=20261025">
-<link rel="stylesheet" href="assets/css/site.css?v=20261025">
-<script src="assets/js/analytics.js?v=20261025" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@400;600;800;900&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/funscroll.css?v=20261117">
+<link rel="stylesheet" href="assets/css/site.css?v=20261117">
+<script src="assets/js/analytics.js?v=20261117" defer></script>
 <style>
 section { position: relative; overflow: clip; }
 .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; position: relative; }
@@ -19,17 +19,17 @@ section { position: relative; overflow: clip; }
 .top { background: var(--red); color: var(--white); padding: 18vh 0 14vh; }
 .top .wrap { display: flex; gap: 50px; align-items: center; flex-wrap: wrap; }
 .top .txt { flex: 1 1 520px; }
-.top h1 { font-weight: 800; font-size: clamp(64px, 11vw, 170px); letter-spacing: -.035em; line-height: .82; }
+.top h1 { font-weight: 800; font-size: clamp(42px, 11vw, 170px); letter-spacing: -.015em; line-height: .82; }
 .top p { font: 400 clamp(24px, 2.6vw, 36px)/1.08 var(--voice); max-width: 620px; margin-top: 26px; }
 .door-btn { width: clamp(220px, 24vw, 300px); aspect-ratio: .7; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 20px 34px; background: var(--yellow); color: var(--ink); border: 4px solid var(--ink); border-radius: 200px 200px 14px 14px; box-shadow: 10px 10px 0 var(--ink); text-decoration: none; position: relative; text-align: center; transition: rotate .4s cubic-bezier(.2,2,.4,1); margin: 0 auto; }
 .door-btn:hover { rotate: 4deg; }
 .door-btn .knob { position: absolute; right: 18%; top: 55%; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); }
 .door-btn .shp { --size: 58%; position: absolute; top: 14%; }
-.door-btn b { font-weight: 800; font-size: clamp(22px, 2.2vw, 28px); letter-spacing: -.03em; line-height: 1; }
+.door-btn b { font-weight: 800; font-size: clamp(22px, 2.2vw, 28px); letter-spacing: 0; line-height: 1; }
 .door-btn small { font: 500 12px var(--mono); margin-top: 8px; }
 
 .deck { background: var(--butter); padding: 14vh 0 18vh; }
-.deck h2, .ring h2 { font-weight: 800; font-size: clamp(46px, 7vw, 104px); letter-spacing: -.05em; line-height: .9; }
+.deck h2, .ring h2 { font-weight: 800; font-size: clamp(46px, 7vw, 104px); letter-spacing: 0; line-height: .9; }
 .deck .sub, .ring .sub { font: italic 400 clamp(20px, 2.2vw, 28px)/1.15 var(--voice); margin: 14px 0 30px; max-width: 760px; }
 .deck .bar { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 40px; }
 .deck .bar .count { font: 500 14px var(--mono); }
@@ -40,7 +40,7 @@ section { position: relative; overflow: clip; }
 .card .face { position: absolute; inset: 0; backface-visibility: hidden; border: 3px solid var(--ink); border-radius: 18px; box-shadow: 6px 6px 0 var(--ink); padding: 14px; display: flex; flex-direction: column; }
 .card .back { transform: rotateY(180deg); background: var(--ink); color: var(--white); }
 .card .art { height: 128px; border: 3px solid var(--ink); border-radius: 12px; background: var(--white); display: grid; place-items: center; font-size: 62px; }
-.card .n { font-weight: 800; font-size: 22px; letter-spacing: -.03em; line-height: 1; margin-top: 12px; }
+.card .n { font-weight: 800; font-size: 22px; letter-spacing: 0; line-height: 1; margin-top: 12px; }
 .card .d { font: 500 11px var(--mono); opacity: .7; margin-top: 4px; word-break: break-all; }
 .card .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font: 500 11px var(--mono); }
 .card .foot b { background: var(--ink); color: var(--white); padding: 4px 9px; border-radius: 12px; font-weight: 500; text-transform: uppercase; }
@@ -54,7 +54,7 @@ section { position: relative; overflow: clip; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
 .step { background: var(--white); color: var(--ink); border: 3px solid var(--ink); border-radius: 24px; padding: 24px; box-shadow: 6px 6px 0 var(--ink); }
 .step .shp { --size: 58px; float: right; }
-.step h3 { font-weight: 800; font-size: 26px; letter-spacing: -.03em; line-height: 1; }
+.step h3 { font-weight: 800; font-size: 26px; letter-spacing: 0; line-height: 1; }
 .step p { font: 400 20px/1.15 var(--voice); margin-top: 10px; }
 .step code, .snippet { font: 500 12px/1.5 var(--mono); }
 .step .mailto { font: 500 13px var(--mono); margin-top: 12px; user-select: all; word-break: break-all; }
@@ -63,10 +63,12 @@ section { position: relative; overflow: clip; }
 .members a { color: var(--yellow); }
 
 .credits { background: var(--ink); color: var(--white); padding: 12vh 0 24vh; }
-.credits h2 { font-weight: 800; font-size: 40px; letter-spacing: -.04em; }
+.credits h2 { font-weight: 800; font-size: 40px; letter-spacing: 0; }
 .credits li { break-inside: avoid; }
 .credits ol { columns: 340px; margin-top: 24px; font: 500 14px/2 var(--mono); padding-left: 22px; }
 .credits a { color: var(--yellow); }
+.top .tag { display: block; margin-bottom: 22px; }
+@media (max-width: 700px) { .top { padding-top: 190px; } .top .shp.abs { display: none; } }
 </style>
 </head>
 <body data-alt="es/funscrollers.html">
@@ -129,9 +131,9 @@ section { position: relative; overflow: clip; }
   </div>
 </section>
 
-<script src="assets/js/funscrollers.js?v=20261025"></script>
-<script src="kit/ring.js?v=20261025"></script>
-<script src="assets/js/site.js?v=20261025"></script>
+<script src="assets/js/funscrollers.js?v=20261117"></script>
+<script src="kit/ring.js?v=20261117"></script>
+<script src="assets/js/site.js?v=20261117"></script>
 <script>
 const colors = ['var(--sky)', 'var(--blush)', 'var(--yellow)', 'var(--white)', 'var(--butter)'];
 const host = u => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
@@ -195,6 +197,6 @@ door.addEventListener('click', () => {
 document.getElementById('list').innerHTML = FUNSCROLLERS.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener">${f.name}</a> — ${host(f.url)}</li>`).join('');
 document.getElementById('members').innerHTML = 'in the ring so far: ' + (window.FUNSCROLL_RING || []).map(m => `<a href="${m.url}" target="_blank" rel="noopener">${m.name}</a>`).join(' · ');
 </script>
-<script src="kit/funscroll.js?v=20261025"></script>
+<script src="kit/funscroll.js?v=20261117"></script>
 </body>
 </html>

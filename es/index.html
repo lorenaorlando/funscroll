@@ -8,17 +8,17 @@
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../kit/funscroll.css?v=20261025">
-<link rel="stylesheet" href="../assets/css/site.css?v=20261025">
-<script src="../assets/js/analytics.js?v=20261025" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@400;600;800;900&family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../kit/funscroll.css?v=20261117">
+<link rel="stylesheet" href="../assets/css/site.css?v=20261117">
+<script src="../assets/js/analytics.js?v=20261117" defer></script>
 <style>
 section { position: relative; overflow: clip; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; }
 
 /* 1 · hero */
 .hero { min-height: 100svh; background: var(--yellow); display: flex; align-items: center; }
-.hero h1 { font-weight: 800; font-size: clamp(72px, 14vw, 230px); line-height: .78; letter-spacing: .03em; position: relative; z-index: 2; }
+.hero h1 { font-weight: 800; font-size: clamp(72px, 14vw, 230px); line-height: .78; letter-spacing: -.015em; position: relative; z-index: 2; }
 .hero h1 .o { color: var(--red); }
 .hero .lede { font: 400 clamp(26px, 3.2vw, 44px)/1.02 var(--voice); max-width: 560px; margin-top: 34px; position: relative; z-index: 2; }
 .hero .lede em { color: var(--blue); }
@@ -31,7 +31,7 @@ section { position: relative; overflow: clip; }
 .doom { background: var(--ink); color: var(--white); }
 .doom .panel { width: 100vw; height: 100%; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 9vw; position: relative; }
 .doom .panel.half { width: 70vw; }
-.doom h2 { font-weight: 800; font-size: clamp(44px, 10vw, 160px); line-height: .85; letter-spacing: -.05em; }
+.doom h2 { font-weight: 800; font-size: clamp(44px, 10vw, 160px); line-height: .85; letter-spacing: 0; }
 .doom h2 .grey { color: #5B5868; }
 .doom p { font: 400 clamp(24px, 2.6vw, 38px)/1.1 var(--voice); max-width: 640px; margin-top: 22px; color: #CFCBDB; }
 .feed { position: absolute; right: 6vw; top: 12vh; bottom: 12vh; width: 26vw; display: grid; gap: 14px; overflow: hidden; opacity: .65; }
@@ -43,16 +43,16 @@ section { position: relative; overflow: clip; }
 
 /* 3 · fun */
 .fun { background: var(--blue); color: var(--white); padding: 22vh 0 26vh; }
-.fun h2 { font-weight: 800; font-size: clamp(60px, 12vw, 190px); line-height: .85; letter-spacing: -.06em; }
+.fun h2 { font-weight: 800; font-size: clamp(60px, 12vw, 190px); line-height: .85; letter-spacing: 0; }
 .fun h2 .y { color: var(--yellow); }
 .fun p { font: 400 clamp(26px, 3vw, 44px)/1.05 var(--voice); max-width: 720px; margin-top: 40px; }
-.fun p b { font-family: var(--display); font-weight: 800; letter-spacing: -.03em; }
+.fun p b { font-family: var(--display); font-weight: 800; letter-spacing: 0; }
 .fun .shp { --size: clamp(70px, 9vw, 140px); }
 
 /* 4 · concepts */
 .concepts { background: var(--white); padding: 18vh 0; }
 .concepts .tag { margin-bottom: 30px; display: block; }
-.word { display: block; font-weight: 800; font-size: clamp(64px, 13vw, 200px); line-height: .9; letter-spacing: -.06em; margin: 1.5vh 0; user-select: none; }
+.word { display: block; font-weight: 800; font-size: clamp(64px, 13vw, 200px); line-height: .9; letter-spacing: 0; margin: 1.5vh 0; user-select: none; }
 .word.r { color: var(--red); } .word.b { color: var(--blue); } .word.y { color: var(--yellow); -webkit-text-stroke: 3px var(--ink); }
 .word.right { text-align: right; }
 .word small { font: italic 400 clamp(18px, 2vw, 26px) var(--voice); letter-spacing: 0; color: var(--ink); -webkit-text-stroke: 0; display: inline-block; vertical-align: middle; margin-left: 16px; max-width: 220px; line-height: 1.05; }
@@ -69,22 +69,22 @@ section { position: relative; overflow: clip; }
 .slow [data-fs-track] { max-width: 900px; padding: 0 28px; text-align: center; }
 .slow .tag { display: block; margin-bottom: 40px; }
 .slow .line { font: 400 clamp(34px, 5vw, 72px)/1.05 var(--voice); margin-bottom: 26vh; }
-.slow .line b { font-family: var(--display); font-weight: 800; letter-spacing: -.04em; }
+.slow .line b { font-family: var(--display); font-weight: 800; letter-spacing: 0; }
 
 /* 6 · glossary */
 .glossary { background: var(--butter); padding: 16vh 0 20vh; min-height: 100svh; }
-.glossary h2 { font-weight: 800; font-size: clamp(48px, 8vw, 120px); letter-spacing: -.05em; line-height: .9; }
+.glossary h2 { font-weight: 800; font-size: clamp(48px, 8vw, 120px); letter-spacing: 0; line-height: .9; }
 .glossary .sub { font: italic 400 clamp(22px, 2.4vw, 32px) var(--voice); margin: 14px 0 50px; }
 .stickers { position: relative; display: flex; flex-wrap: wrap; gap: 22px; }
 .sticker { width: min(330px, 100%); padding: 22px; border: 3px solid var(--ink); border-radius: 26px; box-shadow: 6px 6px 0 var(--ink); }
-.sticker h3 { font-weight: 800; font-size: 32px; letter-spacing: -.04em; line-height: 1; }
+.sticker h3 { font-weight: 800; font-size: 32px; letter-spacing: 0; line-height: 1; }
 .sticker p { font: 400 21px/1.1 var(--voice); margin-top: 8px; }
 .sticker .shp { --size: 54px; float: right; margin: -6px -6px 6px 10px; }
 #tiltBtn { margin-top: 40px; }
 
 /* 7 · useless */
 .useless { background: var(--yellow); min-height: 100svh; display: flex; align-items: center; padding: 14vh 0; }
-.useless h2 { font-weight: 800; font-size: clamp(54px, 9vw, 140px); line-height: .85; letter-spacing: -.05em; }
+.useless h2 { font-weight: 800; font-size: clamp(54px, 9vw, 140px); line-height: .85; letter-spacing: 0; }
 .useless .no { font: 500 clamp(14px, 1.4vw, 18px) var(--mono); margin: 26px 0 40px; display: flex; flex-wrap: wrap; gap: 10px; }
 .useless .no s { background: var(--white); border: 2px solid var(--ink); border-radius: 20px; padding: 4px 12px; }
 #nothing { font-size: clamp(22px, 2.6vw, 34px); background: var(--red); color: var(--white); }
@@ -93,20 +93,20 @@ section { position: relative; overflow: clip; }
 
 /* 8 · doors */
 .doors { background: var(--blue); color: var(--white); padding: 18vh 0; text-align: center; }
-.doors h2 { font-weight: 800; font-size: clamp(48px, 8vw, 130px); line-height: .88; letter-spacing: -.05em; }
+.doors h2 { font-weight: 800; font-size: clamp(48px, 8vw, 130px); line-height: .88; letter-spacing: 0; }
 .doors p { font: 400 clamp(22px, 2.4vw, 32px)/1.1 var(--voice); max-width: 640px; margin: 22px auto 50px; }
 .door-btn { width: clamp(220px, 26vw, 320px); aspect-ratio: .7; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 20px 34px; background: var(--yellow); color: var(--ink); border: 4px solid var(--ink); border-radius: 200px 200px 14px 14px; box-shadow: 10px 10px 0 var(--ink); text-decoration: none; position: relative; transition: rotate .4s cubic-bezier(.2,2,.4,1); }
 .door-btn:hover { rotate: -4deg; }
 .door-btn .knob { position: absolute; right: 18%; top: 55%; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); }
 .door-btn .shp { --size: 60%; position: absolute; top: 14%; }
-.door-btn b { font-weight: 800; font-size: clamp(22px, 2.3vw, 30px); letter-spacing: -.03em; line-height: 1; }
+.door-btn b { font-weight: 800; font-size: clamp(22px, 2.3vw, 30px); letter-spacing: 0; line-height: 1; }
 .door-btn small { font: 500 12px var(--mono); margin-top: 8px; }
 .doors .more { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 60px; }
 .doors .more .btn { color: var(--ink); }
 
 /* 9 · the end */
 .end { background: var(--ink); color: var(--white); min-height: 100svh; display: flex; align-items: center; text-align: center; padding: 14vh 0 22vh; }
-.end h2 { font-weight: 800; font-size: clamp(90px, 18vw, 280px); letter-spacing: -.04em; line-height: .8; color: var(--yellow); }
+.end h2 { font-weight: 800; font-size: clamp(90px, 18vw, 280px); letter-spacing: 0; line-height: .8; color: var(--yellow); }
 .end p { font: 400 clamp(24px, 2.8vw, 40px)/1.08 var(--voice); max-width: 700px; margin: 30px auto 0; }
 .end .wave { width: 130px; margin: 40px auto 0; }
 .end .wave svg { animation: wave 1.2s ease-in-out infinite alternate; transform-origin: 50% 90%; }
@@ -274,9 +274,9 @@ section { position: relative; overflow: clip; }
   </div>
 </section>
 
-<script src="../assets/js/funscrollers.js?v=20261025"></script>
-<script src="../assets/js/site.js?v=20261025"></script>
-<script src="../kit/funscroll.js?v=20261025"></script>
+<script src="../assets/js/funscrollers.js?v=20261117"></script>
+<script src="../assets/js/site.js?v=20261117"></script>
+<script src="../kit/funscroll.js?v=20261117"></script>
 <script>
 document.getElementById('bigScrollcito').innerHTML = FUN.SCROLLCITO;
 document.getElementById('byeScrollcito').innerHTML = FUN.SCROLLCITO;
